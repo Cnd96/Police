@@ -4,7 +4,8 @@ const app = express();
 
 const users=require('./routes/users');
 const login=require('./routes/login');
-
+const offences=require('./routes/offences');
+const drivers=require('./routes/drivers');
 
 mongoose.connect('mongodb://localhost/TrafficPolice',{ useNewUrlParser: true })
   .then(() => console.log('Connected to MongoDB...'))
@@ -26,6 +27,8 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use('/api/users',users);
 app.use('/api/login',login);
+app.use('/api/offences',offences);
+app.use('/api/drivers',drivers);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

@@ -1,19 +1,26 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
-    userName: {
+const offenceSchema = new mongoose.Schema({
+    sectionOfAct: {
         type: String,
         required: true,
         minlength: 5,
         maxlength: 50
       },
-      password: {
+      provision: {
         type: String,
         required: true,
         minlength: 5,
         maxlength: 250
+      },
+      amount: {
+        type: Number,
+        required: true,
       }
   });
   
-const User = mongoose.model('user',userSchema);
-exports.User = User; 
+
+const Offence = mongoose.model('offence',offenceSchema);
+
+
+exports.Offence = Offence; 

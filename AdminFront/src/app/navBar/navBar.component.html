@@ -1,0 +1,29 @@
+
+  <nav style="background-color:darkblue ;" class="navbar fixed-top navbar-expand-lg navbar-light"> 
+   <div class="container">
+     <a class="navbar-brand" >
+      <img src="assets/img/policeLogo.png"style="width:40px">
+     </a>
+  
+     <button class="navbar-toggler" type="button"
+            (click)="toggleNavbar()">
+      <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse"
+         [ngClass]="{ 'show': navbarOpen }">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item " >
+          <button class="nav-link btn button1" style="color: white">Traffic Offences</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link btn button1"  style="color: white">Police Stations</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link btn button1"  style="color: white">Traffic Policemen</button>
+        </li>
+      </ul>
+    </div>
+        <button class="nav-link btn btn-secondary">Log Out</button>
+  </div>
+ </nav>
+ 

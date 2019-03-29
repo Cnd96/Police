@@ -18,12 +18,14 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    this.authservice.login(this.model).subscribe(next=>{
-      this.router.navigate(['/home']);
-    }, error=>{
-      this.errors= true;
-      console.log('log failed');
-    });
+
+    this.router.navigate(['/home']);
+    // this.authservice.login(this.model).subscribe(next=>{
+    //   this.router.navigate(['/home']);
+    // }, error=>{
+    //   this.errors= true;
+    //   console.log('log failed');
+    // });
     
   }
 }
