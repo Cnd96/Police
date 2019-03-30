@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,9 +11,14 @@ export class NavBarComponent implements OnInit {
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
   }
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
-
+  ShowOffenceCom(){
+    this.router.navigate(['/home/offences']);
+  }
+  ShowPoliceStationCom(){
+    this.router.navigate(['/home/policestations']);
+  }
 }

@@ -21,4 +21,4 @@ router.get('/', async (req, res) => {
     const offence = await Offence.find();
     res.send(offence);
   });
-module.exports = router; 
+module.exports = router;  

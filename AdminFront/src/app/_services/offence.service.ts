@@ -14,4 +14,8 @@ baseUrl = 'http://localhost:3000/api/';
 getOffences() {
   return this.http.get(this.baseUrl + 'offences');
 }
+
+createOffence(offence: any){
+  return this.http.post(this.baseUrl + 'offences', offence)
+}
 }

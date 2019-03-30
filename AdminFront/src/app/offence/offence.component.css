@@ -1,0 +1,13 @@
+.mat-form-field {
+    width: 60%;
+    min-width: 300px;
+  }
+ .mat-list-item{
+    margin-top: 50px;
+ }
+ 
+ .button-row button{
+   position: relative;
+   left:45%;
+   margin: 5px;
+}

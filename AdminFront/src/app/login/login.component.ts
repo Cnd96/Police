@@ -18,13 +18,16 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-
     this.router.navigate(['/home']);
     // this.authservice.login(this.model).subscribe(next=>{
     //   this.router.navigate(['/home']);
-    // }, error=>{
-    //   this.errors= true;
-    //   console.log('log failed');
+    // },(error:Response)=>{
+      
+    //   if(error.status===400){
+    //     this.errors= true;
+    //     console.log(error);
+    //   }
+    //   else alert('Unexpected error found');
     // });
     
   }
