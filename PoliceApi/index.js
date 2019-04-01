@@ -8,6 +8,7 @@ const offences=require('./routes/offences');
 const drivers=require('./routes/drivers');
 const policeStations=require('./routes/policeStations');
 const policeStationLogin=require('./routes/policeStationLogin');
+const policemen=require('./routes/policemen');
 
 mongoose.connect('mongodb://localhost/TrafficPolice',{ useNewUrlParser: true })
   .then(() => console.log('Connected to MongoDB...'))
@@ -33,6 +34,7 @@ app.use('/api/offences',offences);
 app.use('/api/drivers',drivers);
 app.use('/api/policeStations',policeStations);
 app.use('/api/policeStationLogin',policeStationLogin);
+app.use('/api/policemen',policemen);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

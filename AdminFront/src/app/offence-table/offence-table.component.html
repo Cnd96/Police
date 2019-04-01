@@ -1,12 +1,11 @@
 <div class="mat-elevation-z8 data-table">
   <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
-    <!-- Id Column -->
     <ng-container matColumnDef="sectionOfAct">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Section Of Act</th>
       <td mat-cell *matCellDef="let row">{{row.sectionOfAct}}</td>
     </ng-container>
 
-    <!-- Name Column -->
+
     <ng-container matColumnDef="provision">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Provision</th>
       <td mat-cell *matCellDef="let row">{{row.provision}}</td>

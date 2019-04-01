@@ -24,4 +24,12 @@ router.get('/', async (req, res) => {
     const driver = await Driver.find();
     res.send(driver);
   });
+
+router.get('/:id', async (req, res) => {
+    const driver = await Driver.findById(req.params.id);
+  
+    if (!driver) return res.status(404).send('Police Station was not found.');
+  
+    res.send(driver);
+  });
 module.exports = router; 

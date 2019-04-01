@@ -15,10 +15,10 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit() {
   }
-  ShowOffenceCom(){
-    this.router.navigate(['/home/offences']);
+  ShowOffencesComponent(){
+    this.router.navigate(['/offences']);
   }
-  ShowPoliceStationCom(){
-    this.router.navigate(['/home/policestations']);
+  ShowPoliceStationComponent(){
+    this.router.navigate(['/policestations']);
   }
 }

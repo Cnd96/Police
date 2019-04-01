@@ -6,8 +6,8 @@ import { PoliceStationComponent } from './policeStation/policeStation.component'
 
 export const appRoutes: Routes = [
     {path: 'home', component: HomeComponent},
-    {path: 'home/offences', component: OffencesComponent},
-    {path: 'home/policestations', component: PoliceStationComponent},
+    {path: 'offences', component: OffencesComponent},
+    {path: 'policestations', component: PoliceStationComponent},
     {path: '', component: LoginComponent},
     {path: '**', redirectTo: 'home', pathMatch: 'full'},
 ];

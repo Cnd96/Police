@@ -1,0 +1,46 @@
+.login-card {
+    max-width: 400px;
+  
+  }
+  .login-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  in-header-image {
+    background-image: url("/assets/img/policeLogo.png");
+    background-size: cover;
+  }
+  :host {
+    display: flex;
+    justify-content: center;
+    margin: 100px 0px;
+  } 
+  
+  .mat-form-field {
+    width: 100%;
+    min-width: 300px;
+  }
+  
+  mat-card-title,
+  mat-card-content {
+    display: flex;
+    justify-content: center;
+  }
+  mat-card-actions{
+    justify-content: center;
+  }
+  .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+  .button {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .error {
+    padding: 16px;
+    width: 300px;
+    color:red;
+  }

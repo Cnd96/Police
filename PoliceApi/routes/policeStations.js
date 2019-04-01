@@ -27,4 +27,19 @@ router.post('/', async (req, res) => {
     }
     res.send(policeStationToSend);
   });
+  
+router.get('/', async (req, res) => {
+    const policeStation = await PoliceStation.find();
+    res.send(policeStation);
+  });
+
+
+router.get('/:id', async (req, res) => {
+    const policeStation = await PoliceStation.findById(req.params.id);
+  
+    if (!policeStation) return res.status(404).send('Police Station was not found.');
+  
+    res.send(policeStation);
+  });
+  
 module.exports = router; 

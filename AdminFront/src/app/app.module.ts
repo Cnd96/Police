@@ -17,20 +17,23 @@ import { NavBarComponent } from './navBar/navBar.component';
 import { OffencesComponent } from './offences/offences.component';
 import { PoliceStationComponent } from './policeStation/policeStation.component';
 import { OffenceTableComponent } from './offence-table/offence-table.component';
-import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 import { OffenceComponent } from './offence/offence.component';
+import { PoliceStationsTableComponent } from './police-stations-table/police-stations-table.component';
+import { CreatePoliceStationComponent } from './createPoliceStation/createPoliceStation.component';
 
 
 @NgModule({
    declarations: [
       AppComponent,
-      LoginComponent ,
+      LoginComponent,
       HomeComponent,
       NavBarComponent,
       OffencesComponent,
       PoliceStationComponent,
       OffenceTableComponent,
-      OffenceComponent
+      OffenceComponent,
+      PoliceStationsTableComponent,
+      CreatePoliceStationComponent
    ],
    imports: [
       BrowserModule,
@@ -39,10 +42,7 @@ import { OffenceComponent } from './offence/offence.component';
       CustomMaterialModule,
       FormsModule,
       ReactiveFormsModule,
-      HttpClientModule,
-      MatTableModule,
-      MatPaginatorModule,
-      MatSortModule
+      HttpClientModule
    ],
    providers: [
       AuthService,
@@ -51,7 +51,9 @@ import { OffenceComponent } from './offence/offence.component';
    bootstrap: [
       AppComponent
    ],
-   entryComponents:[OffenceComponent]
-
+   entryComponents: [
+      OffenceComponent,//fordialogbox
+      CreatePoliceStationComponent
+   ]
 })
 export class AppModule { }

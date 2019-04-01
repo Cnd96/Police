@@ -20,11 +20,11 @@ export class OffenceTableComponent implements OnInit {
     this.dataSource = new OffenceTableDataSource(this.paginator, this.sort, this.offenceService);
   }
 
-  err(){
-    this.offenceService.getOffences()
-    .subscribe(
-      (response)=>console.log(response),
-      (error)=>console.log(error)
-    );
-  }
+  // err(){
+  //   this.offenceService.getOffences()
+  //   .subscribe(
+  //     (response)=>console.log(response),
+  //     (error)=>console.log(error)
+  //   );
+  // }
 }

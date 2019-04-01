@@ -17,6 +17,6 @@ export class OffencesComponent implements OnInit {
     const dialogConfig=new MatDialogConfig();
     dialogConfig.disableClose=true;
     dialogConfig.autoFocus=true;
-    this.dialog.open(OffenceComponent,dialogConfig);
+    this.dialog.open(OffenceComponent, dialogConfig);
   }
 }

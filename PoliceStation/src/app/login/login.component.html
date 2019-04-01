@@ -1,0 +1,22 @@
+<mat-card class="login-card">
+    <mat-card-title>Login</mat-card-title>
+      <mat-card-content>
+        <div class="container">
+           <form #loginForm="ngForm" (ngSubmit)="login()">
+              <img src="assets/img/policeLogo.png" style="width:30%" class="center">
+             <mat-form-field>
+               <input required name="policeStationName" [(ngModel)]="model.policeStationName"  matInput placeholder="Police Station">
+              </mat-form-field>
+              <!-- <div class="warning" *ngIf="userName.touched && userName.invalid">Choose the correct username</div> -->
+             <mat-form-field>
+               <input required  name="password" [(ngModel)]="model.password"  type="password" matInput placeholder="Password">
+             </mat-form-field>
+             <p *ngIf="errors" class="error">Invalid username or password</p>
+             <div class="button">
+               <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">Login</button>
+              </div> 
+           </form>
+        </div>
+      </mat-card-content>
+    </mat-card>
+   
