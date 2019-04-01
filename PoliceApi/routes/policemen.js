@@ -41,12 +41,13 @@ router.post('/', async (req, res) => {
   });
   
 router.get('/', async (req, res) => {
+    var policeStationQuery=req.query.policeStationId;
     const policeman = await Policeman
-    .find()
+    .find({policeStation:policeStationQuery, role:'TrafficPoliceman'})
     .populate('policeStation');
     res.send(policeman);
   });
-
+ 
 
 // router.get('/:id', async (req, res) => {
 //     const policeman = await Policeman.findById(req.params.id);
@@ -56,4 +57,12 @@ router.get('/', async (req, res) => {
 //     res.send(policeman);
 //   });
   
-module.exports = router; 
+module.exports = router;
+
+
+// var policeStationQuery=req.query.policeStationId;
+// var roleQuery= req.query.role;
+// const policeman = await Policeman
+// .find({policeStation:policeStationQuery, role:'TrafficPoliceman'})
+// .populate('policeStation');
+// res.send(policeman);
