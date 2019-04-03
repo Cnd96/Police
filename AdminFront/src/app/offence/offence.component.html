@@ -1,7 +1,7 @@
 <div class="container">
-  <mat-toolbar>
+  <mat-toolbar color="primary">
       <label>New Offence</label>
-      <button (click)="close()" style="position: relative; left:42%;">X</button>
+      <button (click)="close()" class="btn btn-light" style="position: relative; left:50%;">X</button>
   </mat-toolbar>
   <form [formGroup]="offenceForm" (ngSubmit)="submit()">   
     <mat-list>

@@ -1,5 +1,6 @@
 import { AuthService } from './../_services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { TrafficPolicemenService } from '../_services/trafficPolicemen.service';
 
 @Component({
   selector: 'app-home',
@@ -12,16 +13,28 @@ export class HomeComponent implements OnInit {
   policeStation;
   
   
-  constructor(private authService:AuthService) { }
+  constructor(private authService:AuthService,private trafficPolicemenService:TrafficPolicemenService) { }
 
   ngOnInit() {
      this.authService.getPoliceStationDetails(this.policeStationId)
      .subscribe(
       (response)=>{
         this.policeStation=response;
-        console.log(response)},
+        console.log(response)
+        console.log(this.policeStationId);
+      },
+        
       (error)=>console.log(error)
     );
+
+    
   }
 
+  // ewf(){
+  //   this.trafficPolicemenService.getTrafficPolicemen(this.policeStationId)
+  //   .subscribe(
+  //     (response)=>console.log(response),
+  //     (error)=>console.log(error)
+  //   );
+  // }
 }

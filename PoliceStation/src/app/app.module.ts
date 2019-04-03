@@ -14,6 +14,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './navBar/navBar.component';
 import { FinesComponent } from './fines/fines.component';
 import { TrafficPolicemenComponent } from './trafficPolicemen/trafficPolicemen.component';
+import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { TrafficPolicemenTableComponent } from './traffic-policemen-table/traffic-policemen-table.component';
+import { CreatePolicemanComponent } from './createPoliceman/createPoliceman.component';
 
 @NgModule({
    declarations: [
@@ -22,7 +25,9 @@ import { TrafficPolicemenComponent } from './trafficPolicemen/trafficPolicemen.c
       HomeComponent,
       NavBarComponent,
       FinesComponent,
-      TrafficPolicemenComponent
+      TrafficPolicemenComponent,
+      TrafficPolicemenTableComponent,
+      CreatePolicemanComponent
    ],
    imports: [
       BrowserModule,
@@ -31,11 +36,18 @@ import { TrafficPolicemenComponent } from './trafficPolicemen/trafficPolicemen.c
       CustomMaterialModule,
       FormsModule,
       ReactiveFormsModule,
-      HttpClientModule
+      HttpClientModule,
+      MatTableModule,
+      MatPaginatorModule,
+      MatSortModule
    ],
    providers: [],
    bootstrap: [
       AppComponent
+   ],
+   entryComponents: [
+      CreatePolicemanComponent //fordialogbox
+      
    ]
 })
 export class AppModule { }

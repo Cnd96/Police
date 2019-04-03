@@ -10,7 +10,7 @@ const policemanSchema = new mongoose.Schema({
        type:String,
        required:true,
    },
-   natonalId:{
+   nationalId:{
     type:String,
     required:true,
    },

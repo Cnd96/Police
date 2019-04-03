@@ -1,7 +1,7 @@
-<div class="container"  >
-  <mat-toolbar>
+<div class="container-fluid"  >
+  <mat-toolbar color="primary">
       <label>New Police Station</label>
-      <button (click)="close()" style="position: relative; left:38%;">X</button>
+      <button (click)="close()" class="btn btn-light" style="position: relative; left:34%;">X</button>
   </mat-toolbar>
   <form [formGroup]="policeStationForm" (ngSubmit)="submit()">   
     <mat-list>

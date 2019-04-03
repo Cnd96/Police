@@ -19,11 +19,11 @@ router.post('/', async (req, res) => {
         _id: req.body._id,
         name: req.body.name,
         address: req.body.address,
-        natonalId: req.body.natonalId,
+        nationalId: req.body.nationalId,
         dateOfBirth: req.body.dateOfBirth,
         phoneNo: req.body.phoneNo,
         password:passwordHash,
-        role:req.body.role,    
+        role:req.body.role,   
         policeStation:{
             _id: policeStation._id
         },
@@ -32,10 +32,10 @@ router.post('/', async (req, res) => {
     
     policemanToSend={
         policemanName:policemanToCreate.Name,
-        phoneNo:policemanToCreate.phoneNo,
-        address:policemanToCreate.address,
-        role:policemanToCreate.role,
-        policeStation:policemanToCreate.policeStation,
+        // phoneNo:policemanToCreate.phoneNo,
+        // address:policemanToCreate.address,
+        // role:policemanToCreate.role,
+        // policeStation:policemanToCreate.policeStation,
     }
     res.send(policemanToSend);
   });
