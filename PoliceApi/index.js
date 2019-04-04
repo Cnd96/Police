@@ -7,6 +7,7 @@ const login=require('./routes/login');
 const offences=require('./routes/offences');
 const drivers=require('./routes/drivers');
 const policeStations=require('./routes/policeStations');
+const serachPoliceStations=require('./routes/serachPoliceStations');
 const policeStationLogin=require('./routes/policeStationLogin');
 const policemen=require('./routes/policemen');
 
@@ -32,6 +33,7 @@ app.use('/api/users',users);
 app.use('/api/login',login);
 app.use('/api/offences',offences);
 app.use('/api/drivers',drivers);
+app.use('/api/serachPoliceStations',serachPoliceStations);
 app.use('/api/policeStations',policeStations);
 app.use('/api/policeStationLogin',policeStationLogin);
 app.use('/api/policemen',policemen);

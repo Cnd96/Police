@@ -14,7 +14,12 @@ getPoliceStations() {
 }
 
 createPoliceStation(policeStation: any){
-  return this.http.post(this.baseUrl + 'policeStations', policeStation)
+  return this.http.post(this.baseUrl + 'policeStations', policeStation);
+}
+
+searchPoliceStation(str:string){
+  console.log(str);
+  return this.http.get(this.baseUrl + 'serachPoliceStations?policeStationName='+str);
 }
 }
 

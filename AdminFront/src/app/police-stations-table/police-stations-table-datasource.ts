@@ -22,13 +22,9 @@ export interface PoliceStationsTableItem {
 export class PoliceStationsTableDataSource extends DataSource<PoliceStationsTableItem> {
   data ;
 
-  constructor(private paginator: MatPaginator, private sort: MatSort,private policeStationService:PoliceStationService) {
+  constructor(private paginator: MatPaginator, private sort: MatSort , Data) {
     super();
-    this.policeStationService.getPoliceStations()
-    .subscribe(
-      (response)=>this.data=response,
-      (error)=>console.log(error)
-    );
+   this.data=Data;
   }
   /**
    * Connect this data source to the table. The table will only update when

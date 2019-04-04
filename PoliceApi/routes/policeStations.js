@@ -33,7 +33,6 @@ router.get('/', async (req, res) => {
     res.send(policeStation);
   });
 
-
 router.get('/:id', async (req, res) => {
     const policeStation = await PoliceStation.findById(req.params.id);
   
