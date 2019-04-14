@@ -1,14 +1,17 @@
 const {PoliceStation} = require('../models/policeStation'); 
+const {OicDivision} =require('../models/oicDivision');
 const express = require('express');
 const bcrypt=require('bcrypt')
 const router = express.Router();
 
 
 router.post('/', async (req, res) => {
-    const policeStation = await PoliceStation.findOne({  policeStationName: req.body.policeStationName,});
-
+   const policeStation = await PoliceStation.findOne({  policeStationName: req.body.policeStationName,});
    if (policeStation) return res.status(400).send('Police Station already exists.');
     
+   const oicDivision = await OicDivision.findOne({ oicDivisionName : req.body.oicDivisionName});
+   if (!oicDivision) return res.status(400).send('Invalid Oic Division.');
+
    const passwordSalt=await bcrypt.genSalt(10);
    const passwordHash=await bcrypt.hash(req.body.password,passwordSalt);
 
@@ -17,6 +20,9 @@ router.post('/', async (req, res) => {
       phoneNo: req.body.phoneNo,
       address: req.body.address,
       password:passwordHash,
+      oicDivision:{
+        _id: oicDivision._id
+    },
     });
     policeStationToCreate = await policeStationToCreate.save();
     
@@ -29,7 +35,7 @@ router.post('/', async (req, res) => {
   });
   
 router.get('/', async (req, res) => {
-    const policeStation = await PoliceStation.find();
+    const policeStation = await PoliceStation.find().populate('oicDivision');
     res.send(policeStation);
   });
 

@@ -1,4 +1,5 @@
 const {Policeman} = require('../models/policeman');
+const {Rank} = require('../models/rank');
 const {PoliceStation} = require('../models/policeStation');
 const express = require('express');
 const bcrypt=require('bcrypt')
@@ -11,6 +12,9 @@ router.post('/', async (req, res) => {
 
    const policeStation = await PoliceStation.findOne({ _id : req.body.policeStationId});
    if (!policeStation) return res.status(400).send('Invalid Police Station.');
+
+   const rank = await Rank.findById(req.body.rankId);
+  if (!rank) return res.status(400).send('Invalid rank.');
     
    const passwordSalt=await bcrypt.genSalt(10);
    const passwordHash=await bcrypt.hash(req.body.password,passwordSalt);
@@ -23,7 +27,10 @@ router.post('/', async (req, res) => {
         dateOfBirth: req.body.dateOfBirth,
         phoneNo: req.body.phoneNo,
         password:passwordHash,
-        role:req.body.role,   
+        rank: {
+          _id: rank._id,
+          name: rank.name
+        },   
         policeStation:{
             _id: policeStation._id
         },
@@ -43,19 +50,24 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
     var policeStationQuery=req.query.policeStationId;
     const policeman = await Policeman
-    .find({policeStation:policeStationQuery, role:'TrafficPoliceman'})
-    .populate('policeStation');
+    .find({policeStation:policeStationQuery})
+    .populate({path:'policeStation',populate:{path:'oicDivision'}})
+    .sort('rank._id');
+
+    // let name=policeman.name;
+    // const policeStation = await PoliceStation.findOne({ _id :  policeman.policeStation._id});
+    // const oicdivison= await OicDivision.findOne({  _id: policeman.policeStation.oicDivison});
     res.send(policeman);
   });
  
 
-// router.get('/:id', async (req, res) => {
-//     const policeman = await Policeman.findById(req.params.id);
+router.get('/:id', async (req, res) => {
+    const policeman = await Policeman.findById(req.params.id);
   
-//     if (!policeman) return res.status(404).send('Police Station was not found.');
+    if (!policeman) return res.status(404).send('Policeman was not found.');
   
-//     res.send(policeman);
-//   });
+    res.send(policeman);
+  });
   
 module.exports = router;
 

@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
   var policeStationNameQuery=req.query.policeStationName;
   // pattern= new RegExp(policeStationNameQuery, "i");
   pattern= new RegExp(policeStationNameQuery, "i");
-  const policeStation = await PoliceStation.find({policeStationName:pattern });
+  const policeStation = await PoliceStation.find({policeStationName:pattern }).populate('oicDivision');
   res.send(policeStation);
 });
 

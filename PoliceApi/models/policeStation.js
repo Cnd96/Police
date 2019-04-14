@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const {OicDivision}=require('./oicDivision');
 const policeStationSchema = new mongoose.Schema({
     policeStationName: {
         type: String,
@@ -24,7 +24,11 @@ const policeStationSchema = new mongoose.Schema({
         required: true,
         minlength: 5,
         maxlength: 50
-      }
+      },
+      oicDivision:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:OicDivision,
+       }
   });
   
 const PoliceStation = mongoose.model('policeStation',policeStationSchema);

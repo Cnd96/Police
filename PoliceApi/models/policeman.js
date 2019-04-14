@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const {PoliceStation} = require('./policeStation');
+const {rankSchema} = require('./rank');
 
 const policemanSchema = new mongoose.Schema({
    _id:{
@@ -34,9 +35,9 @@ const policemanSchema = new mongoose.Schema({
     type:Date,
     required:true,
    },
-   role:{
-    type:String,
-    required:true,
+   rank:{
+       type:rankSchema,
+       required:true
    },
    policeStation:{
     type:mongoose.Schema.Types.ObjectId,

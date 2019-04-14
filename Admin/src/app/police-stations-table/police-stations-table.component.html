@@ -1,0 +1,51 @@
+<div class="container ">
+    <mat-form-field style="width: 50% ;min-width: 150px;" class="search-form-field search-div " floatLabel="never">
+        <input   [(ngModel)]="searchKey" matInput placeholder="Search Police Station" autocomplete="off" (keyup)="searchPoliceStation()">
+      </mat-form-field>
+    
+</div>
+
+<div class="mat-elevation-z8 data-table">
+    
+  <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+    <ng-container matColumnDef="policeStationName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Police Station</th>
+      <td mat-cell *matCellDef="let row">{{row.policeStationName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Address</th>
+      <td mat-cell *matCellDef="let row">{{row.address}}</td>
+    </ng-container>
+    
+    <ng-container matColumnDef="phoneNo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Telephone</th>
+        <td mat-cell *matCellDef="let row" >{{row.phoneNo}}</td>
+      </ng-container>
+
+    <ng-container matColumnDef="oicDivision">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>OIC Division</th>
+        <td mat-cell *matCellDef="let row">{{row.oicDivision.oicDivisionName}}</td>
+      </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-raised-button color="primary" (click)="onView(row)">View</button>
+        <button mat-raised-button color="warn">Update</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+      [length]="5"
+      [pageIndex]="0"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 100, 250]">
+  </mat-paginator>
+</div>
+
+<!-- <button (click)="getPoliceStation()" >Get Stations</button> -->
