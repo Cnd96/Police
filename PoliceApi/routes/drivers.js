@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const driver = await Driver.findById(req.params.id);
   
-    if (!driver) return res.status(404).send('Police Station was not found.');
+    if (!driver) return res.status(404).send('Driver was not found.');
   
     res.send(driver);
   });

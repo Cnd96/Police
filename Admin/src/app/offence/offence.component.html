@@ -1,7 +1,7 @@
 <div class="container">
   <mat-toolbar color="primary">
-      <label>New Offence</label>
-      <button (click)="close()" class="btn btn-light" style="position: relative; left:50%;">X</button>
+      <label>{{newOffence===true?"Create Offence":"Update Offence"}}</label>
+      <button (click)="close()" class="btn btn-light" style="position: relative; left:45%;">X</button>
   </mat-toolbar>
   <form [formGroup]="offenceForm" (ngSubmit)="submit()">   
     <mat-list>
@@ -24,8 +24,8 @@
         </mat-list-item>
     </mat-list>   
     <div class="button-row" >
-        <button type="submit" [disabled]="!offenceForm.valid" mat-raised-button color="primary">Create</button>
-        <button mat-raised-button color="warn" (click)="clear()">Cancel</button>
+        <button type="submit" [disabled]="!offenceForm.valid" mat-raised-button color="primary">Submit</button>
+        <button type="button" mat-raised-button color="warn" (click)="clear()">Cancel</button>
     </div>
   </form>
 </div>

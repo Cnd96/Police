@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const offenceSchema = new mongoose.Schema({
-    sectionOfAct: {
+      _id: {
         type: String,
         required: true,
         minlength: 5,

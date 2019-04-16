@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { OffenceService } from './_services/offence.service';
 import { AuthService } from './_services/auth.service';
 
-import { CustomMaterialModule } from './core/material.module';
+import { CustomMaterialModule } from './materialModules/material.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
