@@ -13,6 +13,7 @@ const policeStationLogin=require('./routes/policeStationLogin');
 const policemen=require('./routes/policemen');
 const searchPoliceman=require('./routes/searchPoliceman');
 const oicDivisions=require('./routes/oicDivisions');
+const fines=require('./routes/fines');
 
 
 mongoose.connect('mongodb://localhost/TrafficPolice',{ useNewUrlParser: true })
@@ -44,6 +45,7 @@ app.use('/api/policeStationLogin',policeStationLogin);
 app.use('/api/policemen',policemen);
 app.use('/api/oicDivisions',oicDivisions);
 app.use('/api/searchPoliceman',searchPoliceman);
+app.use('/api/fines',fines);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));

@@ -24,3 +24,4 @@ const Offence = mongoose.model('offence',offenceSchema);
 
 
 exports.Offence = Offence; 
+exports.offenceSchema = offenceSchema;

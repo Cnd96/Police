@@ -7,7 +7,7 @@ const router = express.Router();
 
 
 router.post('/', async (req, res) => {
-    const policeman = await Policeman.findOne({  _id: req.body._id,});
+    const policeman = await Policeman.findOne({  name: req.body._id,});
     if (policeman) return res.status(400).send('Policeman already exists.');
 
    const policeStation = await PoliceStation.findOne({ _id : req.body.policeStationId});

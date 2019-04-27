@@ -18,6 +18,7 @@ import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/mate
 import { TrafficPolicemenTableComponent } from './traffic-policemen-table/traffic-policemen-table.component';
 import { CreatePolicemanComponent } from './createPoliceman/createPoliceman.component';
 import { ViewTrafficPolicemanComponent } from './viewTrafficPoliceman/viewTrafficPoliceman.component';
+import { UnpaidFinesTableComponent } from './unpaid-fines-table/unpaid-fines-table.component';
 
 @NgModule({
    declarations: [
@@ -29,7 +30,8 @@ import { ViewTrafficPolicemanComponent } from './viewTrafficPoliceman/viewTraffi
       TrafficPolicemenComponent,
       TrafficPolicemenTableComponent,
       CreatePolicemanComponent,
-      ViewTrafficPolicemanComponent
+      ViewTrafficPolicemanComponent,
+      UnpaidFinesTableComponent
    ],
    imports: [
       BrowserModule,

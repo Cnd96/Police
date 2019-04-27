@@ -3,7 +3,7 @@ import {FormGroup,FormControl,Validators} from '@angular/forms';
 import { OffenceService } from '../_services/offence.service';
 import { Router } from '@angular/router';
 import {MatDialogRef} from '@angular/material';
-import { networkInterfaces } from 'os';
+
 @Component({
   selector: 'app-offence',
   templateUrl: './offence.component.html',
