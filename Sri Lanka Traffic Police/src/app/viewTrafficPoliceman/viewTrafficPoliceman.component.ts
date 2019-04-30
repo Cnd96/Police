@@ -15,8 +15,10 @@ export class ViewTrafficPolicemanComponent implements OnInit {
 
   ngOnInit() {
     this.policemanId=this.trafficPolicemenService.policeManId;
+    console.log(this.policemanId);
     this.trafficPoliceman= this.trafficPolicemenService.getTrafficPoliceman(this.policemanId)
     .subscribe(response=>{
+     
       this.trafficPoliceman=response;
     },(error:Response)=>{
     })

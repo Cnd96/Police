@@ -1,10 +1,12 @@
 const {Fine} = require('../models/fine');
+const {Counter} = require('../models/counter');
 const {PoliceStation} = require('../models/policeStation'); 
 const {Policeman} =require('../models/policeman'); 
 const {Offence} =require('../models/offence');
 const {Driver} =require('../models/driverLicense');
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 
 router.post('/', async (req, res) => {
     const policeman = await Policeman.findOne({_id: req.body.policemanId});
@@ -24,8 +26,11 @@ router.post('/', async (req, res) => {
     
     const driver = await Driver.findOne({ _id : req.body.licenseNo});
     if (!driver) return res.status(400).send('Invalid driver license number.');
-    
+
+    let counter=await Counter.findOneAndUpdate({ "name" : "fineId" },{ $inc: { "value" : 1 } });
+
     let fineToCreate = new Fine({ 
+        _id:counter.value+1,
         licenseNo:driver._id,
         driverName: driver.Name,
         driverAddress: driver.Address,
@@ -44,7 +49,7 @@ router.post('/', async (req, res) => {
         date:req.body.date
     });
     fineToCreate = await fineToCreate.save();
-    
+
     res.send(fineToCreate);
   });
 
@@ -68,14 +73,16 @@ router.get('/', async (req, res) => {
                     driverName: 1,
                     driverAddress: 1,
                     CatogeriesOfVehicles: 1,
+                    additionalPay:1,
+                    totalAmountPaid:1,
                     vehicleNo:1,
                     offences:1,
                     amount:1,
                     fineStatus:1,
                     policeStationName:1,
                     policeman:{name:1,_id:1,rank:1},
-                    date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } }
-                    
+                    date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+                    dateDifference: { $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
                 }
             }
         ]);
@@ -94,12 +101,15 @@ router.get('/', async (req, res) => {
                     driverAddress: 1,
                     CatogeriesOfVehicles: 1,
                     vehicleNo:1,
+                    additionalPay:1,
+                    totalAmountPaid:1,
                     offences:1,
                     amount:1,
                     fineStatus:1,
                     policeStationName:1,
                     policeman:{name:1,_id:1,rank:1},
                     date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+                    dateDifference:{ $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
                 }
             }
         ]);
@@ -118,6 +128,8 @@ router.get('/', async (req, res) => {
                     driverName: 1,
                     driverAddress: 1,
                     CatogeriesOfVehicles: 1,
+                    additionalPay:1,
+                    totalAmountPaid:1,
                     vehicleNo:1,
                     offences:1,
                     amount:1,
@@ -125,8 +137,8 @@ router.get('/', async (req, res) => {
                     policeStationName:1,
                     policeman:{name:1,_id:1,rank:1},
                     date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
-                    month:{$dateToString: { format: "%m", month: "$date" }},
-                    month: { $month: "$date" }
+                    month: { $month: "$date" },
+                    dateDifference:{ $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
                 }
             },
             {$match:{month:parseInt(monthQuery)}}
@@ -155,14 +167,37 @@ router.get('/', async (req, res) => {
   
 
   
-// router.get('/:id', async (req, res) => {
-//     const offence = await Offence.findById(req.params.id);
+router.get('/:id', async (req, res) => {
+     const ObjectId = mongoose.Types.ObjectId;
+     let id= req.params.id;
+     let fine=await Fine.aggregate([
+        {$match: { _id: ObjectId(id) }},
+        {
+            $project:{
+                licenseNo:1,
+                amount:1,
+                driverName: 1,
+                driverAddress: 1,
+                CatogeriesOfVehicles: 1,
+                additionalPay:1,
+                totalAmountPaid:1,
+                vehicleNo:1,
+                offences:1,
+                amount:1,
+                fineStatus:1,
+                policeStationName:1,
+                policeman:{name:1,_id:1,rank:1},
+                date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+                dateDifference:{ $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
+            }
+        },
+    ]);
   
-//     if (!offence) return res.status(404).send('Offence was not found.');
+    if (!fine) return res.status(404).send('Offence was not found.');
   
-//     res.send(offence);
+    res.send(fine);
     
-//   });
+  });
 // router.put('/:id',async (req, res) => {
 //   const offence = await Offence.findByIdAndUpdate(req.params.id,
 //     { 
@@ -175,3 +210,5 @@ router.get('/', async (req, res) => {
 //   });
 
 module.exports = router;  
+
+

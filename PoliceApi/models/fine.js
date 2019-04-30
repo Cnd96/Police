@@ -3,6 +3,10 @@ const {offenceSchema} = require('./offence');
 
 const fineSchema = new mongoose.Schema({
     
+      _id:{
+        type:Number,
+        required:true
+      },
       licenseNo:{
         type:String,
         required:true,
@@ -77,7 +81,15 @@ const fineSchema = new mongoose.Schema({
       },
       amount:{
         type:Number,
-      }
+      },
+      additionalPay:{
+        type:Number,
+        default:0
+      },
+      totalAmountPaid:{
+        type:Number,
+        default:0
+      },
   });
   
 

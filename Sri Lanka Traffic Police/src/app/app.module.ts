@@ -1,7 +1,8 @@
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { ExportAsModule } from 'ngx-export-as';
+ 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
@@ -19,6 +20,7 @@ import { TrafficPolicemenTableComponent } from './traffic-policemen-table/traffi
 import { CreatePolicemanComponent } from './createPoliceman/createPoliceman.component';
 import { ViewTrafficPolicemanComponent } from './viewTrafficPoliceman/viewTrafficPoliceman.component';
 import { UnpaidFinesTableComponent } from './unpaid-fines-table/unpaid-fines-table.component';
+import { PaidFinesTableComponent } from './paid-fines-table/paid-fines-table.component';
 
 @NgModule({
    declarations: [
@@ -31,7 +33,8 @@ import { UnpaidFinesTableComponent } from './unpaid-fines-table/unpaid-fines-tab
       TrafficPolicemenTableComponent,
       CreatePolicemanComponent,
       ViewTrafficPolicemanComponent,
-      UnpaidFinesTableComponent
+      UnpaidFinesTableComponent,
+      PaidFinesTableComponent
    ],
    imports: [
       BrowserModule,
@@ -43,7 +46,8 @@ import { UnpaidFinesTableComponent } from './unpaid-fines-table/unpaid-fines-tab
       HttpClientModule,
       MatTableModule,
       MatPaginatorModule,
-      MatSortModule
+      MatSortModule,
+      ExportAsModule
    ],
    providers: [],
    bootstrap: [
