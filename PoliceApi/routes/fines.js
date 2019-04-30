@@ -171,7 +171,7 @@ router.get('/:id', async (req, res) => {
      const ObjectId = mongoose.Types.ObjectId;
      let id= req.params.id;
      let fine=await Fine.aggregate([
-        {$match: { _id: ObjectId(id) }},
+        {$match: { _id: parseInt(id) }},
         {
             $project:{
                 licenseNo:1,
@@ -193,7 +193,7 @@ router.get('/:id', async (req, res) => {
         },
     ]);
   
-    if (!fine) return res.status(404).send('Offence was not found.');
+    if (fine.length==0) return res.status(404).send('fine was not found.');
   
     res.send(fine);
     

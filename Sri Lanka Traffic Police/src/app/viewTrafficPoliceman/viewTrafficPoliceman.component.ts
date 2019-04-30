@@ -18,7 +18,7 @@ export class ViewTrafficPolicemanComponent implements OnInit {
     console.log(this.policemanId);
     this.trafficPoliceman= this.trafficPolicemenService.getTrafficPoliceman(this.policemanId)
     .subscribe(response=>{
-     
+      // console.log(response);
       this.trafficPoliceman=response;
     },(error:Response)=>{
     })

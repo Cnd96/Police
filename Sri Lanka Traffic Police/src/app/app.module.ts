@@ -21,6 +21,7 @@ import { CreatePolicemanComponent } from './createPoliceman/createPoliceman.comp
 import { ViewTrafficPolicemanComponent } from './viewTrafficPoliceman/viewTrafficPoliceman.component';
 import { UnpaidFinesTableComponent } from './unpaid-fines-table/unpaid-fines-table.component';
 import { PaidFinesTableComponent } from './paid-fines-table/paid-fines-table.component';
+import { PayUnpaidFineComponent } from './payUnpaidFine/payUnpaidFine.component';
 
 @NgModule({
    declarations: [
@@ -34,7 +35,8 @@ import { PaidFinesTableComponent } from './paid-fines-table/paid-fines-table.com
       CreatePolicemanComponent,
       ViewTrafficPolicemanComponent,
       UnpaidFinesTableComponent,
-      PaidFinesTableComponent
+      PaidFinesTableComponent,
+      PayUnpaidFineComponent
    ],
    imports: [
       BrowserModule,
