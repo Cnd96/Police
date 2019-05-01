@@ -22,6 +22,7 @@ import { OffenceComponent } from './offence/offence.component';
 import { PoliceStationsTableComponent } from './police-stations-table/police-stations-table.component';
 import { CreatePoliceStationComponent } from './createPoliceStation/createPoliceStation.component';
 import { OicDivisionService } from './_services/oicDivision.service';
+import { ConfirmDialogComponent } from './confirmDialog/confirmDialog.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { OicDivisionService } from './_services/oicDivision.service';
       OffenceTableComponent,
       OffenceComponent,
       PoliceStationsTableComponent,
-      CreatePoliceStationComponent
+      CreatePoliceStationComponent,
+      ConfirmDialogComponent
    ],
    imports: [
       BrowserModule,
@@ -56,8 +58,8 @@ import { OicDivisionService } from './_services/oicDivision.service';
       AppComponent
    ],
    entryComponents: [
-      OffenceComponent,//fordialogbox
-      CreatePoliceStationComponent
+      OffenceComponent,
+      //fordialogbox\nCreatePoliceStationComponent
    ]
 })
 export class AppModule { }

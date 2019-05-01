@@ -84,7 +84,8 @@ router.get('/', async (req, res) => {
                     date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
                     dateDifference: { $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
                 }
-            }
+            },
+            { $sort : { date : 1 } }
         ]);
         return fine;
     }
@@ -111,7 +112,8 @@ router.get('/', async (req, res) => {
                     date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
                     dateDifference:{ $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
                 }
-            }
+            },
+            { $sort : { date : 1 } }
         ]);
         return fine;
     }
@@ -141,7 +143,8 @@ router.get('/', async (req, res) => {
                     dateDifference:{ $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
                 }
             },
-            {$match:{month:parseInt(monthQuery)}}
+            {$match:{month:parseInt(monthQuery)}},
+            { $sort : { date : 1 } }
         ]);
         return fine;
     }
@@ -198,16 +201,18 @@ router.get('/:id', async (req, res) => {
     res.send(fine);
     
   });
-// router.put('/:id',async (req, res) => {
-//   const offence = await Offence.findByIdAndUpdate(req.params.id,
-//     { 
-//       provision: req.body.provision,
-//       amount: req.body.amount
-//     }, { new: true });
+router.put('/:id',async (req, res) => {
+  const fine = await Fine.findByIdAndUpdate(req.params.id,
+    { 
+        fineStatus: req.body.fineStatus,
+        amount: req.body.amount,
+        additionalPay: req.body.additionalPay,
+        totalAmountPaid: req.body.totalAmountPaid,
+    }, { new: true });
 
-//   if (!offence) return res.status(404).send('The offence with the given ID was not found.');
-//   res.send(offence);
-//   });
+  if (!fine) return res.status(404).send('The offence with the given ID was not found.');
+  res.send(fine);
+  });
 
 module.exports = router;  
 

@@ -30,6 +30,10 @@ constructor(private http: HttpClient,private authService: AuthService) { }
   getfine(fineId){
     return this.http.get(this.baseUrl + 'fines/'+fineId);
   }
+
+  updateUnpaidFineToPaidFine(fine:any){
+    return this.http.put(this.baseUrl + 'fines/'+fine._id, fine);
+  }
   
 }
 // http://localhost:3000/api/fines?policeStationName=Panadura&policeManId=10015&fineStatus=false

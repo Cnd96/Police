@@ -54,7 +54,7 @@ export class CreatePoliceStationComponent implements OnInit {
   
   submit(){
     this.policeStation = Object.assign({}, this.policeStationForm.value);
-    console.log(this.policeStation.oicDivisionName);
+    console.log(this.policeStation);
     this.policeStationService.createPoliceStation(this.policeStation).subscribe(next=>{
       alert("Succesfully created new police station");
       // this.router.navigate(['/home/offences']);

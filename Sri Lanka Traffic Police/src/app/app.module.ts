@@ -22,6 +22,8 @@ import { ViewTrafficPolicemanComponent } from './viewTrafficPoliceman/viewTraffi
 import { UnpaidFinesTableComponent } from './unpaid-fines-table/unpaid-fines-table.component';
 import { PaidFinesTableComponent } from './paid-fines-table/paid-fines-table.component';
 import { PayUnpaidFineComponent } from './payUnpaidFine/payUnpaidFine.component';
+import { ConfirmDialogComponent } from './confirmDialog/confirmDialog.component';
+import { MessageDialogComponent } from './messageDialog/messageDialog.component';
 
 @NgModule({
    declarations: [
@@ -36,7 +38,9 @@ import { PayUnpaidFineComponent } from './payUnpaidFine/payUnpaidFine.component'
       ViewTrafficPolicemanComponent,
       UnpaidFinesTableComponent,
       PaidFinesTableComponent,
-      PayUnpaidFineComponent
+      PayUnpaidFineComponent,
+      ConfirmDialogComponent,
+      MessageDialogComponent
    ],
    imports: [
       BrowserModule,
@@ -56,7 +60,10 @@ import { PayUnpaidFineComponent } from './payUnpaidFine/payUnpaidFine.component'
       AppComponent
    ],
    entryComponents: [
-      CreatePolicemanComponent//fordialogbox
+      CreatePolicemanComponent,
+      ConfirmDialogComponent,
+      MessageDialogComponent
+      //for dialog boxes
    ]
 })
 export class AppModule { }
