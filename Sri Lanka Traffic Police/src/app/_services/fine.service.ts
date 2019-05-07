@@ -14,17 +14,17 @@ constructor(private http: HttpClient,private authService: AuthService) { }
   unpaidFineID;
 
   getAllOfficersAllMonthsUnpaidFines(){
-    return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId=&fineStatus=false&month=');
+    return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId=&fineStatus=false&month=&year=2019');
   }
-  getAllOfficersOneMonthUnpaidFines(Month){
-    return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId=&fineStatus=false&month='+Month);
+  getAllOfficersOneMonthUnpaidFines(Month,Year){
+    return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId=&fineStatus=false&month='+Month+'&year='+Year);
   }
 
   getAllOfficersAllMonthsPaidFines(){
-    return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId=&fineStatus=true&month=');
+    return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId=&fineStatus=true&month=&year=2019');
   }
-  getAllOfficersOneMonthPaidFines(Month){
-    return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId=&fineStatus=true&month='+Month);
+  getAllOfficersOneMonthPaidFines(Month,Year){
+    return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId=&fineStatus=true&month='+Month+'&year='+Year);
   }
 
   getfine(fineId){
@@ -39,3 +39,4 @@ constructor(private http: HttpClient,private authService: AuthService) { }
 // http://localhost:3000/api/fines?policeStationName=Panadura&policeManId=10015&fineStatus=false
 // http://localhost:3000/api/fines?policeStationName=Panadura&policeManId=10015&fineStatus=false&month=4
 // http://localhost:3000/api/fines/5cc7031dd891c22250c68bc2
+// http://localhost:3000/api/fines?policeStationName=Panadura&policeManId=&fineStatus=false&month=&year=2019

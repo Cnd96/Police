@@ -59,7 +59,8 @@ import { ConfirmDialogComponent } from './confirmDialog/confirmDialog.component'
    ],
    entryComponents: [
       OffenceComponent,
-      //fordialogbox\nCreatePoliceStationComponent
+      CreatePoliceStationComponent,
+        //fordialogbox\n
    ]
 })
 export class AppModule { }

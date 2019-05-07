@@ -58,13 +58,13 @@ router.get('/', async (req, res) => {
     let policeStationNameQuery=req.query.policeStationName;
     let policeManIdQuery=req.query.policeManId;
     let monthQuery=req.query.month;
+    let yearQuery=req.query.year;
     let fineStatusQuery=true;
     if(req.query.fineStatus.localeCompare("true")){fineStatusQuery=false}
 
     async function getOfficerAllMonthsFines(){
         let fine =await Fine.aggregate([
             {$match:{policeStationName: policeStationNameQuery}},
-            {$match:{fineStatus:fineStatusQuery}},
             {$match:{'policeman._id':policeManIdQuery}},
             {
                 $project:{
@@ -109,16 +109,19 @@ router.get('/', async (req, res) => {
                     fineStatus:1,
                     policeStationName:1,
                     policeman:{name:1,_id:1,rank:1},
+                    year:{$year:"$date"},
                     date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
                     dateDifference:{ $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
                 }
             },
+            {$match:{year:parseInt(yearQuery)}},
             { $sort : { date : 1 } }
         ]);
         return fine;
     }
 
     async function getAllOfficersOneMonthFines(){
+        // let aa=14;
         let fine=await Fine.aggregate([
             {$match:{policeStationName: policeStationNameQuery}},
             {$match:{fineStatus:fineStatusQuery}},
@@ -140,9 +143,12 @@ router.get('/', async (req, res) => {
                     policeman:{name:1,_id:1,rank:1},
                     date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
                     month: { $month: "$date" },
+                    // xx:aa.toString(),
+                    year:{$year:"$date"},
                     dateDifference:{ $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
                 }
             },
+            {$match:{year:parseInt(yearQuery)}},
             {$match:{month:parseInt(monthQuery)}},
             { $sort : { date : 1 } }
         ]);
@@ -150,6 +156,7 @@ router.get('/', async (req, res) => {
     }
 
 
+    
     if(policeManIdQuery.localeCompare("")){
         fine=await getOfficerAllMonthsFines();
         // fine = await Fine.find({policeStationName:policeStationNameQuery, 'policeman._id':policeManIdQuery,fineStatus:fineStatusQuery});

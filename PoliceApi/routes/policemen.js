@@ -62,7 +62,7 @@ router.get('/', async (req, res) => {
  
 
 router.get('/:id', async (req, res) => {
-    const policeman = await Policeman.findById(req.params.id);
+    const policeman = await Policeman.findById(req.params.id).populate({path:'policeStation',populate:{path:'oicDivision'}});
     if (!policeman) return res.status(404).send('Policeman was not found.');
   
     res.send(policeman);

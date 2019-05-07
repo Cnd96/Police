@@ -8,6 +8,10 @@ export interface Month {
   value: string;
   viewValue: string;
 }
+export interface Year {
+  value: string;
+  viewValue: string;
+}
 @Component({
   selector: 'app-unpaid-fines-table',
   templateUrl: './unpaid-fines-table.component.html',
@@ -23,8 +27,15 @@ export class UnpaidFinesTableComponent implements OnInit {
   data:any;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id','license','vehicle','policeman','date','amount','actions'];
-  selectedMonth:String;
   
+  selectedMonth = '';
+  selectedYear ='2019';
+
+  years: Year[]=[
+    {value: '2019', viewValue: '2019'},
+    {value: '2020', viewValue: '2020'},
+    {value: '2021', viewValue: '2021'},
+  ];
   months: Month[] = [
     {value: '', viewValue: 'All'},
     {value: '1', viewValue: 'January'},
@@ -61,7 +72,8 @@ export class UnpaidFinesTableComponent implements OnInit {
   
   getMonthFines(){
     // console.log(this.selectedMonth);
-    this.finesService.getAllOfficersOneMonthUnpaidFines(this.selectedMonth)
+    // console.log(this.selectedYear);
+    this.finesService.getAllOfficersOneMonthUnpaidFines(this.selectedMonth,this.selectedYear)
     .subscribe(response=>{
       this.data=response;
       console.log(response);
