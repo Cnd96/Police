@@ -121,7 +121,8 @@ router.get('/', async (req, res) => {
     }
 
     async function getAllOfficersOneMonthFines(){
-        // let aa=14;
+        // let aa=["ewe","fweew"];
+        // let aa=false;
         let fine=await Fine.aggregate([
             {$match:{policeStationName: policeStationNameQuery}},
             {$match:{fineStatus:fineStatusQuery}},
@@ -130,20 +131,20 @@ router.get('/', async (req, res) => {
                 $project:{
                     licenseNo:1,
                     amount:1,
-                    driverName: 1,
-                    driverAddress: 1,
-                    CatogeriesOfVehicles: 1,
-                    additionalPay:1,
-                    totalAmountPaid:1,
-                    vehicleNo:1,
-                    offences:1,
-                    amount:1,
-                    fineStatus:1,
-                    policeStationName:1,
+                    // driverName: 1,
+                    // driverAddress: 1,
+                    // CatogeriesOfVehicles: 1,
+                    // additionalPay:1,
+                    // totalAmountPaid:1,
+                    // vehicleNo:1,
+                    // offences:1,
+                    // amount:1,
+                    // fineStatus:1,
+                    // policeStationName:1,
                     policeman:{name:1,_id:1,rank:1},
                     date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
                     month: { $month: "$date" },
-                    // xx:aa.toString(),
+                    // xx:aa,
                     year:{$year:"$date"},
                     dateDifference:{ $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
                 }
@@ -152,6 +153,7 @@ router.get('/', async (req, res) => {
             {$match:{month:parseInt(monthQuery)}},
             { $sort : { date : 1 } }
         ]);
+     
         return fine;
     }
 

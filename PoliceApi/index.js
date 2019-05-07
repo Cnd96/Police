@@ -16,6 +16,7 @@ const searchPoliceman=require('./routes/searchPoliceman');
 const oicDivisions=require('./routes/oicDivisions');
 const fines=require('./routes/fines');
 const counters=require('./routes/counters');
+const driverFines=require('./routes/driverFines');
 
 mongoose.connect('mongodb://localhost/TrafficPolice',{ useNewUrlParser: true })
   .then(() => console.log('Connected to MongoDB...'))
@@ -49,6 +50,7 @@ app.use('/api/oicDivisions',oicDivisions);
 app.use('/api/searchPoliceman',searchPoliceman);
 app.use('/api/fines',fines);
 app.use('/api/counters',counters);
+app.use('/api/driverFines',driverFines);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
