@@ -4,16 +4,14 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
-export interface UnpaidFinesTableItem {
-  fineId: number,
-  licenseNo: String,
- vehicleNo:String,
- policemanName:String,
-  date:Date
+export interface TPPaidFinesTableItem {
+  name: string;
+  id: number;
 }
 
-export class UnpaidFinesTableDataSource extends DataSource<UnpaidFinesTableItem> {
-  data;
+
+export class TPPaidFinesTableDataSource extends DataSource<TPPaidFinesTableItem> {
+  data: any;
 
   constructor(private paginator: MatPaginator, private sort: MatSort,Data) {
     super();
@@ -25,7 +23,7 @@ export class UnpaidFinesTableDataSource extends DataSource<UnpaidFinesTableItem>
    * the returned stream emits new items.
    * @returns A stream of the items to be rendered.
    */
-  connect(): Observable<UnpaidFinesTableItem[]> {
+  connect(): Observable<TPPaidFinesTableItem[]> {
     // Combine everything that affects the rendered data into one update
     // stream for the data-table to consume.
     const dataMutations = [
@@ -52,7 +50,7 @@ export class UnpaidFinesTableDataSource extends DataSource<UnpaidFinesTableItem>
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getPagedData(data: UnpaidFinesTableItem[]) {
+  private getPagedData(data: TPPaidFinesTableItem[]) {
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     return data.splice(startIndex, this.paginator.pageSize);
   }
@@ -61,7 +59,7 @@ export class UnpaidFinesTableDataSource extends DataSource<UnpaidFinesTableItem>
    * Sort the data (client-side). If you're using server-side sorting,
    * this would be replaced by requesting the appropriate data from the server.
    */
-  private getSortedData(data: UnpaidFinesTableItem[]) {
+  private getSortedData(data: TPPaidFinesTableItem[]) {
     if (!this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -69,11 +67,8 @@ export class UnpaidFinesTableDataSource extends DataSource<UnpaidFinesTableItem>
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'fineId': return compare(a.fineId, b.fineId, isAsc);
-        case 'licenseNo': return compare(+a.licenseNo, +b.licenseNo, isAsc);
-        case 'vehicleNo': return compare(+a.vehicleNo, +b.vehicleNo, isAsc);
-        case 'policemanName': return compare(+a.policemanName, +b.policemanName, isAsc);
-        case 'date': return compare(+a.date, +b.date, isAsc);
+        case 'name': return compare(a.name, b.name, isAsc);
+        case 'id': return compare(+a.id, +b.id, isAsc);
         default: return 0;
       }
     });

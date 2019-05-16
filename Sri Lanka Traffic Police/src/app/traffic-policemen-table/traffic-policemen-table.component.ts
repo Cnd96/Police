@@ -1,9 +1,12 @@
+import { ViewTrafficPolicemanComponent } from './../viewTrafficPoliceman/viewTrafficPoliceman.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { TrafficPolicemenTableDataSource } from './traffic-policemen-table-datasource';
 import { AuthService } from '../_services/auth.service';
 import { TrafficPolicemenService } from '../_services/trafficPolicemen.service';
 import { Router } from '@angular/router';
+import * as jsPDF from 'jspdf'; 
+import html2canvas from 'html2canvas'; 
 
 @Component({
   selector: 'app-traffic-policemen-table',
@@ -47,7 +50,9 @@ export class TrafficPolicemenTableComponent implements OnInit {
   }
 
   onView(row){
-    this.trafficPolicemenService.policeManId=row._id;
+    // this.trafficPolicemenService.policeManId=row._id;
+    ViewTrafficPolicemanComponent.policemanId=row._id;
     this.router.navigate(['/viewTrafficPoliceman']);
   }
+
 }

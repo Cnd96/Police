@@ -25,8 +25,9 @@ export class PaidFinesTableComponent implements OnInit {
   data:any;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id','license','vehicle','policeman','date','amount','actions'];
+  currentYear=new Date().getFullYear();
   selectedMonth = '';
-  selectedYear ='2019';
+  selectedYear =this.currentYear.toString();
 
   years: Year[]=[
     {value: '2019', viewValue: '2019'},
@@ -53,11 +54,11 @@ export class PaidFinesTableComponent implements OnInit {
   
   constructor(private finesService:FineService,private router:Router) { }
   ngOnInit() {
-    this.getUnpaifines();
+    this.getPaifines();
   }
 
-  getUnpaifines(){
-    this.finesService.getAllOfficersAllMonthsPaidFines()
+  getPaifines(){
+    this.finesService.getAllOfficersAllMonthsPaidFines(this.currentYear)
     .subscribe(response=>{
       this.data=response;
       console.log(response);
@@ -66,7 +67,7 @@ export class PaidFinesTableComponent implements OnInit {
       console.log(error);
     })
   }
-  getMonthFines(){
+  getSelectedYearMonthFines(){
     // console.log(this.selectedMonth);
     this.finesService.getAllOfficersOneMonthPaidFines(this.selectedMonth,this.selectedYear)
     .subscribe(response=>{

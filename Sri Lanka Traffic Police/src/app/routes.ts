@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { TrafficPolicemenComponent } from './trafficPolicemen/trafficPolicemen.component';
 import { PayUnpaidFineComponent } from './payUnpaidFine/payUnpaidFine.component';
+import { TestReportComponent } from './testReport/testReport.component';
 
 
 export const appRoutes: Routes = [
@@ -15,6 +16,6 @@ export const appRoutes: Routes = [
     {path: '', component: LoginComponent},
     {path:'viewTrafficPoliceman',component:ViewTrafficPolicemanComponent},
     {path:'payUnpaidFine',component:PayUnpaidFineComponent},
-
+    {path:'testReport',component:TestReportComponent},
     {path: '**', redirectTo: 'home', pathMatch: 'full'},
 ];

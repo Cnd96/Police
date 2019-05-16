@@ -24,6 +24,9 @@ import { PaidFinesTableComponent } from './paid-fines-table/paid-fines-table.com
 import { PayUnpaidFineComponent } from './payUnpaidFine/payUnpaidFine.component';
 import { ConfirmDialogComponent } from './confirmDialog/confirmDialog.component';
 import { MessageDialogComponent } from './messageDialog/messageDialog.component';
+import { TestReportComponent } from './testReport/testReport.component';
+import { TPUnpaidFinesTableComponent } from './tp-unpaid-fines-table/tp-unpaid-fines-table.component';
+import { TPPaidFinesTableComponent } from './tp-paid-fines-table/tp-paid-fines-table.component';
 
 @NgModule({
    declarations: [
@@ -40,7 +43,10 @@ import { MessageDialogComponent } from './messageDialog/messageDialog.component'
       PaidFinesTableComponent,
       PayUnpaidFineComponent,
       ConfirmDialogComponent,
-      MessageDialogComponent
+      MessageDialogComponent,
+      TestReportComponent,
+      TPUnpaidFinesTableComponent,
+      TPPaidFinesTableComponent
    ],
    imports: [
       BrowserModule,
@@ -62,8 +68,7 @@ import { MessageDialogComponent } from './messageDialog/messageDialog.component'
    entryComponents: [
       CreatePolicemanComponent,
       ConfirmDialogComponent,
-      MessageDialogComponent
-      //for dialog boxes
+      MessageDialogComponent//fordialogboxes
    ]
 })
 export class AppModule { }

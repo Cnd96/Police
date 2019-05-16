@@ -31,6 +31,7 @@ export class OffenceTableComponent implements OnInit {
     this.dialog.open(OffenceComponent, dialogConfig);
   }
 
+  
   // err(){
   //   this.offenceService.getOffences()
   //   .subscribe(

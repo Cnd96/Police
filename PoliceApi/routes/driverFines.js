@@ -18,6 +18,7 @@ router.get('/:id', async (req, res) => {
                 totalAmountPaid:1,
                 vehicleNo:1,
                 fineStatus:1,
+                amount:1,
                 date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
             }
         },

@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
         CatogeriesOfVehicles: driver.CatogeriesOfVehicles,
         vehicleNo:req.body.vehicleNo,
         offences:offences,
-        time:new Date().toLocaleTimeString(),
+        time:req.body.time,
         amount:amount,
         fineStatus:req.body.fineStatus,
         policeStationName:policeStation.policeStationName,
@@ -46,7 +46,8 @@ router.post('/', async (req, res) => {
             name:policeman.name,
             rank:policeman.rank.name
         },
-        date:req.body.date
+        date:req.body.date,
+        totalAmountPaid:req.body.totalAmountPaid
     });
     fineToCreate = await fineToCreate.save();
 
@@ -62,10 +63,44 @@ router.get('/', async (req, res) => {
     let fineStatusQuery=true;
     if(req.query.fineStatus.localeCompare("true")){fineStatusQuery=false}
 
+    async function getOfficerOneMonthFines(){
+        let fine =await Fine.aggregate([
+            {$match:{policeStationName: policeStationNameQuery}},
+            {$match:{'policeman._id':policeManIdQuery}},
+            {$match:{fineStatus:fineStatusQuery}},
+            {
+                $project:{
+                    licenseNo:1,
+                    amount:1,
+                    driverName: 1,
+                    driverAddress: 1,
+                    CatogeriesOfVehicles: 1,
+                    additionalPay:1,
+                    totalAmountPaid:1,
+                    vehicleNo:1,
+                    offences:1,
+                    amount:1,
+                    fineStatus:1,
+                    policeStationName:1,
+                    policeman:{name:1,_id:1,rank:1},
+                    date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+                    month: { $month: "$date" },
+                    year:{$year:"$date"},
+                    dateDifference: { $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
+                }
+            },
+            {$match:{year:parseInt(yearQuery)}},
+            {$match:{month:parseInt(monthQuery)}},
+            { $sort : { date : 1 } }
+        ]);
+        return fine;
+    }
+
     async function getOfficerAllMonthsFines(){
         let fine =await Fine.aggregate([
             {$match:{policeStationName: policeStationNameQuery}},
             {$match:{'policeman._id':policeManIdQuery}},
+            {$match:{fineStatus:fineStatusQuery}},
             {
                 $project:{
                     licenseNo:1,
@@ -115,32 +150,29 @@ router.get('/', async (req, res) => {
                 }
             },
             {$match:{year:parseInt(yearQuery)}},
-            { $sort : { date : 1 } }
+            { $sort : { date : 1 } },
         ]);
         return fine;
     }
 
     async function getAllOfficersOneMonthFines(){
-        // let aa=["ewe","fweew"];
-        // let aa=false;
         let fine=await Fine.aggregate([
             {$match:{policeStationName: policeStationNameQuery}},
             {$match:{fineStatus:fineStatusQuery}},
-            {$match:{}},
             {
                 $project:{
                     licenseNo:1,
                     amount:1,
-                    // driverName: 1,
-                    // driverAddress: 1,
-                    // CatogeriesOfVehicles: 1,
-                    // additionalPay:1,
-                    // totalAmountPaid:1,
-                    // vehicleNo:1,
-                    // offences:1,
-                    // amount:1,
-                    // fineStatus:1,
-                    // policeStationName:1,
+                    driverName: 1,
+                    driverAddress: 1,
+                    CatogeriesOfVehicles: 1,
+                    additionalPay:1,
+                    totalAmountPaid:1,
+                    vehicleNo:1,
+                    offences:1,
+                    amount:1,
+                    fineStatus:1,
+                    policeStationName:1,
                     policeman:{name:1,_id:1,rank:1},
                     date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
                     month: { $month: "$date" },
@@ -160,7 +192,12 @@ router.get('/', async (req, res) => {
 
     
     if(policeManIdQuery.localeCompare("")){
-        fine=await getOfficerAllMonthsFines();
+        if(monthQuery.localeCompare("")){
+            fine=await getOfficerOneMonthFines();
+        }else{
+            fine=await getOfficerAllMonthsFines();
+        }
+       
         // fine = await Fine.find({policeStationName:policeStationNameQuery, 'policeman._id':policeManIdQuery,fineStatus:fineStatusQuery});
     }
     else{

@@ -7,8 +7,8 @@
     <mat-list>
       <mat-list-item>
         <mat-form-field >
-         <input  formControlName="sectionOfAct"  matInput placeholder="Section of act">
-        </mat-form-field>
+         <input  formControlName="sectionOfAct" [readonly]="newOffence===true? false:true" matInput placeholder="Section of act">
+        </mat-form-field> 
       </mat-list-item>
 
       <mat-list-item >

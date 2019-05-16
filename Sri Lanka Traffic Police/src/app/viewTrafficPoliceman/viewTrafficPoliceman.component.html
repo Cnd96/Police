@@ -1,7 +1,39 @@
-<app-navBar></app-navBar><br><br><br><br><br>
+<app-navBar></app-navBar>
+<div class="container" style="margin-top: 130px">
+  <h6>Policeman Name :<span>{{trafficPoliceman.name}}</span></h6>
+  <h6>Rank :<span>{{trafficPoliceman.rank.name}}</span></h6>
+  <h6>Address :<span>{{trafficPoliceman.address}}</span></h6>
+  <h6>Police ID :<span>{{trafficPoliceman._id}}</span></h6>
+  <div style="margin-top: 30px">
+    <mat-form-field >
+      <mat-label>Month</mat-label>
+      <mat-select [(ngModel)]="selectedMonth" (selectionChange)="getSelectedYearMonthFines()">
+        <mat-option *ngFor="let month of months" [value]="month.value" >
+          {{month.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field >
+      <mat-label>Year</mat-label>
+      <mat-select [(ngModel)]="selectedYear" (selectionChange)="getSelectedYearMonthFines()">
+        <mat-option *ngFor="let year of years" [value]="year.value" >
+          {{year.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<div id="contentToConvert" class="container-fluid">
+  <div  class="container" style="margin-top: 20px">
+    <div style="margin-top: 10px">
+      <h5>Unpaid Fines</h5>
+      <app-tp-unpaid-fines-table></app-tp-unpaid-fines-table>
+    </div>
 
-<div class="container">
-    <p>
-        {{trafficPoliceman.name}}
-    </p>
+    <div style="margin-top: 30px">
+      <h5>Paid Fines</h5>
+      <app-tp-paid-fines-table></app-tp-paid-fines-table>
+    </div>
+</div>
+
 </div>

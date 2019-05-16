@@ -44,6 +44,7 @@ const fineSchema = new mongoose.Schema({
       },
       time:{
         type:String,
+        default: new Date().toLocaleTimeString(),
         required:true,
       },
       // validUntil:{

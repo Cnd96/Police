@@ -13,15 +13,22 @@ constructor(private http: HttpClient,private authService: AuthService) { }
   policeStationName=this.authService.decodedToken.policeStationName ;
   unpaidFineID;
 
-  getAllOfficersAllMonthsUnpaidFines(){
-    return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId=&fineStatus=false&month=&year=2019');
+  getOfficerOneMonthUnpaidFines(PoliceId,Month,Year){
+    return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId='+PoliceId+'&fineStatus=false&month='+Month+'&year='+Year);
+  }
+  getOfficerOneMonthPaidFines(PoliceId,Month,Year){
+    return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId='+PoliceId+'&fineStatus=true&month='+Month+'&year='+Year);
+  }
+
+  getAllOfficersAllMonthsUnpaidFines(Year){
+    return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId=&fineStatus=false&month=&year='+Year);
   }
   getAllOfficersOneMonthUnpaidFines(Month,Year){
     return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId=&fineStatus=false&month='+Month+'&year='+Year);
   }
 
-  getAllOfficersAllMonthsPaidFines(){
-    return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId=&fineStatus=true&month=&year=2019');
+  getAllOfficersAllMonthsPaidFines(Year){
+    return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId=&fineStatus=true&month=&year='+Year);
   }
   getAllOfficersOneMonthPaidFines(Month,Year){
     return this.http.get(this.baseUrl + 'fines?policeStationName='+this.policeStationName+'&policeManId=&fineStatus=true&month='+Month+'&year='+Year);

@@ -26,10 +26,11 @@ export class UnpaidFinesTableComponent implements OnInit {
   dataSource: UnpaidFinesTableDataSource;
   data:any;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id','license','vehicle','policeman','date','amount','actions'];
+  displayedColumns = ['fineId','licenseNo','vehicle','policemanName','date','amount','actions'];
   
+  currentYear=new Date().getFullYear();
   selectedMonth = '';
-  selectedYear ='2019';
+  selectedYear =this.currentYear.toString();
 
   years: Year[]=[
     {value: '2019', viewValue: '2019'},
@@ -53,14 +54,16 @@ export class UnpaidFinesTableComponent implements OnInit {
 
   ];
   
-  constructor(private finesService:FineService,private router:Router) { }
+  constructor(private finesService:FineService,private router:Router) {
+    console.log();
+   }
   ngOnInit() {
     this.getUnpaifines();
   }
   
 
   getUnpaifines(){
-    this.finesService.getAllOfficersAllMonthsUnpaidFines()
+    this.finesService.getAllOfficersAllMonthsUnpaidFines(this.currentYear)
     .subscribe(response=>{
       this.data=response;
       console.log(response);
@@ -70,8 +73,8 @@ export class UnpaidFinesTableComponent implements OnInit {
     })
   }
   
-  getMonthFines(){
-    // console.log(this.selectedMonth);
+  getSelectedYearMonthFines(){
+    console.log(this.selectedMonth);
     // console.log(this.selectedYear);
     this.finesService.getAllOfficersOneMonthUnpaidFines(this.selectedMonth,this.selectedYear)
     .subscribe(response=>{
