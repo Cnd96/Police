@@ -5,11 +5,11 @@ import { Router } from '@angular/router';
 import {MatDialogRef} from '@angular/material';
 
 @Component({
-  selector: 'app-offence',
-  templateUrl: './offence.component.html',
-  styleUrls: ['./offence.component.css']
+  selector: 'app-createOffence',
+  templateUrl: './createOffence.component.html',
+  styleUrls: ['./createOffence.component.css']
 })
-export class OffenceComponent implements OnInit {
+export class CreateOffenceComponent implements OnInit {
   offence:any;
   newOffence:boolean;
   offenceForm=new FormGroup(
@@ -17,7 +17,7 @@ export class OffenceComponent implements OnInit {
       provision: new FormControl('', Validators.required),
       amount: new FormControl('', Validators.required)}
   );
-  constructor(private dialogRef:MatDialogRef<OffenceComponent>, private offenceService: OffenceService ,private router: Router) { }
+  constructor(private dialogRef:MatDialogRef<CreateOffenceComponent>, private offenceService: OffenceService ,private router: Router) { }
 
   ngOnInit() {
     this.offenceService.getOffence().subscribe(response=>{

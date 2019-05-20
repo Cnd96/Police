@@ -27,6 +27,9 @@ import { MessageDialogComponent } from './messageDialog/messageDialog.component'
 import { TestReportComponent } from './testReport/testReport.component';
 import { TPUnpaidFinesTableComponent } from './tp-unpaid-fines-table/tp-unpaid-fines-table.component';
 import { TPPaidFinesTableComponent } from './tp-paid-fines-table/tp-paid-fines-table.component';
+import { RecordFineComponent } from './RecordFine/RecordFine.component';
+
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
    declarations: [
@@ -46,7 +49,8 @@ import { TPPaidFinesTableComponent } from './tp-paid-fines-table/tp-paid-fines-t
       MessageDialogComponent,
       TestReportComponent,
       TPUnpaidFinesTableComponent,
-      TPPaidFinesTableComponent
+      TPPaidFinesTableComponent,
+      RecordFineComponent
    ],
    imports: [
       BrowserModule,
@@ -59,7 +63,8 @@ import { TPPaidFinesTableComponent } from './tp-paid-fines-table/tp-paid-fines-t
       MatTableModule,
       MatPaginatorModule,
       MatSortModule,
-      ExportAsModule
+      ExportAsModule,
+      NgxMaterialTimepickerModule
    ],
    providers: [],
    bootstrap: [

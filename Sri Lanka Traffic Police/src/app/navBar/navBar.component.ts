@@ -15,4 +15,5 @@ export class NavBarComponent implements OnInit {
   ShowHomeComponent(){ this.router.navigate(['/home']);}
   ShowFinesComponent(){this.router.navigate(['/fines']);}
   ShowTrafficPolicemenComponent(){this.router.navigate(['/trafficPolicemen']);}
+  ShowRecordFinesForm(){this.router.navigate(['/recordFine']);}
 }

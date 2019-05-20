@@ -18,11 +18,12 @@ import { NavBarComponent } from './navBar/navBar.component';
 import { OffencesComponent } from './offences/offences.component';
 import { PoliceStationComponent } from './policeStation/policeStation.component';
 import { OffenceTableComponent } from './offence-table/offence-table.component';
-import { OffenceComponent } from './offence/offence.component';
+
 import { PoliceStationsTableComponent } from './police-stations-table/police-stations-table.component';
 import { CreatePoliceStationComponent } from './createPoliceStation/createPoliceStation.component';
 import { OicDivisionService } from './_services/oicDivision.service';
 import { ConfirmDialogComponent } from './confirmDialog/confirmDialog.component';
+import { CreateOffenceComponent } from './createOffence/createOffence.component';
 
 
 @NgModule({
@@ -34,10 +35,10 @@ import { ConfirmDialogComponent } from './confirmDialog/confirmDialog.component'
       OffencesComponent,
       PoliceStationComponent,
       OffenceTableComponent,
-      OffenceComponent,
       PoliceStationsTableComponent,
       CreatePoliceStationComponent,
-      ConfirmDialogComponent
+      ConfirmDialogComponent,
+      CreateOffenceComponent
    ],
    imports: [
       BrowserModule,
@@ -58,9 +59,9 @@ import { ConfirmDialogComponent } from './confirmDialog/confirmDialog.component'
       AppComponent
    ],
    entryComponents: [
-      OffenceComponent,
+      CreateOffenceComponent,
       CreatePoliceStationComponent,
-        //fordialogbox\n
+      //fordialogbox\\n
    ]
 })
 export class AppModule { }

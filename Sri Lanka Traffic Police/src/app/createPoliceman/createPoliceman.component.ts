@@ -53,9 +53,10 @@ export class CreatePolicemanComponent implements OnInit {
   passwordMatchValidator(g: FormGroup) {
     return g.get('password').value === g.get('confirmPassword').value ? null : {'mismatch': true};
   }
-s
+
   
   submit(){
+    this.policemanForm.patchValue({policeStationId:this.policeStationID});
     this.policeman = Object.assign({}, this.policemanForm.value);
     this.trafficPolicemenService.createTrafficPoliceman(this.policeman).subscribe(next=>{
       alert("Succesfully created new traffic policeman");

@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
   });
   
 router.get('/', async (req, res) => {
-    var policeStationQuery=req.query.policeStationId;
+    let policeStationQuery=req.query.policeStationId;
     const policeman = await Policeman
     .find({policeStation:policeStationQuery})
     .populate({path:'policeStation',populate:{path:'oicDivision'}})

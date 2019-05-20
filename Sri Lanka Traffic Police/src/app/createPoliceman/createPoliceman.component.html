@@ -6,12 +6,12 @@
 
   <form style="margin-top:40px;margin-bottom: 40px" [formGroup]="policemanForm" (ngSubmit)="submit()" >   
     
-
+<!-- 
         <mat-form-field style="display: none;">
             <input  formControlName="policeStationId" matInput placeholder="Police Station" [(ngModel)]="policeStationID">
-        </mat-form-field >
+        </mat-form-field > -->
      
-    <mat-grid-list cols="2" rowHeight="300px">
+    <mat-grid-list cols="2" rowHeight="350px">
         <mat-grid-tile>
            <div class="controles-container">
               <mat-form-field >
@@ -33,7 +33,7 @@
               <mat-form-field>
                 <input type="number" formControlName="phoneNo" matInput placeholder="Phone Number">
               </mat-form-field>
-              
+              <br>
              </div>
         </mat-grid-tile>
       <mat-grid-tile>

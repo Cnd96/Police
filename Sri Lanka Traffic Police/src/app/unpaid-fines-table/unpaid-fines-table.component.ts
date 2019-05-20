@@ -26,7 +26,7 @@ export class UnpaidFinesTableComponent implements OnInit {
   dataSource: UnpaidFinesTableDataSource;
   data:any;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['fineId','licenseNo','vehicle','policemanName','date','amount','actions'];
+  displayedColumns = ['fineId','licenseNo','vehicle','policemanName','date','days','amount','actions'];
   
   currentYear=new Date().getFullYear();
   selectedMonth = '';

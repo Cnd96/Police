@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog,MatDialogConfig} from '@angular/material';
-import { OffenceComponent } from '../offence/offence.component';
+import { CreateOffenceComponent } from '../createOffence/createOffence.component';
 
 @Component({
   selector: 'app-offences',
@@ -17,6 +17,6 @@ export class OffencesComponent implements OnInit {
     const dialogConfig=new MatDialogConfig();
     dialogConfig.disableClose=true;
     dialogConfig.autoFocus=true;
-    this.dialog.open(OffenceComponent, dialogConfig);
+    this.dialog.open(CreateOffenceComponent, dialogConfig);
   }
 }

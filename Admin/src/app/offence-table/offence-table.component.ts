@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatDialog, MatDialogConfig } from '@angular/material';
 import { OffenceTableDataSource } from './offence-table-datasource';
 import { OffenceService } from '../_services/offence.service';
-import { OffenceComponent } from '../offence/offence.component';
 import { BaseRowDef } from '@angular/cdk/table';
+import { CreateOffenceComponent } from '../createOffence/createOffence.component';
 
 @Component({
   selector: 'app-offence-table',
@@ -28,15 +28,7 @@ export class OffenceTableComponent implements OnInit {
     const dialogConfig=new MatDialogConfig();
     dialogConfig.disableClose=true;
     dialogConfig.autoFocus=true;
-    this.dialog.open(OffenceComponent, dialogConfig);
+    this.dialog.open(CreateOffenceComponent, dialogConfig);
   }
 
-  
-  // err(){
-  //   this.offenceService.getOffences()
-  //   .subscribe(
-  //     (response)=>console.log(response),
-  //     (error)=>console.log(error)
-  //   );
-  // }
 }

@@ -12,7 +12,7 @@
    margin: 5px;
 }
 div.container{
-    margin: 0px 40px;
+    margin: 0px 20px;
 }
 
 .fill-remaining-space {
@@ -22,7 +22,7 @@ div.container{
   }
 
   form.normal-form{
-    margin: 10px;
+    margin: 200px;
 }
 
 .controles-container{

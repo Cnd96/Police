@@ -56,4 +56,5 @@ export class HomeComponent implements OnInit {
   clickReport(){
     this.router.navigate(['/testReport']);
   }
+ 
 }
