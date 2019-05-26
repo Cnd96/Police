@@ -29,3 +29,11 @@ getPoliceStationDetails(id){
 }
 
 
+
+// let headers = new Headers();
+// headers.append('Content-Type', 'application/json');
+// headers.append('authentication', `${student.token}`);
+
+// let options = new RequestOptions({ headers: headers });
+// return this.http
+//     .put(url, JSON.stringify(student), options)

@@ -33,6 +33,9 @@ export class HomeComponent implements OnInit {
   }  
 
   searchFine(){
+
+      // this.fineService.setHeader();
+
     // console.log(this.fineId);
     this.fineService.getfine(this.fineId)
     .subscribe(response=>{

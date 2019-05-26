@@ -50,7 +50,6 @@ export class TrafficPolicemenTableComponent implements OnInit {
   }
 
   onView(row){
-    // this.trafficPolicemenService.policeManId=row._id;
     ViewTrafficPolicemanComponent.policemanId=row._id;
     this.router.navigate(['/viewTrafficPoliceman']);
   }

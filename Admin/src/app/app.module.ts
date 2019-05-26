@@ -1,3 +1,4 @@
+import { AuthGuard } from './_services/AuthGuard.service';
 import { PoliceStationService } from './_services/policeStation.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -53,7 +54,8 @@ import { CreateOffenceComponent } from './createOffence/createOffence.component'
       AuthService,
       OffenceService,
       PoliceStationService,
-      OicDivisionService
+      OicDivisionService,
+      AuthGuard
    ],
    bootstrap: [
       AppComponent

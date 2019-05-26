@@ -37,7 +37,7 @@ export class PayUnpaidFineComponent implements OnInit {
 
   clickPay(){
     
-    this.dialogService.openConfirmDialog('Cofirm Pay?')
+    this.dialogService.openConfirmDialog('Confirm Pay?')
     .afterClosed().subscribe(res =>{
       console.log(res);
       if(res){

@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
     const valid=await  bcrypt.compare( req.body.password,policeman.password);
     if(!valid)return res.status(404).send('Inavlid password.');
     
-    const token=jwt.sign({_id:policeman.id , policemanName : policeman.policemanName},'jwtPrivateKey');
+    const token=jwt.sign({_id:policeman.id , policemanName : policeman.policemanName},'TrafficPolicePrivateKey');
 
     const tokenTosend={
         token:token

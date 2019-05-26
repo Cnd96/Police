@@ -6,6 +6,9 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { OffenceService } from '../_services/offence.service';
 import { fineFormValidators } from './fineFormValidators';
+import { FineService } from '../_services/fine.service';
+import { Router } from '@angular/router';
+import { DialogService } from '../_services/dialog.service';
 
 export interface TrafficPoliceman {
   _id: string;
@@ -35,7 +38,9 @@ export class RecordFineComponent implements OnInit {
   fineStatusSelected:any;
   fineStatuses=[{name:"Unpaid ",status:false},{name:"Paid ",status:true}];
 
-  constructor(private fb: FormBuilder,private trafficPolicemenService:TrafficPolicemenService,private offenceService:OffenceService,private authService:AuthService) { }
+  constructor(private fb: FormBuilder,private trafficPolicemenService:TrafficPolicemenService,private router:Router,
+    private offenceService:OffenceService,private authService:AuthService,private fineService:FineService
+    ,private dialogService:DialogService) { }
 
   ngOnInit() {
     this.fineOffences=[];
@@ -91,6 +96,7 @@ export class RecordFineComponent implements OnInit {
 
   createFineForm() {
     this.fineForm = this.fb.group({
+      fineId:['',Validators.required],
       licenseNo:['',fineFormValidators.licenseNoValidator],
       vehicleNo: ['',fineFormValidators.vehicleNoValidator],
       offences:[''],
@@ -100,6 +106,7 @@ export class RecordFineComponent implements OnInit {
       place:['',Validators.required],
       date:['',Validators.required],
       time:['',Validators.required],
+      validUntil:['']
     });
   }
 
@@ -149,7 +156,7 @@ export class RecordFineComponent implements OnInit {
       }
       this.totalAmount-=offence.amount;
     }
-    
+    console.log(this.sectionOfAct.length);
   }
 
   submit(){
@@ -164,11 +171,37 @@ export class RecordFineComponent implements OnInit {
     this.fineForm.patchValue({offences:this.sectionOfAct});
     this.fineForm.get('offences').updateValueAndValidity();
 
+    // const date=this.fineForm.value.date;
+
+    let validuntilDate = new Date(this.fineForm.value.date);
+    // let dt = this.fineForm.value.date;
+    validuntilDate.setDate( validuntilDate.getDate() +28 );
+    this.fineForm.patchValue({validUntil :validuntilDate});
+    this.fineForm.get('validUntil').updateValueAndValidity();
     // if(this.fineForm.invalid){
     //   console.log("invalid");
     //   return;
     // }
     this.fine = Object.assign({}, this.fineForm.value);
-    console.log(this.fine);
+    this.dialogService.openConfirmDialog('Confirm Record Fine?')
+        .afterClosed().subscribe(res =>{
+          console.log(res);
+          if(res){
+            this.fineService.recordFineDetails(this.fine).subscribe(next=>{
+              this.dialogService.openMessageDialog('Succesfully recorded the fine');
+              this.router.navigate(['/home']);
+              console.log(next);
+            },(error:Response)=>{
+              
+              if(error.status===400){
+                alert('Error.')
+                
+                console.log(error);
+              }
+              else alert('Unexpected error found');
+            })
+       
+          }
+        });   
   }
 }

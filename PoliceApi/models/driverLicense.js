@@ -31,7 +31,8 @@ const driverSchema = new mongoose.Schema({
    },
    CatogeriesOfVehicles:[
        {
-           type:String
+           type:String,
+           required:true
        }
    ]
 });

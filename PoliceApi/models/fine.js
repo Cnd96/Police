@@ -4,7 +4,7 @@ const {offenceSchema} = require('./offence');
 const fineSchema = new mongoose.Schema({
     
       _id:{
-        type:Number,
+        type:String,
         required:true
       },
       licenseNo:{
@@ -47,14 +47,14 @@ const fineSchema = new mongoose.Schema({
         default: new Date().toLocaleTimeString(),
         required:true,
       },
-      // validUntil:{
-      //   type:Date,
-      //   required:true,
-      // },
-      // place:{
-      //   type:String,
-      //   required:true,
-      // },
+      validUntil:{
+        type:Date,
+        required:true,
+      },
+      place:{
+        type:String,
+        required:true,
+      },
       policeman: {
         type: new mongoose.Schema({
             _id:{

@@ -3,64 +3,78 @@
   <!-- <h3></h3> -->
           <div >
               <div class="row">
-                  <div class="col-sm-6" > 
+                  <div class="col-sm-7" > 
                       <mat-card class="fineForm-card">
                           <mat-card-title>Fine Form </mat-card-title>
                           <mat-card-content>
                               <form  [formGroup]="fineForm"  (ngSubmit)="submit()" >   
-                         
-                                  <mat-form-field>
-                                      <input  formControlName="licenseNo"  matInput placeholder="License No">
-                                  </mat-form-field>
-                                  <div class="alert alert-danger" *ngIf="licenseNo.touched && licenseNo.invalid">
-                                      Invalid License Number Pattern
-                                  </div>
+                                  <mat-grid-list cols="2" rowHeight="250px">
+                                      <mat-grid-tile>
+                                          <div class="controles-container"> 
+                                            <mat-form-field>
+                                              <input formControlName="fineId"  matInput placeholder="Fine ID">
+                                          </mat-form-field>
+                                          <!-- <div class="alert alert-danger" *ngIf="licenseNo.touched && licenseNo.invalid">
+                                              Invalid License Number Pattern
+                                          </div> -->
+        
+                                          <mat-form-field >
+                                              <input  formControlName="vehicleNo"  matInput placeholder="Vehicle No">
+                                          </mat-form-field>
+                                          <!-- <div class="alert alert-danger" *ngIf="vehicleNo.touched && vehicleNo.invalid">
+                                              Invalid Vehicle Number
+                                          </div> -->
+                                          <mat-form-field>
+                                              <input formControlName="date" matInput [matDatepicker]="picker" placeholder="Date">
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
+                                          </mat-form-field>
+                                        </div>
+                                         
+                                      </mat-grid-tile>
+                                      <mat-grid-tile>
+                                          <div class="controles-container"> 
+                                              <mat-form-field>
+                                                  <input  formControlName="licenseNo"  matInput placeholder="License No">
+                                              </mat-form-field>
+                                          <mat-form-field>
+                                              <input matInput placeholder="Policeman"  [matAutocomplete]="auto" (keyup)="searchPoliceman($event)" [formControl]="policemanId">
+                                              <mat-autocomplete #auto="matAutocomplete">
+                                                <mat-option *ngFor="let trafficPoliceman of trafficPolicemen" [value]="trafficPoliceman._id">      
+                                                  <span>{{trafficPoliceman.name}}</span> 
+                                                </mat-option>
+                                              </mat-autocomplete>
+                                          </mat-form-field>
+                                          <!-- <div class="alert alert-danger" *ngIf="policemanId.touched && policemanId.invalid">
+                                              Invalid Traffic Policeman ID
+                                          </div> -->
+        
+                                          
+                                          <!-- <div class="alert alert-danger" *ngIf="place.touched && place.invalid">
+                                              Enter an address
+                                          </div> -->
+                                          <mat-form-field >
+                                              <input matInput placeholder="Select Time" aria-label="12hr format" formControlName="time" [ngxTimepicker]="default" readonly>
+                                              <ngx-material-timepicker #default></ngx-material-timepicker>
+                                          </mat-form-field>
+                                          <!-- <div class="alert alert-danger" *ngIf="time.touched && time.invalid">
+                                              Select Time
+                                          </div> -->
 
-                                  <mat-form-field >
-                                      <input  formControlName="vehicleNo"  matInput placeholder="Vehicle No">
-                                  </mat-form-field>
-                                  <div class="alert alert-danger" *ngIf="vehicleNo.touched && vehicleNo.invalid">
-                                      Invalid Vehicle Number
-                                  </div>
+                                        </div>
+                                      </mat-grid-tile>
+                                    </mat-grid-list>  
+                                 
 
-                                  <mat-form-field>
-                                      <input matInput placeholder="Policeman"  [matAutocomplete]="auto" (keyup)="searchPoliceman($event)" [formControl]="policemanId">
-                                      <mat-autocomplete #auto="matAutocomplete">
-                                        <mat-option *ngFor="let trafficPoliceman of trafficPolicemen" [value]="trafficPoliceman._id">      
-                                          <span>{{trafficPoliceman.name}}</span> 
-                                        </mat-option>
-                                      </mat-autocomplete>
-                                  </mat-form-field>
-                                  <div class="alert alert-danger" *ngIf="policemanId.touched && policemanId.invalid">
-                                      Invalid Traffic Policeman ID
-                                  </div>
+                                  
+                                  <!-- <div class="alert alert-danger" *ngIf="date.touched && date.invalid">
+                                      Invalid Date
+                                  </div> -->
 
+                                 
                                   <mat-form-field>
                                       <input formControlName="place"  matInput placeholder="Place">
                                   </mat-form-field>
-                                  <div class="alert alert-danger" *ngIf="place.touched && place.invalid">
-                                      Enter an address
-                                  </div>
-
-                                  <mat-form-field>
-                                      <input formControlName="date" matInput [matDatepicker]="picker" placeholder="Date">
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker startView="month" [startAt]="startDate"></mat-datepicker>
-                                  </mat-form-field>
-                                  <div class="alert alert-danger" *ngIf="date.touched && date.invalid">
-                                      Invalid Date
-                                  </div>
-
-                                  <mat-form-field >
-                                      <input matInput placeholder="Select Time" aria-label="12hr format" formControlName="time" [ngxTimepicker]="default" readonly>
-                                      <ngx-material-timepicker #default></ngx-material-timepicker>
-                                  </mat-form-field>
-                                  <div class="alert alert-danger" *ngIf="time.touched && time.invalid">
-                                      Select Time
-                                  </div>
-
-                                  
-
                                   <div>
                                       <mat-radio-group
                                       aria-labelledby="example-radio-group-label"
@@ -72,25 +86,25 @@
                                        </mat-radio-group>
                                   </div>
                                   
-                                  <h5 style="margin-top:20px">Offences</h5>
-                                  <h6>No of Offences :{{fineOffences.length}}   <span>    </span>  Total amount :Rs.{{totalAmount}}</h6>
+                                  <h5 style="margin-top:10px">Offences</h5>
+                                  <h6 style="font-size:17px">No of Offences :{{fineOffences.length}}   <span>    </span>  Total amount :Rs.{{totalAmount}}</h6>
                                   <div class="container" *ngFor="let fineOffence of fineOffences">
                                     <h6>{{fineOffence.provision}}</h6>
                                     <p>Amount :Rs.{{fineOffence.amount}}</p>
                                   </div>
         
                                <div class="button">
-                                  <button mat-raised-button color="primary" [disabled]="!fineForm.valid">Submit</button>
+                                  <button mat-raised-button color="primary" [disabled]="!fineForm.valid||0>=sectionOfAct.length">Submit</button>
                                </div> 
                             </form>
                           </mat-card-content>                      
                   </mat-card>
                   </div>
                   
-                  <div class="col-sm-6">
+                  <div class="col-sm-5">
                       <mat-expansion-panel>
                           <mat-expansion-panel-header>
-                            <mat-panel-title>
+                            <mat-panel-title style="font-size: 24px">
                               Select Offences
                             </mat-panel-title>
                           </mat-expansion-panel-header>

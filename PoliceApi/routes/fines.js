@@ -4,9 +4,12 @@ const {PoliceStation} = require('../models/policeStation');
 const {Policeman} =require('../models/policeman'); 
 const {Offence} =require('../models/offence');
 const {Driver} =require('../models/driverLicense');
+const authPoliceStation =require('../middleware/policeStationAuth');
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+
+
 
 router.post('/', async (req, res) => {
     const policeman = await Policeman.findOne({_id: req.body.policemanId});
@@ -27,10 +30,15 @@ router.post('/', async (req, res) => {
     const driver = await Driver.findOne({ _id : req.body.licenseNo});
     if (!driver) return res.status(400).send('Invalid driver license number.');
 
-    let counter=await Counter.findOneAndUpdate({ "name" : "fineId" },{ $inc: { "value" : 1 } });
+    // let counter=await Counter.findOneAndUpdate({ "name" : "fineId" },{ $inc: { "value" : 1 } });
 
+    // let validUntil=req.body.date;
+    // validUntil.setDate(validUntil.getDate()+28);
+
+    // var dt = new Date("December 30, 2017 11:20:25");
+    // dt.setDate( dt.getDate() - 10 );
     let fineToCreate = new Fine({ 
-        _id:counter.value+1,
+        _id:req.body.fineId,
         licenseNo:driver._id,
         driverName: driver.Name,
         driverAddress: driver.Address,
@@ -40,6 +48,9 @@ router.post('/', async (req, res) => {
         time:req.body.time,
         amount:amount,
         fineStatus:req.body.fineStatus,
+        place:req.body.place,
+        date:req.body.date,
+        validUntil:req.body.validUntil,
         policeStationName:policeStation.policeStationName,
         policeman:{
             _id:policeman._id,
@@ -217,10 +228,11 @@ router.get('/', async (req, res) => {
 
   
 router.get('/:id', async (req, res) => {
-     const ObjectId = mongoose.Types.ObjectId;
-     let id= req.params.id;
+    //  const ObjectId = mongoose.Types.ObjectId;
+    //  let id= req.params.id;
      let fine=await Fine.aggregate([
-        {$match: { _id: parseInt(id) }},
+        // {$match: { _id: parseInt(id) }},
+        {$match:{_id:req.params.id}},
         {
             $project:{
                 licenseNo:1,

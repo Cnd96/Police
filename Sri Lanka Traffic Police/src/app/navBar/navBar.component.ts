@@ -16,4 +16,11 @@ export class NavBarComponent implements OnInit {
   ShowFinesComponent(){this.router.navigate(['/fines']);}
   ShowTrafficPolicemenComponent(){this.router.navigate(['/trafficPolicemen']);}
   ShowRecordFinesForm(){this.router.navigate(['/recordFine']);}
+
+  logout(){
+    localStorage.removeItem('token');
+    this.router.navigate(['']);
+  }
 }
+
+

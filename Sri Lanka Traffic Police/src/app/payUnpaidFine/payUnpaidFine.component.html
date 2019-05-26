@@ -1,7 +1,9 @@
 <app-navBar></app-navBar><br>
 
-<div id="contentToConvert" class="container" style="margin-top: 150px"><br><br>
-
+<div id="contentToConvert" class="container" style="margin-top: 85px"><br><br>
+  <h5>Driver License No:<span>{{fine.licenseNo}}</span></h5>
+  <h5>Driver Vehicle No:<span>{{fine.vehicleNo}}</span></h5>
+  <h5>Date:<span>{{fine.date}}</span></h5>
   <table class="table table-bordered">
     <thead>
      <tr>
@@ -19,5 +21,6 @@
   <h5>Other Charges:Rs.<span>{{fine.additionalPay}}</span></h5><br>
   <h5>Total Amount:Rs.<span>{{fine.total}}</span></h5>
 </div>
-
-<button class="btn btn-primary" (click)="clickPay()">Submit</button>
+<div class="container" style="margin-top: 20px">
+  <button class="btn btn-primary" (click)="clickPay()">Submit</button>
+</div>

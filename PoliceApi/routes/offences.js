@@ -1,6 +1,7 @@
 const {Offence} = require('../models/offence'); 
 const express = require('express');
 const router = express.Router();
+const auth =require('../middleware/adminAuth');
 
 router.post('/', async (req, res) => {
     const offence = await Offence.findOne({ _id: req.body.sectionOfAct,});
@@ -9,7 +10,7 @@ router.post('/', async (req, res) => {
     let offenceToCreate = new Offence({ 
         _id: req.body.sectionOfAct,
         provision: req.body.provision,
-        amount: req.body.amount,
+        amount: req.body.amount,  
     });
     offenceToCreate = await offenceToCreate.save();
     
