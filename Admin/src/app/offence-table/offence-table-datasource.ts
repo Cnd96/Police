@@ -26,6 +26,7 @@ export class OffenceTableDataSource extends DataSource<OffenceTableItem> {
       (response)=>this.data=response,
       (error)=>console.log(error)
     );
+    
   }
 
   /**

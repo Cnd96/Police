@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
- 
+
     let driverToCreate = new Driver({ 
         _id: req.body._id,
         Name: req.body.Name,
@@ -16,15 +16,36 @@ router.post('/', async (req, res) => {
 
     });
     driverToCreate = await driverToCreate.save();
-    
+ 
     res.send(driverToCreate);
   });
 
+
+
 router.get('/', async (req, res) => {
-    const driver = await Driver.find();
+
+//   let categories=['B1','A1','G1'];
+//   // let a=[{CatogeriesOfVehicles:'B1'},{CatogeriesOfVehicles:'G1'}];
+//   let a=[];
+//   for(let i=0;i<categories.length;i++){
+//     let a1={CatogeriesOfVehicles:categories[i]}
+//     a.push(a1);
+// }
+
+
+  
+//     const driver = await Driver.find()
+//     .or(a);
+
+  const driver = await Driver.find();
     res.send(driver);
   });
 
+
+
+
+
+  
 router.get('/:id', async (req, res) => {
     const driver = await Driver.findById(req.params.id);
   
