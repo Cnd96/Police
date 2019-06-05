@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from './../_services/auth.service';
 import { Component, OnInit ,ViewChild } from '@angular/core';
 import { TrafficPolicemenService } from '../_services/trafficPolicemen.service';
@@ -46,15 +47,21 @@ export class ViewTrafficPolicemanComponent implements OnInit {
 
   ];
 
-  static policemanId:any;
+  // static policemanId:any;
+  policemanId:any;
   trafficPoliceman:any;
   
-  constructor(private trafficPolicemenService:TrafficPolicemenService ,private authService: AuthService,private finesService:FineService) { }
+  constructor(private trafficPolicemenService:TrafficPolicemenService,
+    private route :ActivatedRoute ,private authService: AuthService,private finesService:FineService) { }
 
   ngOnInit() {
-    let id=ViewTrafficPolicemanComponent.policemanId; 
+    this.route.paramMap
+      .subscribe(params=>{
+        this.policemanId= params.get('trafficPolicemanId');
+      })
+
     // console.log(id);
-    this.trafficPoliceman= this.trafficPolicemenService.getTrafficPoliceman(id)
+    this.trafficPoliceman= this.trafficPolicemenService.getTrafficPoliceman(this.policemanId)
     .subscribe(response=>{
       // console.log(response);
       this.trafficPoliceman=response;
@@ -65,13 +72,13 @@ export class ViewTrafficPolicemanComponent implements OnInit {
   }
   
   getUnpaidfines(){
-    TPUnpaidFinesTableComponent.policemanId=ViewTrafficPolicemanComponent.policemanId;
+    TPUnpaidFinesTableComponent.policemanId=this.policemanId;
     TPUnpaidFinesTableComponent.selectedMonth=this.selectedMonth;
     TPUnpaidFinesTableComponent.selectedYear=this.selectedYear;
     this.TPUnpaidChild.getUnpaidfines();
   }
   getPaidfines(){
-    TPPaidFinesTableComponent.policemanId=ViewTrafficPolicemanComponent.policemanId;
+    TPPaidFinesTableComponent.policemanId=this.policemanId;
     TPPaidFinesTableComponent.selectedMonth=this.selectedMonth;
     TPPaidFinesTableComponent.selectedYear=this.selectedYear;
     this.TPPaidChild.getPaidfines();

@@ -106,6 +106,10 @@ constructor(private http: HttpClient,private authService: AuthService) { }
   recordFineDetails(fine:any){
     return this.http.post(this.baseUrl+'fines',fine);
   }
+
+  getDriverFinesDetails(driverID){
+    return this.http.get(this.baseUrl+'driverFines/'+driverID);
+  }
   
 }
 // http://localhost:3000/api/fines?policeStationName=Panadura&policeManId=10015&fineStatus=false

@@ -1,0 +1,775 @@
+<body>
+    <header style="background-color: rgb(201, 104, 93); height: 15%" class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+      <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Bootstrap">
+      </a>
+    
+      <div class="navbar-nav-scroll">
+        <ul class="navbar-nav bd-navbar-nav flex-row">
+            <img src="assets/img/img1.png">
+        </ul>
+      </div>
+    
+      <ul>
+        
+          <b class="h3" style="padding: 130px; font-family: Georgia, 'Times New Roman', Times, serif; margin-left: -8%"> DEGREE SELECTION SUPPORT FOR UNIVERSITY ADMISSION</b>
+          <button id="btn-login" type="button" class="btn btn-outline-warning"> Log Out </button>
+        
+      </ul>
+      
+    </header>
+
+
+<br>
+<div class="card1">
+<div class="container">
+    <form  [formGroup]="addDegreesForm" (ngSubmit)="submit()">
+      <br>
+        
+        <div>
+           Unicode
+          <input  formControlName="_id"  type="text" class="form-control" id="courseId" name="courseId">
+        </div>
+        <br>
+      
+        <div>
+          Degree Name
+          <input  formControlName="degreeName"  type="text" class="form-control" >
+        </div>
+        <br>
+
+        <div>
+          Description
+          <input  formControlName="description"  type="text" class="form-control" style="padding: 20% 30%; font:inherit; line-height: 1.2em">
+        </div>
+        <br>
+
+        <div>
+          Aptitude test availability
+          <input  formControlName="aptitudeTestAvailability"  type="checkbox" name="vehicle1" value="Bike" style="margin-left: -90px; height: 20px;">
+        </div>
+        <br>
+        <button type="submit"  mat-raised-button color="primary">Submit</button>
+    </form>
+</div>
+</div>
+
+<div class="card2">
+  <div class="container">
+        <br>
+
+        <input type="checkbox" name="vehicle1" value="Bike" style="margin-left: -131px; height: 20px;">
+
+        <b style="color: saddlebrown; font-size: 15px; margin-left: -90px">
+          Physical Science Stream (Combined Mathematics / Physics / Chemistry)
+        </b> 
+        <br><br>
+      
+        <div style="margin-left: 15%">
+          <a> Combined Mathematics </a>
+          
+            <select style="margin-left: 13%">
+              <option> S </option>
+              <option> C </option>
+              <option> B </option>
+              <option> A </option>
+            </select>
+
+        </div> 
+        <br>
+
+        <div style="margin-left: 15%">
+          <a> Physics </a>
+          
+            <select style="margin-left: 36.5%">
+              <option> S </option>
+              <option> C </option>
+              <option> B </option>
+              <option> A </option>
+            </select>
+
+        </div> 
+        <br>
+
+        <div style="margin-left: 15%">
+          <a> Chemistry </a>
+          
+            <select style="margin-left: 33%">
+              <option> S </option>
+              <option> C </option>
+              <option> B </option>
+              <option> A </option>
+            </select>
+
+        </div> 
+        <br>
+  </div>
+</div>
+  
+<div class="card3">
+  <div class="container">
+      
+        <br>
+        <input type="checkbox" [(ngModel)]="bioScienceApplicability" (change)="bioScienceApplicabilityChange()" name="vehicle1" value="Bike" style="margin-left: -131px; height: 20px;">
+
+        <b style="color: saddlebrown; font-size: 15px; margin-left: -90px">
+          Bio Science Stream (Biology / Physics / Chemistry)
+        </b> 
+        <br><br>
+      
+        <div style="margin-left: 15%">
+          <a> Biology </a>
+          
+            <select style="margin-left: 15%" [(ngModel)]="bioStreamBioSelectedGrade" (change)="bioScienceStreamBioSelected()">
+              <option  *ngFor="let min of minimumRequirements" [value]="min.grade"> {{min.name}} </option>
+            </select>
+
+        </div> 
+        <br>
+
+        <div style="margin-left: 15.5%">
+          <a> Physics </a>
+          
+            <select style="margin-left: 15%"  [(ngModel)]="bioStreamPhySelectedGrade" (change)="bioScienceStreamPhySelected()">
+              <option  *ngFor="let min of minimumRequirements" [value]="min.grade"> {{min.name}} </option>
+            </select>
+
+        </div> 
+        <br>
+
+        <div style="margin-left: 15%">
+          <a> Chemistry </a>
+          
+            <select style="margin-left: 11.5%"  [(ngModel)]="bioStreamChemSelectedGrade" (change)="bioScienceStreamChemSelected()">
+              <option  *ngFor="let min of minimumRequirements" [value]="min.grade"> {{min.name}} </option>
+            </select>
+
+        </div> 
+        <br>
+ 
+  </div>
+</div>
+
+<div class="card2">
+  <div class="container">
+      <form>
+        <br>
+
+        <input type="checkbox" name="vehicle1" value="Bike" style="margin-left: -131px; height: 20px;">
+
+        <b style="color: saddlebrown; font-size: 15px; margin-left: -90px">
+          Physical Science Stream (Combined Mathematics / Physics / ICT)
+        </b> 
+        <br><br>
+      
+        <div style="margin-left: 15%">
+          <a> Combined Mathematics </a>
+          
+            <select style="margin-left: 13%">
+              <option> S </option>
+              <option> C </option>
+              <option> B </option>
+              <option> A </option>
+            </select>
+
+        </div> 
+        <br>
+
+        <div style="margin-left: 15%">
+          <a> Physics </a>
+          
+            <select style="margin-left: 36.5%">
+              <option> S </option>
+              <option> C </option>
+              <option> B </option>
+              <option> A </option>
+            </select>
+
+        </div> 
+        <br>
+
+        <div style="margin-left: 14%">
+          <a> ICT </a>
+          
+            <select style="margin-left: 43%">
+              <option> S </option>
+              <option> C </option>
+              <option> B </option>
+              <option> A </option>
+            </select>
+
+        </div> 
+        <br>
+          
+      </form>
+  </div>
+</div>
+
+<div class="card3">
+  <div class="container">
+      <form>
+        <br>
+        <input type="checkbox" name="vehicle1" value="Bike" style="margin-left: -131px; height: 20px;">
+
+        <b style="color: saddlebrown; font-size: 15px; margin-left: -90px">
+          Bio Science Stream (Biology / Agriculture / Chemistry)
+        </b> 
+        <br><br>
+      
+        <div style="margin-left: 15%">
+          <a> Biology </a>
+          
+            <select style="margin-left: 15%">
+              <option> S </option>
+              <option> C </option>
+              <option> B </option>
+              <option> A </option>
+            </select>
+
+        </div> 
+        <br>
+
+        <div style="margin-left: 15.5%">
+          <a> Agriculture </a>
+          
+            <select style="margin-left: 9.5%">
+              <option> S </option>
+              <option> C </option>
+              <option> B </option>
+              <option> A </option>
+            </select>
+
+        </div> 
+        <br>
+
+        <div style="margin-left: 15%">
+          <a> Chemistry </a>
+          
+            <select style="margin-left: 11.5%">
+              <option> S </option>
+              <option> C </option>
+              <option> B </option>
+              <option> A </option>
+            </select>
+
+        </div> 
+        <br>
+          
+        </form>
+  </div>
+</div>
+
+<div class="card1" style="height: 45%; margin-top: 3%">
+  <form>
+    <br>
+      <h5 style="text-align: start; color: saddlebrown">
+        Enter Results
+      </h5> 
+    
+      <div>
+        English (Advanced Level)
+
+          <select style="margin-left: 15%">
+            <option> N/A </option>
+            <option> A </option>
+            <option> B </option>
+            <option> C </option>
+            <option> S </option>
+          </select>
+
+      </div> 
+      <br>
+
+      <div>
+        Mathematics (Ordinary Level)
+
+          <select style="margin-left: 8%">
+            <option> N/A </option>
+            <option> A </option>
+            <option> B </option>
+            <option> C </option>
+            <option> S </option>
+          </select>
+
+      </div> 
+      <br>
+
+      <div>
+        Science (Ordinary Level )
+
+          <select style="margin-left: 15.5%">
+            <option> N/A </option>
+            <option> A </option>
+            <option> B </option>
+            <option> C </option>
+            <option> S </option>
+          </select>
+
+      </div> 
+      <br>
+
+      <div>
+        English (Ordinary Level)
+
+          <select style="margin-left: 17%">
+            <option> N/A </option>
+            <option> A </option>
+            <option> B </option>
+            <option> C </option>
+            <option> S </option>
+          </select>
+
+      </div> 
+      <br>
+      
+    </form>
+  
+</div>
+<br>
+
+<div class="card4">
+  <div class="container">
+    <form>
+      <br>
+        <h5 style="text-align: start; color: saddlebrown">
+          Enter Z-Scores
+        </h5> 
+      <br>
+      
+      <div>
+        <a> Ampara </a>
+        <input type="text" id="ampara" name="ampara" style="margin-left: 35%">
+        
+      </div>
+      <br>
+      
+      <div>
+        <a> Anuradhapura </a>
+        <input type="text" id="anuradhapura" name="anuradhapura" style="margin-left: 25.7%">
+      </div>
+      <br>
+
+      <div>
+        <a> Badulla </a>
+        <input type="text" id="badulla" name="badulla" style="margin-left: 35.8%">
+      </div>
+      <br>
+
+      <div>
+        <a> Batticaloa </a>
+        <input type="text" id="batticaloa" name="batticaloa" style="margin-left: 32.3%">
+      </div>
+      <br>
+
+      <div>
+        <a> Colombo </a>
+        <input type="text" id="colombo" name="colombo" style="margin-left: 33.1%">
+      </div>
+      <br>
+
+      <div>
+        <a> Galle </a>
+        <input type="text" id="galle" name="galle" style="margin-left: 39.2%">
+      </div>
+      <br>
+
+      <div>
+        <a> Gampaha </a>
+        <input type="text" id="gampaha" name="gampaha" style="margin-left: 32.6%">
+      </div>
+      <br>
+
+      <div>
+        <a> Hambantota </a>
+        <input type="text" id="hambantota" name="hambantota" style="margin-left: 28.3%">
+      </div>
+      <br>
+
+      <div>
+        <a> Jaffna </a>
+        <input type="text" id="jaffna" name="jaffna" style="margin-left: 38%">
+      </div>
+      <br>
+
+      <div>
+        <a> Kalutara </a>
+        <input type="text" id="kalutara" name="kalutara" style="margin-left: 34.5%">
+      </div>
+      <br>
+
+      <div>
+        <a> Kandy </a>
+        <input type="text" id="kandy" name="kandy" style="margin-left: 37.5%">
+      </div>
+      <br>
+
+      <div>
+        <a> Kegalle </a>
+        <input type="text" id="kegalle" name="kegalle" style="margin-left: 35.9%">
+      </div>
+      <br>
+
+      <div>
+        <a> Kilinochchi </a>
+        <input type="text" id="kilinochchi" name="kilinochchi" style="margin-left: 30.8%">
+      </div>
+      <br>
+
+      <div>
+        <a> Kurunegala </a>
+        <input type="text" id="kurunegala" name="kurunegala" style="margin-left: 30%">
+      </div>
+      <br>
+
+      <div>
+        <a> Mannar </a>
+        <input type="text" id="mannar" name="mannar" style="margin-left: 35.3%">
+      </div>
+      <br>
+
+      <div>
+        <a> Matale </a>
+        <input type="text" id="matale" name="matale" style="margin-left: 36.5%">
+      </div>
+      <br>
+
+      <div>
+        <a> Matara </a>
+        <input type="text" id="matara" name="matara" style="margin-left: 36.2%">
+      </div>
+      <br>
+
+      <div>
+        <a> Monaragala </a>
+        <input type="text" id="monaragala" name="monaragala" style="margin-left: 29.1%">
+      </div>
+      <br>
+
+      <div>
+        <a> Mullaitivu </a>
+        <input type="text" id="mullaitivu" name="mullaitivu" style="margin-left: 32.2%">
+      </div>
+      <br>
+
+      <div>
+        <a> Nuwara Eliya </a>
+        <input type="text" id="nuwaraEliya" name="nuwaraEliya" style="margin-left: 27.8%">
+      </div>
+      <br>
+
+      <div>
+        <a> Polonnaruwa </a>
+        <input type="text" id="polonnaruwa" name="polonnaruwa" style="margin-left: 27.6%">
+      </div>
+      <br>
+
+      <div>
+        <a> Puttalam </a>
+        <input type="text" id="puttalam" name="puttalam" style="margin-left: 33.5%">
+      </div>
+      <br>
+
+      <div>
+        <a> Ratnapura </a>
+        <input type="text" id="ratnapura" name="ratnapura" style="margin-left: 31.5%">
+      </div>
+      <br>
+
+      <div>
+        <a> Trincomalee </a>
+        <input type="text" id="trincomalee" name="trincomalee" style="margin-left: 29%">
+      </div>
+      <br>
+
+      <div>
+        <a> Vavuniya </a>
+        <input type="text" id="vavuniya" name="vavuniya" style="margin-left: 33.6%">
+      </div>
+      <br>
+        
+    </form>
+  </div>
+</div>
+<br>
+<div>
+<div class="card5" >
+  <div class="container">
+        <br>
+          <h5 style="text-align: start; color: saddlebrown">
+            Enter Interests
+          </h5> 
+          <br>
+          
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title style="font-size: 24px">
+                Select Intersts
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+        
+            <div *ngFor="let interest of Interests">
+              <input type="checkbox"  value="{{interest.id}}" style="margin-left: -190px; height: 20px;">
+              <a style="margin-left: -20%">{{interest.name}} </a>
+              <br>
+            </div>
+          </mat-expansion-panel>
+  </div>
+</div>
+<br>
+
+<div class="card5" style="margin-top: 0%; height: 265%">
+  <div class="container">
+      <form>
+        <br>
+          <h5 style="text-align: start; color: saddlebrown">
+            Enter Job opportunities
+          </h5> 
+          <br>
+
+          <h6>
+            Academic
+          </h6>
+          <input type="checkbox" name="lecturer" value="lecturer" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%">Lecturer </a>
+          <input type="checkbox" name="teacher" value="teacher" style="margin-left: -62px; height: 20px;">
+          <a style="margin-left: -20%"> Teacher</a>
+          <br><br>
+
+          <h6>
+            Agriculture Services
+          </h6>
+          <input type="checkbox" name="agriculturalInstructor" value="agriculturalInstructor" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Agricultural instructor</a>
+          <input type="checkbox" name="farmManager" value="farmManager" style="margin-left: -158px; height: 20px;">
+          <a style="margin-left: -20%"> Farm manager</a>
+          <input type="checkbox" name="foodTechnologist" value="foodTechnologist" style="margin-left: -127px; height: 20px;">
+          <a style="margin-left: -20%"> Food technologist</a>
+          <input type="checkbox" name="teaExecutive" value="teaExecutive" style="margin-left: -125px; height: 20px;">
+          <a style="margin-left: -20%"> Tea executive</a>
+          <br><br>
+
+          <h6>
+            Animal Science
+          </h6>
+          <input type="checkbox" name="animalNutritionist" value="animalNutritionist" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Animal nutritionist</a>
+          <input type="checkbox" name="veterinarian" value="veterinarian" style="margin-left: -134px; height: 20px;">
+          <a style="margin-left: -20%"> Veterinarian</a>
+          <input type="checkbox" name="zoologist" value="zoologist" style="margin-left: -111px; height: 20px;">
+          <a style="margin-left: -20%"> Zoologist</a>
+          <br><br>
+
+          <h6>
+            Architecture
+          </h6>
+          <input type="checkbox" name="architect" value="architect" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Architect</a>
+          <input type="checkbox" name="landscapeArchitect" value="landscapeArchitect" style="margin-left: -67px; height: 20px;">
+          <a style="margin-left: -20%">Landscape architect </a>
+          <input type="checkbox" name="planningOfficer" value="planningOfficer" style="margin-left: -164px; height: 20px;">
+          <a style="margin-left: -20%"> Planning officer</a>
+          <input type="checkbox" name="quantitySurveyor" value="quantitySurveyor" style="margin-left: -110px; height: 20px;">
+          <a style="margin-left: -20%"> Quantity surveyor</a> <br><br>
+          <input type="checkbox" name="surveyor" value="surveyor" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Surveyor</a>
+          <input type="checkbox" name="townPlanner" value="townPlanner" style="margin-left: -66px; height: 20px;">
+          <a style="margin-left: -20%"> Town planner</a>
+          <br><br>
+
+          <h6>
+            Data Science
+          </h6>
+          <input type="checkbox" name="dataAnalyst" value="dataAnalyst" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Data analyst</a>
+          <input type="checkbox" name="statistician" value="statistician" style="margin-left: -91px; height: 20px;">
+          <a style="margin-left: -20%"> Statistician</a>
+          <br><br>
+
+          <h6>
+            Designing
+          </h6>
+          <input type="checkbox" name="fashionDesigner" value="fashionDesigner" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Fashion designer</a>
+          <input type="checkbox" name="productDesigner" value="productDesigner" style="margin-left: -122px; height: 20px;">
+          <a style="margin-left: -20%"> Product designer</a>
+          <br><br>
+
+          <h6>
+            Engineering
+          </h6>
+          <input type="checkbox" name="biomedicalEngineer" value="biomedicalEngineer" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Biomedical engineer</a>
+          <input type="checkbox" name="chemicalEngineer" value="chemicalEngineer" style="margin-left: -147px; height: 20px;">
+          <a style="margin-left: -20%"> Chemical engineer</a>
+          <input type="checkbox" name="electricalEngineer" value="electricalEngineer" style="margin-left: -155px; height: 20px;">
+          <a style="margin-left: -20%"> Electrical engineer</a>
+          <input type="checkbox" name="electronicEngineer" value="electronicEngineer" style="margin-left: -134px; height: 20px;">
+          <a style="margin-left: -20%"> Electronic engineer</a> <br><br>
+          <input type="checkbox" name="industrialEngineer" value="industrialEngineer" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Industrial engineer</a>
+          <input type="checkbox" name="jewellaryDesignEngineer" value="jewellaryDesignEngineer" style="margin-left: -136px; height: 20px;">
+          <a style="margin-left: -20%"> Jewellary design engineer</a>
+          <input type="checkbox" name="maintenanceEngineer" value="maintenanceEngineer" style="margin-left: -205px; height: 20px;">
+          <a style="margin-left: -20%"> Maintenance engineer</a>
+          <input type="checkbox" name="mechanicalEngineer" value="mechanicalEngineer" style="margin-left: -162px; height: 20px;">
+          <a style="margin-left: -20%"> Mechanical engineer</a> <br><br>
+          <input type="checkbox" name="qualityAssuranceEngineer" value="qualityAssuranceEngineer" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Quality assurance engineer</a>
+          <input type="checkbox" name="softwareEngineer" value="softwareEngineer" style="margin-left: -192px; height: 20px;">
+          <a style="margin-left: -20%"> Software engineer</a>
+          <input type="checkbox" name="textileEngineer" value="textileEngineer" style="margin-left: -155px; height: 20px;">
+          <a style="margin-left: -20%"> Textile engineer </a>
+          <br><br>
+
+          <h6>
+            Environmental Conservation Services
+          </h6>
+          <input type="checkbox" name="aquacultureAssistant" value="aquacultureAssistant" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Aquaculture assistant</a>
+          <input type="checkbox" name="environmentalOfficer" value="environmentalOfficer" style="margin-left: -154px; height: 20px;">
+          <a style="margin-left: -20%">Environmental officer </a>
+          <input type="checkbox" name="fisheryResourcesSpecialist" value="fisheryResourcesSpecialist" style="margin-left: -175px; height: 20px;">
+          <a style="margin-left: -20%"> Fishery resources specialist</a>
+          <input type="checkbox" name="marineEcologist" value="marineEcologist" style="margin-left: -192px; height: 20px;">
+          <a style="margin-left: -20%"> Marine ecologist</a> <br><br>
+          <input type="checkbox" name="naturalResourcesSpecialist" value="naturalResourcesSpecialist" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Natural resources specialist</a>
+          <input type="checkbox" name="sustainabilityOfficer" value="sustainabilityOfficer" style="margin-left: -191px; height: 20px;">
+          <a style="margin-left: -20%"> Sustainability officer</a>
+          <br><br>
+
+          <h6>
+            Geography
+          </h6>
+          <input type="checkbox" name="geographer" value="geographer" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%">Geographer </a>
+          <input type="checkbox" name="remoteSensingAnalyst" value="remoteSensingAnalyst" style="margin-left: -89px; height: 20px;">
+          <a style="margin-left: -20%"> Remote sensing analyst</a>
+          <br><br>
+
+          <h6>
+            Health Care
+          </h6>
+          <input type="checkbox" name="audiologist" value="audiologist" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Audiologist</a>
+          <input type="checkbox" name="biomedicalScientist" value="biomedicalScientist" style="margin-left: -86px; height: 20px;">
+          <a style="margin-left: -20%"> Biomedical scientist</a>
+          <input type="checkbox" name="counselor" value="counselor" style="margin-left: -162px; height: 20px;">
+          <a style="margin-left: -20%"> Counselor</a>
+          <input type="checkbox" name="dentist" value="dentist" style="margin-left: -78px; height: 20px;">
+          <a style="margin-left: -20%"> Dentist</a> <br><br>
+          <input type="checkbox" name="doctor" value="doctor" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Doctor</a>
+          <input type="checkbox" name="medicalLabortoryScientist" value="medicalLabortoryScientist" style="margin-left: -54px; height: 20px;">
+          <a style="margin-left: -20%"> Medical labortory scientist</a>
+          <input type="checkbox" name="nurse" value="nurse" style="margin-left: -196px; height: 20px;">
+          <a style="margin-left: -20%"> Nurse</a>
+          <input type="checkbox" name="pharmacist" value="pharmacist" style="margin-left: -61px; height: 20px;">
+          <a style="margin-left: -20%"> Pharmacist</a> <br><br>
+          <input type="checkbox" name="physician" value="physician" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Physician</a>
+          <input type="checkbox" name="physiotherapist" value="physiotherapist" style="margin-left: -70px; height: 20px;">
+          <a style="margin-left: -20%"> Physiotherapist</a>
+          <input type="checkbox" name="radiographer" value="radiographer" style="margin-left: -132px; height: 20px;">
+          <a style="margin-left: -20%"> Radiographer</a>
+          <br><br>
+
+          <h6>
+            Hospitality Services
+          </h6>
+          <input type="checkbox" name="accomodationManager" value="accomodationManager" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Accomodation manager</a>
+          <input type="checkbox" name="hotelManager" value="hotelManager" style="margin-left: -175px; height: 20px;">
+          <a style="margin-left: -20%"> Hotel manager</a>
+          <input type="checkbox" name="touristGuide" value="touristGuide" style="margin-left: -130px; height: 20px;">
+          <a style="margin-left: -20%"> Tourist guide</a>
+          <br><br>
+
+          <h6>
+            Legal Services
+          </h6>
+          <input type="checkbox" name="judge" value="judge" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%">Judge </a>
+          <input type="checkbox" name="lawyer" value="lawyer" style="margin-left: -49px; height: 20px;">
+          <a style="margin-left: -20%"> Lawyer</a>
+          <input type="checkbox" name="legalOfficer" value="legalOfficer" style="margin-left: -70px; height: 20px;">
+          <a style="margin-left: -20%"> Legal officer</a>
+          <br><br>
+
+          <h6>
+            Logistics
+          </h6>
+          <input type="checkbox" name="airTrafficController" value="airTrafficController" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Air traffic controller</a>
+          <br><br>
+
+          <h6>
+            Mass Communication
+          </h6>
+          <input type="checkbox" name="broadcastPresenter" value="broadcastPresenter" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%">Broadcast presenter </a>
+          <input type="checkbox" name="filmDirector" value="filmDirector" style="margin-left: -150px; height: 20px;">
+          <a style="margin-left: -20%"> Film director</a>
+          <br><br>
+
+          <h6>
+            Organizational Management
+          </h6>
+          <input type="checkbox" name="businessAnalyst" value="businessAnalyst" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Business analyst</a>
+          <input type="checkbox" name="entrepreneur" value="entrepreneur" style="margin-left: -122px; height: 20px;">
+          <a style="margin-left: -20%"> Entrepreneur</a>
+          <input type="checkbox" name="facilitiesManager" value="facilitiesManager" style="margin-left: -115px; height: 20px;">
+          <a style="margin-left: -20%"> Facilities manager</a>
+          <input type="checkbox" name="managementAnalyst" value="managementAnalyst" style="margin-left: -129px; height: 20px;">
+          <a style="margin-left: -20%"> Management analyst</a> <br><br>
+          <input type="checkbox" name="marketingExcecutive" value="marketingExcecutive" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Marketing excecutive</a>
+          <input type="checkbox" name="marketingManager" value="marketingManager" style="margin-left: -158px; height: 20px;">
+          <a style="margin-left: -20%"> Marketing manager</a>
+          <input type="checkbox" name="operationsResearchAnalyst" value="operationsResearchAnalyst" style="margin-left: -163px; height: 20px;">
+          <a style="margin-left: -20%"> Operations research analyst</a>
+          <input type="checkbox" name="productionManager" value="productionManager" style="margin-left: -196px; height: 20px;">
+          <a style="margin-left: -20%"> Production manager</a> <br><br>
+          <input type="checkbox" name="projectManager" value="projectManager" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Project manager</a>
+          <br><br>
+
+          <h6>
+            Physical Education
+          </h6>
+          <input type="checkbox" name="coach" value="coach" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Coach</a>
+          <input type="checkbox" name="physicalInstructor" value="physicalInstructor" style="margin-left: -54px; height: 20px;">
+          <a style="margin-left: -20%"> Physical instructor</a>
+          <br><br>
+
+          <h6>
+            Research
+          </h6>
+          <input type="checkbox" name="mathematician" value="mathematician" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Mathematician</a>
+          <input type="checkbox" name="molecularBiologist" value="molecularBiologist" style="margin-left: -115px; height: 20px;">
+          <a style="margin-left: -20%"> Molecular biologist</a>
+          <input type="checkbox" name="researchAnalyst" value="researchAnalyst" style="margin-left: -158px; height: 20px;">
+          <a style="margin-left: -20%"> Research analyst</a>
+          <input type="checkbox" name="scientist" value="scientist" style="margin-left: -121px; height: 20px;">
+          <a style="margin-left: -20%"> Scientist</a>
+          <br><br>
+
+          <h6>
+            Translation
+          </h6>
+          <input type="checkbox" name="translator" value="translator" style="margin-left: -190px; height: 20px;">
+          <a style="margin-left: -20%"> Translator</a>
+
+          <div class="container">
+            <button type="button" class="btn btn-info" style="left:10%; position: relative">Back </button>
+            <button type="button" class="btn btn-info" style="left:155%; position: relative">Add </button>
+          </div>
+          <br>
+
+        </form>
+  </div>
+</div>
+</div>
+</body>

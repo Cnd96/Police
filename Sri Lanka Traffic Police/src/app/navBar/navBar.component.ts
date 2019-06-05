@@ -15,7 +15,7 @@ export class NavBarComponent implements OnInit {
   ShowHomeComponent(){ this.router.navigate(['/home']);}
   ShowFinesComponent(){this.router.navigate(['/fines']);}
   ShowTrafficPolicemenComponent(){this.router.navigate(['/trafficPolicemen']);}
-  ShowRecordFinesForm(){this.router.navigate(['/recordFine']);}
+  ShowRecordFinesForm(){this.router.navigate(['/searchDriver']);}
 
   logout(){
     localStorage.removeItem('token');

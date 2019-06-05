@@ -24,7 +24,7 @@ export class UnpaidFinesTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: UnpaidFinesTableDataSource;
-  data:any;
+  fines:any;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['fineId','licenseNo','vehicle','policemanName','date','days','amount','actions'];
   
@@ -65,9 +65,9 @@ export class UnpaidFinesTableComponent implements OnInit {
   getUnpaifines(){
     this.finesService.getAllOfficersAllMonthsUnpaidFines(this.currentYear)
     .subscribe(response=>{
-      this.data=response;
+      this.fines=response;
       console.log(response);
-      this.dataSource = new UnpaidFinesTableDataSource(this.paginator, this.sort,this.data);
+      this.dataSource = new UnpaidFinesTableDataSource(this.paginator, this.sort,this.fines);
     },(error:Response)=>{
       console.log(error);
     })
@@ -78,9 +78,9 @@ export class UnpaidFinesTableComponent implements OnInit {
     // console.log(this.selectedYear);
     this.finesService.getAllOfficersOneMonthUnpaidFines(this.selectedMonth,this.selectedYear)
     .subscribe(response=>{
-      this.data=response;
+      this.fines=response;
       console.log(response);
-      this.dataSource = new UnpaidFinesTableDataSource(this.paginator, this.sort,this.data);
+      this.dataSource = new UnpaidFinesTableDataSource(this.paginator, this.sort,this.fines);
     },(error:Response)=>{
       console.log(error);
     })

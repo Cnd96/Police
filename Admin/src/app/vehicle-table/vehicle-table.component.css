@@ -1,13 +1,18 @@
 .full-width-table {
   width: 100%;
 }
-
 .data-table{
   width:80%;
-  margin: 60px auto;
+  margin: 30px auto;
 }
 
-td {
+button{
+  position: relative;
+  left:25%;
+  margin: 5px;
+}
+
+td{
   font-size: 16px;
   font-weight: 500;
 }

@@ -25,6 +25,8 @@ import { CreatePoliceStationComponent } from './createPoliceStation/createPolice
 import { OicDivisionService } from './_services/oicDivision.service';
 import { ConfirmDialogComponent } from './confirmDialog/confirmDialog.component';
 import { CreateOffenceComponent } from './createOffence/createOffence.component';
+import { VehicleTableComponent } from './vehicle-table/vehicle-table.component';
+import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { CreateOffenceComponent } from './createOffence/createOffence.component'
       PoliceStationsTableComponent,
       CreatePoliceStationComponent,
       ConfirmDialogComponent,
-      CreateOffenceComponent
+      CreateOffenceComponent,
+      VehicleTableComponent,
+    
    ],
    imports: [
       BrowserModule,
@@ -48,7 +52,10 @@ import { CreateOffenceComponent } from './createOffence/createOffence.component'
       CustomMaterialModule,
       FormsModule,
       ReactiveFormsModule,
-      HttpClientModule
+      HttpClientModule,
+      MatTableModule,
+      MatPaginatorModule,
+      MatSortModule
    ],
    providers: [
       AuthService,

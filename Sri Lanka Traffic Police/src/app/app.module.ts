@@ -1,3 +1,4 @@
+import { AddDegreesComponent } from './addDegrees/addDegrees.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -30,6 +31,7 @@ import { TPPaidFinesTableComponent } from './tp-paid-fines-table/tp-paid-fines-t
 import { RecordFineComponent } from './RecordFine/RecordFine.component';
 
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { RecordComponent } from './record/record.component';
 
 @NgModule({
    declarations: [
@@ -50,7 +52,9 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
       TestReportComponent,
       TPUnpaidFinesTableComponent,
       TPPaidFinesTableComponent,
-      RecordFineComponent
+      RecordFineComponent,
+      AddDegreesComponent,
+      RecordComponent
    ],
    imports: [
       BrowserModule,

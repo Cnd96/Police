@@ -1,0 +1,42 @@
+<app-navBar></app-navBar>
+<div  class="container" style="margin-top: 150px" >
+  <h1>Search Driver</h1>
+  <div>
+      <mat-form-field style="width: 30% ;min-width: 100px" class="search-form-field search-div " floatLabel="never">
+          <input [(ngModel)]="driverId" matInput placeholder="Search Driver" autocomplete="off" >
+      </mat-form-field>
+      <button mat-raised-button (click)="getDriverDetails()" color="accent">Search Driver</button>
+  </div>
+</div>
+
+<div *ngIf="driver" class="container ">
+  <div class="center driver-card" >  
+      <h1 style="text-align: center ;padding-top: 20px">{{driver._id}}</h1> 
+      <h5 style="padding-left:20px">Name : <span>{{driver.Name}}</span></h5>
+      <h5 style="padding-left:20px">Address : <span>{{driver.Address}}</span></h5>
+      <h5 style="padding-left:20px">Categories of Vehicles : <span>{{driver.CatogeriesOfVehicles}}</span></h5>
+      <h5 style="padding-left:20px">Date of Issue : <span>{{driver.DateOfIssue}}</span> Date of Expire : <span>{{driver.DateOfExpire}}</span></h5>
+      
+      <h5 style="padding-left:20px;margin-top: 30px">Unpaid Fines: {{unpaidFines.length}} </h5>
+      <div style="padding-left:20px ;color: red" *ngFor="let unpaidfine of unpaidFines">
+        <h6>•Fine ID : {{unpaidfine._id}}</h6>
+        <p>Date : {{unpaidfine.date}}</p>
+      </div>
+     
+      <div style="padding-bottom: 20px">
+        <h5 style="padding-left:20px;margin-top: 30px">Paid Fines : {{paidFines.length}}</h5>
+        <div style="padding-left:20px" *ngFor="let paidfine of paidFines">
+          <h6>•Fine ID : {{paidfine._id}}</h6>
+          <p>Date : {{paidfine.date}}</p>
+        </div>
+
+        <div>
+          <button class="button" mat-raised-button color="accent">Record Court Case</button>
+          <button class="button" mat-raised-button color="primary" (click)="recordFine()">Record Fine</button>
+        </div>
+        
+      </div>
+
+
+  </div>
+</div>  

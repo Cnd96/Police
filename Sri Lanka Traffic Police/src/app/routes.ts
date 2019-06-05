@@ -1,3 +1,4 @@
+import { AddDegreesComponent } from './addDegrees/addDegrees.component';
 import { ViewTrafficPolicemanComponent } from './viewTrafficPoliceman/viewTrafficPoliceman.component';
 import { FinesComponent } from './fines/fines.component';
 
@@ -8,6 +9,7 @@ import { TrafficPolicemenComponent } from './trafficPolicemen/trafficPolicemen.c
 import { PayUnpaidFineComponent } from './payUnpaidFine/payUnpaidFine.component';
 import { TestReportComponent } from './testReport/testReport.component';
 import { RecordFineComponent } from './RecordFine/RecordFine.component';
+import { RecordComponent } from './record/record.component';
 
 
 export const appRoutes: Routes = [
@@ -15,9 +17,11 @@ export const appRoutes: Routes = [
     {path: 'fines', component: FinesComponent},
     {path: 'trafficPolicemen', component: TrafficPolicemenComponent},
     {path: '', component: LoginComponent},
-    {path:'viewTrafficPoliceman',component:ViewTrafficPolicemanComponent},
-    {path:'payUnpaidFine',component:PayUnpaidFineComponent},
-    {path:'recordFine',component:RecordFineComponent},
+    {path:'viewTrafficPoliceman/:trafficPolicemanId',component:ViewTrafficPolicemanComponent},
+    {path:'payUnpaidFine/:unpaidFineId',component:PayUnpaidFineComponent},
+    {path:'recordFine/:licenseNo',component:RecordFineComponent},
+    {path:'searchDriver',component:RecordComponent},
     {path:'testReport',component:TestReportComponent},
+    {path:'add',component:AddDegreesComponent},
     {path: '**', redirectTo: 'home', pathMatch: 'full'},
 ];

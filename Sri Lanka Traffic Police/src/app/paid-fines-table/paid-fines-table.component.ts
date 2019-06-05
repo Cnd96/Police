@@ -22,7 +22,7 @@ export class PaidFinesTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   dataSource: PaidFinesTableDataSource;
-  data:any;
+  fines:any;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id','license','vehicle','policeman','date','amount','actions'];
   currentYear=new Date().getFullYear();
@@ -60,9 +60,9 @@ export class PaidFinesTableComponent implements OnInit {
   getPaifines(){
     this.finesService.getAllOfficersAllMonthsPaidFines(this.currentYear)
     .subscribe(response=>{
-      this.data=response;
+      this.fines=response;
       console.log(response);
-      this.dataSource = new PaidFinesTableDataSource(this.paginator, this.sort,this.data);
+      this.dataSource = new PaidFinesTableDataSource(this.paginator, this.sort,this.fines);
     },(error:Response)=>{
       console.log(error);
     })
@@ -71,9 +71,9 @@ export class PaidFinesTableComponent implements OnInit {
     // console.log(this.selectedMonth);
     this.finesService.getAllOfficersOneMonthPaidFines(this.selectedMonth,this.selectedYear)
     .subscribe(response=>{
-      this.data=response;
+      this.fines=response;
       console.log(response);
-      this.dataSource = new PaidFinesTableDataSource(this.paginator, this.sort,this.data);
+      this.dataSource = new PaidFinesTableDataSource(this.paginator, this.sort,this.fines);
     },(error:Response)=>{
       console.log(error);
     })

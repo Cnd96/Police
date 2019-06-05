@@ -13,6 +13,11 @@ getPoliceStations() {
   return this.http.get(this.baseUrl + 'policeStations');
 }
 
+getVehicles() {
+  return this.http.get('http://localhost:3001/api/' + 'vehicles');
+}
+
+
 createPoliceStation(policeStation: any){
   return this.http.post(this.baseUrl + 'policeStations', policeStation);
 }

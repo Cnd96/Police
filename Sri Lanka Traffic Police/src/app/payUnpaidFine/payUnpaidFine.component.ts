@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import * as jspdf from 'jspdf'; 
 import html2canvas from 'html2canvas'; 
 import { DialogService } from '../_services/dialog.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-payUnpaidFine',
@@ -15,15 +15,18 @@ export class PayUnpaidFineComponent implements OnInit {
   unPaidFineId:any;
   fine:any;
   offences:any;
-  constructor(private fineservice: FineService,private dialogService:DialogService,private router:Router) { }
+  constructor(private fineservice: FineService,private route:ActivatedRoute,
+    private dialogService:DialogService,private router:Router) { }
 
   ngOnInit() {
-     this.unPaidFineId=this.fineservice.unpaidFineID;
-    // console.log(this.unPaidFineId);
-   
+    this.route.paramMap
+      .subscribe(params=>{
+        this.unPaidFineId= params.get('unpaidFineId');
+      })
+
     this.fine= this.fineservice.getfine(this.unPaidFineId)
     .subscribe(response=>{
-      // console.log(response);
+      console.log(response);
       this.fine=response[0];
       this.offences=response[0].offences;
       if(this.fine.dateDifference>14){

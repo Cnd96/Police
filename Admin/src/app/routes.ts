@@ -10,5 +10,6 @@ export const appRoutes: Routes = [
     {path: 'offences', component: OffencesComponent,canActivate:[AuthGuard]},
     {path: 'policestations', component: PoliceStationComponent,canActivate:[AuthGuard]},
     {path: '', component: LoginComponent},
+
     {path: '**', redirectTo: 'home', pathMatch: 'full'},
 ];

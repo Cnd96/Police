@@ -41,18 +41,20 @@ export class HomeComponent implements OnInit {
     .subscribe(response=>{
       this.fine=response[0];
       if(this.fine.fineStatus==true){
-        this.dialogService.openMessageDialog('Enter unpaid fine');
+        this.dialogService.openMessageDialog('Enter unpaid fine.');
       }
       else{
-        this.fineService.unpaidFineID=this.fineId;
-        this.router.navigate(['/payUnpaidFine']);
+        this.router.navigate(['/payUnpaidFine',this.fineId]);
       }
      
       // console.log(this.fineId);
       // this.dataSource = new PaidFinesTableDataSource(this.paginator, this.sort,this.data);
     },(error:Response)=>{
-      this.dialogService.openMessageDialog('Invalid Fine Id');
-      console.log(error);
+      if(error.status===404){
+        this.dialogService.openMessageDialog('Invalid Fine Id.');
+        console.log(error);
+      }
+      
     })
   }
 

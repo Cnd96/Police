@@ -13,8 +13,5 @@ const counterSchema = new mongoose.Schema({
   }
   });
   
-
 const Counter = mongoose.model('counter',counterSchema);
-
-
 exports.Counter = Counter; 

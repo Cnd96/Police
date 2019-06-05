@@ -245,6 +245,7 @@ router.get('/:id', async (req, res) => {
                 vehicleNo:1,
                 offences:1,
                 amount:1,
+                place:1,
                 fineStatus:1,
                 policeStationName:1,
                 policeman:{name:1,_id:1,rank:1},

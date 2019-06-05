@@ -7,7 +7,7 @@ import {map, startWith} from 'rxjs/operators';
 import { OffenceService } from '../_services/offence.service';
 import { fineFormValidators } from './fineFormValidators';
 import { FineService } from '../_services/fine.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DialogService } from '../_services/dialog.service';
 
 export interface TrafficPoliceman {
@@ -33,6 +33,7 @@ export class RecordFineComponent implements OnInit {
   fineOffences:any;
   totalAmount=0;
   sectionOfAct=[];
+  driverLicenseNo;
 
 
   fineStatusSelected:any;
@@ -40,13 +41,19 @@ export class RecordFineComponent implements OnInit {
 
   constructor(private fb: FormBuilder,private trafficPolicemenService:TrafficPolicemenService,private router:Router,
     private offenceService:OffenceService,private authService:AuthService,private fineService:FineService
-    ,private dialogService:DialogService) { }
+    ,private dialogService:DialogService,private route:ActivatedRoute) { }
 
   ngOnInit() {
     this.fineOffences=[];
-    this.createFineForm();
+  
     this.loadPolicemen();
     this.loadOffences();
+
+    this.route.paramMap
+    .subscribe(params=>{
+      this.driverLicenseNo= params.get('licenseNo');
+    })
+    this.createFineForm();
 
   }
 
@@ -97,7 +104,7 @@ export class RecordFineComponent implements OnInit {
   createFineForm() {
     this.fineForm = this.fb.group({
       fineId:['',Validators.required],
-      licenseNo:['',fineFormValidators.licenseNoValidator],
+      licenseNo:[this.driverLicenseNo,fineFormValidators.licenseNoValidator],
       vehicleNo: ['',fineFormValidators.vehicleNoValidator],
       offences:[''],
       fineStatus: ['',Validators.required ],
@@ -168,6 +175,8 @@ export class RecordFineComponent implements OnInit {
       this.fineForm.patchValue({totalAmountPaid:0})
       this.fineForm.get('totalAmountPaid').updateValueAndValidity();
     }
+
+    
     this.fineForm.patchValue({offences:this.sectionOfAct});
     this.fineForm.get('offences').updateValueAndValidity();
 
