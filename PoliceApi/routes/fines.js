@@ -131,6 +131,7 @@ router.get('/', async (req, res) => {
                     dateDifference: { $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
                 }
             },
+            {$match:{year:parseInt(yearQuery)}},
             { $sort : { date : 1 } }
         ]);
         return fine;
