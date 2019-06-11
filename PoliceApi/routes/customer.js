@@ -25,3 +25,16 @@ router.post('/', async (req, res) => {
 
 
 module.exports = router; 
+
+
+
+
+let policeStationNameQuery=req.query.policeStationName;
+// let policeManIdQuery=req.query.policeManId;
+let pageNumber=parseInt(req.query.pageNumber);
+let pageSize=2;
+let monthQuery=req.query.month;
+let yearQuery=req.query.year;
+let fineStatusQuery=true;
+// if(req.query.fineStatus.localeCompare("true")){fineStatusQuery=false}
+

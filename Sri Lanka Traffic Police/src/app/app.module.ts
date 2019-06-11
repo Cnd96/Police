@@ -1,4 +1,4 @@
-import { AddDegreesComponent } from './addDegrees/addDegrees.component';
+// import { AddDegreesComponent } from './addDegrees/addDegrees.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -53,8 +53,8 @@ import { RecordComponent } from './record/record.component';
       TPUnpaidFinesTableComponent,
       TPPaidFinesTableComponent,
       RecordFineComponent,
-      AddDegreesComponent,
-      RecordComponent
+      // AddDegreesComponent,
+      RecordComponent,
    ],
    imports: [
       BrowserModule,

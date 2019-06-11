@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
         name: req.body.name,
         address: req.body.address,
         nationalId: req.body.nationalId,
-        dateOfBirth: req.body.dateOfBirth,
+        dateOfBirth:new Date(req.body.dateOfBirth),
         phoneNo: req.body.phoneNo,
         password:passwordHash,
         rank: {

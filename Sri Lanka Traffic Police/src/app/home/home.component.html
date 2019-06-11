@@ -1,18 +1,22 @@
 <app-navBar></app-navBar>
-<div class="container" id="contentToConvert" style="margin-top: 150px">
-  <h2> {{policeStationName}} Police Station</h2>
-  <h2> {{policeStation.address}}</h2>
-  <h2> {{policeStation.phoneNo}}</h2>
-  <br><br>  
+
+<div >
+    <div class="container"  style="margin-top: 150px">
+    <h2> {{policeStationName}} Police Station</h2>
+    <h4> {{policeStation.address}}</h4>
+    <h4> {{policeStation.phoneNo}}</h4>
+    <br><br>  
+  </div>
+  
+  <div  class="container">
+      <div>
+          <mat-form-field style="width: 30% ;min-width: 100px;" class="search-form-field search-div " floatLabel="never">
+              <input [(ngModel)]="fineId"   matInput placeholder="Search Fine" autocomplete="off" >
+          </mat-form-field>
+          <button mat-raised-button (click)="searchFine()" color="accent">Search Fine</button>
+      </div>
+  
+  </div>
 </div>
 
-<div  class="container">
-    <div>
-        <mat-form-field style="width: 30% ;min-width: 100px;" class="search-form-field search-div " floatLabel="never">
-            <input [(ngModel)]="fineId"   matInput placeholder="Search Fine" autocomplete="off" >
-        </mat-form-field>
-        <button mat-raised-button (click)="searchFine()" color="accent">Search Fine</button>
-    </div>
-
-</div>
 

@@ -23,43 +23,75 @@ router.post('/', async (req, res) => {
     let amount=0;
     for(let i=0;i<offencesArrLength;i++){
         let offence=await Offence.findOne({_id:req.body.offences[i]});
+        if (!offence) return res.status(400).send('Invalid offence.');
         amount+=offence.amount;
         offences.push(offence);
     }
     
-    const driver = await Driver.findOne({ _id : req.body.licenseNo});
-    if (!driver) return res.status(400).send('Invalid driver license number.');
+    let driver = await Driver.findOne({ _id : req.body.licenseNo});
+    if (!((driver)||req.body.licenseNo=='No')) return res.status(400).send('Invalid driver license number.');
 
-    // let counter=await Counter.findOneAndUpdate({ "name" : "fineId" },{ $inc: { "value" : 1 } });
+    let fineToCreate ;
+
+    if(req.body.licenseNo=='No'){
+        fineToCreate = new Fine({ 
+            // _id:counter.value+1,
+            _id:req.body.fineId,
+            licenseNo:'No',
+            driverName: 'No',
+            driverAddress:'No',
+            CatogeriesOfVehicles: 'No',
+            vehicleNo:req.body.vehicleNo,
+            offences:offences,
+            time:req.body.time,
+            amount:amount,
+            fineStatus:req.body.fineStatus,
+            place:req.body.place,
+            date:new Date(req.body.date),
+            validUntil:req.body.validUntil,
+            policeStationName:policeStation.policeStationName,
+            policeman:{
+                _id:policeman._id,
+                name:policeman.name,
+                rank:policeman.rank.name
+            },
+            totalAmountPaid:req.body.totalAmountPaid
+        });
+    }
+    else{
+        
+        fineToCreate = new Fine({ 
+            // _id:counter.value+1,
+            _id:req.body.fineId,
+            licenseNo:driver._id,
+            driverName: driver.Name,
+            driverAddress: driver.Address,
+            CatogeriesOfVehicles: driver.CatogeriesOfVehicles,
+            vehicleNo:req.body.vehicleNo,
+            offences:offences,
+            time:req.body.time,
+            amount:amount,
+            fineStatus:req.body.fineStatus,
+            place:req.body.place,
+            date:new Date(req.body.date),
+            validUntil:req.body.validUntil,
+            policeStationName:policeStation.policeStationName,
+            policeman:{
+                _id:policeman._id,
+                name:policeman.name,
+                rank:policeman.rank.name
+            },
+            totalAmountPaid:req.body.totalAmountPaid
+        });
+    }
+    // let counter=await Counter.findOneAndUpdate({ "name" : "itemId" },{ $inc: { "value" : 1 } });
 
     // let validUntil=req.body.date;
     // validUntil.setDate(validUntil.getDate()+28);
 
     // var dt = new Date("December 30, 2017 11:20:25");
     // dt.setDate( dt.getDate() - 10 );
-    let fineToCreate = new Fine({ 
-        _id:req.body.fineId,
-        licenseNo:driver._id,
-        driverName: driver.Name,
-        driverAddress: driver.Address,
-        CatogeriesOfVehicles: driver.CatogeriesOfVehicles,
-        vehicleNo:req.body.vehicleNo,
-        offences:offences,
-        time:req.body.time,
-        amount:amount,
-        fineStatus:req.body.fineStatus,
-        place:req.body.place,
-        date:req.body.date,
-        validUntil:req.body.validUntil,
-        policeStationName:policeStation.policeStationName,
-        policeman:{
-            _id:policeman._id,
-            name:policeman.name,
-            rank:policeman.rank.name
-        },
-        date:req.body.date,
-        totalAmountPaid:req.body.totalAmountPaid
-    });
+  
     fineToCreate = await fineToCreate.save();
 
     res.send(fineToCreate);
@@ -94,7 +126,8 @@ router.get('/', async (req, res) => {
                     fineStatus:1,
                     policeStationName:1,
                     policeman:{name:1,_id:1,rank:1},
-                    date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+                    // date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+                    date:1,
                     month: { $month: "$date" },
                     year:{$year:"$date"},
                     dateDifference: { $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
@@ -127,7 +160,8 @@ router.get('/', async (req, res) => {
                     fineStatus:1,
                     policeStationName:1,
                     policeman:{name:1,_id:1,rank:1},
-                    date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+                    // date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+                    date:1,
                     dateDifference: { $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
                 }
             },
@@ -157,7 +191,8 @@ router.get('/', async (req, res) => {
                     policeStationName:1,
                     policeman:{name:1,_id:1,rank:1},
                     year:{$year:"$date"},
-                    date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+                    // date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+                    date:1,
                     dateDifference:{ $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
                 }
             },
@@ -186,7 +221,8 @@ router.get('/', async (req, res) => {
                     fineStatus:1,
                     policeStationName:1,
                     policeman:{name:1,_id:1,rank:1},
-                    date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+                    // date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+                    date:1,
                     month: { $month: "$date" },
                     // xx:aa,
                     year:{$year:"$date"},

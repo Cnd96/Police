@@ -1,4 +1,4 @@
-import { AddDegreesComponent } from './addDegrees/addDegrees.component';
+// import { AddDegreesComponent } from './addDegrees/addDegrees.component';
 import { ViewTrafficPolicemanComponent } from './viewTrafficPoliceman/viewTrafficPoliceman.component';
 import { FinesComponent } from './fines/fines.component';
 
@@ -22,6 +22,6 @@ export const appRoutes: Routes = [
     {path:'recordFine/:licenseNo',component:RecordFineComponent},
     {path:'searchDriver',component:RecordComponent},
     {path:'testReport',component:TestReportComponent},
-    {path:'add',component:AddDegreesComponent},
+    // {path:'add',component:AddDegreesComponent},
     {path: '**', redirectTo: 'home', pathMatch: 'full'},
 ];

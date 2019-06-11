@@ -14,13 +14,11 @@ const fineSchema = new mongoose.Schema({
       driverName: {
         type: String,
         required: true,
-        minlength: 4,
         maxlength: 250
       },
       driverAddress:{
         type: String,
         required: true,
-        minlength: 4,
         maxlength: 250
       },
       CatogeriesOfVehicles:[

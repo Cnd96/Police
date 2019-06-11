@@ -62,6 +62,9 @@ export class PaidFinesTableComponent implements OnInit {
     .subscribe(response=>{
       this.fines=response;
       console.log(response);
+      this.fines.forEach(function (fine) {
+        fine.date=new Date(fine.date).toDateString()
+      });
       this.dataSource = new PaidFinesTableDataSource(this.paginator, this.sort,this.fines);
     },(error:Response)=>{
       console.log(error);
@@ -73,6 +76,9 @@ export class PaidFinesTableComponent implements OnInit {
     .subscribe(response=>{
       this.fines=response;
       console.log(response);
+      this.fines.forEach(function (fine) {
+        fine.date=new Date(fine.date).toDateString()
+      });
       this.dataSource = new PaidFinesTableDataSource(this.paginator, this.sort,this.fines);
     },(error:Response)=>{
       console.log(error);

@@ -1,0 +1,17 @@
+.image{
+    height: 100em;
+    width: auto;
+    background-image: url('../policeLogo.png');
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-blend-mode: overlay;
+    size:200px;
+    filter: brightness(100%);
+    background-size: contain
+}
+body{
+    background-image: url('../policeLogo.png');
+    background-repeat: no-repeat;
+    background-position: middle;
+}
+

@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { FineService } from './../_services/fine.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
@@ -67,7 +68,14 @@ export class UnpaidFinesTableComponent implements OnInit {
     .subscribe(response=>{
       this.fines=response;
       console.log(response);
-      this.dataSource = new UnpaidFinesTableDataSource(this.paginator, this.sort,this.fines);
+
+      this.fines.forEach(function (fine) {
+        fine.date=new Date(fine.date).toDateString()
+      });
+      // console.log(this.fines);
+
+    this.dataSource = new UnpaidFinesTableDataSource(this.paginator, this.sort,this.fines);
+      // console.log(this.dataSource);
     },(error:Response)=>{
       console.log(error);
     })
@@ -79,7 +87,10 @@ export class UnpaidFinesTableComponent implements OnInit {
     this.finesService.getAllOfficersOneMonthUnpaidFines(this.selectedMonth,this.selectedYear)
     .subscribe(response=>{
       this.fines=response;
-      console.log(response);
+      console.log(this.fines);
+      this.fines.forEach(function (fine) {
+        fine.date=new Date(fine.date).toDateString()
+      });
       this.dataSource = new UnpaidFinesTableDataSource(this.paginator, this.sort,this.fines);
     },(error:Response)=>{
       console.log(error);

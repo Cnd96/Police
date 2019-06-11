@@ -180,18 +180,23 @@ export class RecordFineComponent implements OnInit {
     this.fineForm.patchValue({offences:this.sectionOfAct});
     this.fineForm.get('offences').updateValueAndValidity();
 
+
+    let date=new Date(this.fineForm.value.date);
+    this.fineForm.patchValue({date:date.toDateString()});
+
     // const date=this.fineForm.value.date;
 
     let validuntilDate = new Date(this.fineForm.value.date);
     // let dt = this.fineForm.value.date;
     validuntilDate.setDate( validuntilDate.getDate() +28 );
-    this.fineForm.patchValue({validUntil :validuntilDate});
+    this.fineForm.patchValue({validUntil :validuntilDate.toDateString()});
     this.fineForm.get('validUntil').updateValueAndValidity();
     // if(this.fineForm.invalid){
     //   console.log("invalid");
     //   return;
     // }
     this.fine = Object.assign({}, this.fineForm.value);
+    console.log(this.fine);
     this.dialogService.openConfirmDialog('Confirm Record Fine?')
         .afterClosed().subscribe(res =>{
           console.log(res);

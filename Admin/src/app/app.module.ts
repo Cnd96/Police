@@ -25,7 +25,6 @@ import { CreatePoliceStationComponent } from './createPoliceStation/createPolice
 import { OicDivisionService } from './_services/oicDivision.service';
 import { ConfirmDialogComponent } from './confirmDialog/confirmDialog.component';
 import { CreateOffenceComponent } from './createOffence/createOffence.component';
-import { VehicleTableComponent } from './vehicle-table/vehicle-table.component';
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 
 
@@ -42,7 +41,6 @@ import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/mate
       CreatePoliceStationComponent,
       ConfirmDialogComponent,
       CreateOffenceComponent,
-      VehicleTableComponent,
     
    ],
    imports: [

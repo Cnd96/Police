@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { TrafficPolicemenService } from '../_services/trafficPolicemen.service';
 import { AuthService } from '../_services/auth.service';
+import { DialogService } from '../_services/dialog.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-createPoliceman',
@@ -17,7 +19,8 @@ export class CreatePolicemanComponent implements OnInit {
   policemanForm: FormGroup;
   ranks;
 
-  constructor( private fb: FormBuilder,private trafficPolicemenService :TrafficPolicemenService,private authService:AuthService,private dialogRef:MatDialogRef<CreatePolicemanComponent>) { }
+  constructor( private fb: FormBuilder,private trafficPolicemenService :TrafficPolicemenService,private router:Router,
+    private dialogService:DialogService,private authService:AuthService,private dialogRef:MatDialogRef<CreatePolicemanComponent>) { }
 
   ngOnInit() {
     this.createRegisterForm();
@@ -57,11 +60,15 @@ export class CreatePolicemanComponent implements OnInit {
   
   submit(){
     this.policemanForm.patchValue({policeStationId:this.policeStationID});
+
+    let date=new Date(this.policemanForm.value.dateOfBirth);
+    this.policemanForm.patchValue({dateOfBirth:date.toDateString()});
+
     this.policeman = Object.assign({}, this.policemanForm.value);
     this.trafficPolicemenService.createTrafficPoliceman(this.policeman).subscribe(next=>{
-      alert("Succesfully created new traffic policeman");
-      // this.router.navigate(['/home/offences']);
-  
+    this.dialogService.openMessageDialog('Succesfully created policeman');
+    this.close();
+     this.router.navigate(['/home']);
     },(error:Response)=>{
       
       if(error.status===400){

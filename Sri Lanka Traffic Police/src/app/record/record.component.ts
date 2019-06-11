@@ -1,6 +1,7 @@
 import { FineService } from './../_services/fine.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DialogService } from '../_services/dialog.service';
 
 @Component({
   selector: 'app-record',
@@ -13,13 +14,19 @@ export class RecordComponent implements OnInit {
   unpaidFines=[];
   paidFines=[];
   driverId:any;
-  constructor(private fineService:FineService,private router:Router) { }
+  constructor(private fineService:FineService,private router:Router,private dialogService:DialogService) { }
 
   ngOnInit() {
     
   }
 
   getDriverDetails(){
+
+    if(!(/^(B)(\d{7})$/.test(this.driverId))){
+      this.dialogService.openMessageDialog('Enter valid license number.');
+      return ;
+    }
+
     this.paidFines=[];
     this.unpaidFines=[];
     this.fineService.getDriverFinesDetails(this.driverId)
@@ -30,6 +37,7 @@ export class RecordComponent implements OnInit {
       console.log(this.unpaidFines);
       console.log(this.paidFines);
     },(error:Response)=>{
+      this.dialogService.openMessageDialog('Enter valid license number.');
       this.driver=null;
     })
   }
@@ -50,6 +58,9 @@ export class RecordComponent implements OnInit {
 
   recordFine(){
     this.router.navigate(['/recordFine',this.driver._id]);
+  }
+  recordNoLicenseFine(){
+    this.router.navigate(['/recordFine','No']);
   }
 
 
