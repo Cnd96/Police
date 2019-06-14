@@ -20,9 +20,11 @@ export class NavBarComponent implements OnInit {
   }
   ShowPoliceStationComponent(){
     this.router.navigate(['/policestations']);
+  } 
+  ShowReportsComponent(){
+    this.router.navigate(['/reports']);
   }
   logout(){
-    localStorage.removeItem('token');
     localStorage.removeItem('tokenAdmin');
     this.router.navigate(['']);
   }

@@ -1,0 +1,22 @@
+.image{
+    height:90%; 
+    background-size: 320px 400px;
+    width:auto;
+    background-image:url('./policeLogo.png');
+    /* background-blend-mode: overlay; */
+    background-position:50% 50%;
+    background-repeat: no-repeat;
+    filter: brightness(100%);
+    margin-top: -.5%;
+    margin-bottom: 20px
+    /* background-color: rgba(113, 185, 248, 0.925) */
+  }
+
+  #footer{
+    padding-top: 20px;
+    padding-left: 100px;
+    background-color:#182169;
+    color: #ffffff;
+    margin-top: -10%;
+    padding-bottom: 10px
+  }

@@ -20,6 +20,12 @@ export class PoliceStationsTableComponent implements OnInit {
   constructor(private policeStationService:PoliceStationService) { }
   ngOnInit() {
     this.getPoliceStation();
+    this.policeStationService.test().subscribe(response=>{
+  
+      console.log(response);
+    },(error:Response)=>{
+    })
+
   }
 
   getPoliceStation(){

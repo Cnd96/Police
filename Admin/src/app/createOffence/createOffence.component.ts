@@ -3,6 +3,7 @@ import {FormGroup,FormControl,Validators} from '@angular/forms';
 import { OffenceService } from '../_services/offence.service';
 import { Router } from '@angular/router';
 import {MatDialogRef} from '@angular/material';
+import { DialogService } from '../_services/dialog.service';
 
 @Component({
   selector: 'app-createOffence',
@@ -17,7 +18,8 @@ export class CreateOffenceComponent implements OnInit {
       provision: new FormControl('', Validators.required),
       amount: new FormControl('', Validators.required)}
   );
-  constructor(private dialogRef:MatDialogRef<CreateOffenceComponent>, private offenceService: OffenceService ,private router: Router) { }
+  constructor(private dialogRef:MatDialogRef<CreateOffenceComponent>, 
+    private dialogService:DialogService,private offenceService: OffenceService ,private router: Router) { }
 
   ngOnInit() {
     this.offenceService.getOffence().subscribe(response=>{
@@ -51,7 +53,7 @@ export class CreateOffenceComponent implements OnInit {
     if(this.newOffence==true){
       this.offenceService.createOffence(this.offence).subscribe(next=>{
         alert("Succesfully created new offence");
-        this.router.navigate(['/home/offences']);
+        this.router.navigate(['/home']);
         this.close();
       },(error:Response)=>{
         
@@ -65,7 +67,7 @@ export class CreateOffenceComponent implements OnInit {
     }
     else{
       this.offenceService.updateOffence(this.offence).subscribe(next=>{
-        alert("Succesfully updated offence");
+        this.dialogService.openMessageDialog('Succesfully updated offence');
         this.router.navigate(['/home/offences']);
         this.close();
       },(error:Response)=>{

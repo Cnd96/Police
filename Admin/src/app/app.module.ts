@@ -23,9 +23,12 @@ import { OffenceTableComponent } from './offence-table/offence-table.component';
 import { PoliceStationsTableComponent } from './police-stations-table/police-stations-table.component';
 import { CreatePoliceStationComponent } from './createPoliceStation/createPoliceStation.component';
 import { OicDivisionService } from './_services/oicDivision.service';
-import { ConfirmDialogComponent } from './confirmDialog/confirmDialog.component';
 import { CreateOffenceComponent } from './createOffence/createOffence.component';
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { ConfirmDialogComponent } from './confirmDialog/confirmDialog.component';
+import { MessageDialogComponent } from './messageDialog/messageDialog.component';
+import { ReportsComponent } from './reports/reports.component';
+import { OffenceReportComponent } from './AdminReports/offenceReport/offenceReport.component';
 
 
 @NgModule({
@@ -39,9 +42,11 @@ import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/mate
       OffenceTableComponent,
       PoliceStationsTableComponent,
       CreatePoliceStationComponent,
-      ConfirmDialogComponent,
       CreateOffenceComponent,
-    
+      ConfirmDialogComponent,
+      MessageDialogComponent,
+      ReportsComponent,
+      OffenceReportComponent
    ],
    imports: [
       BrowserModule,
@@ -68,7 +73,8 @@ import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/mate
    entryComponents: [
       CreateOffenceComponent,
       CreatePoliceStationComponent,
-      //fordialogbox\\n
+      ConfirmDialogComponent,
+      MessageDialogComponent
    ]
 })
 export class AppModule { }

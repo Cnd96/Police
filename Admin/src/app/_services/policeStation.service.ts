@@ -17,7 +17,9 @@ getVehicles() {
   return this.http.get('http://localhost:3001/api/' + 'vehicles');
 }
 
-
+test(){
+  return this.http.get('http://localhost:8080/WelcomeRESTXML/webresources/generic2/chamal/5');
+}
 createPoliceStation(policeStation: any){
   return this.http.post(this.baseUrl + 'policeStations', policeStation);
 }

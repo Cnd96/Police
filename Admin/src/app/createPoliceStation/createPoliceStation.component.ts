@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { OicDivisionService } from '../_services/oicDivision.service';
+import { DialogService } from '../_services/dialog.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-createPoliceStation',
@@ -13,8 +15,8 @@ export class CreatePoliceStationComponent implements OnInit {
   policeStation: any;
   policeStationForm: FormGroup;
   oicDivisions:any;
-  constructor( private fb: FormBuilder,private dialogRef:MatDialogRef<CreatePoliceStationComponent>,
-    private policeStationService :PoliceStationService,private oicDivisionService:OicDivisionService ) { }
+  constructor( private fb: FormBuilder,private dialogRef:MatDialogRef<CreatePoliceStationComponent>,private router: Router,
+    private dialogService:DialogService,private policeStationService :PoliceStationService,private oicDivisionService:OicDivisionService ) { }
 
   ngOnInit() {
     this.createRegisterForm();
@@ -56,8 +58,8 @@ export class CreatePoliceStationComponent implements OnInit {
     this.policeStation = Object.assign({}, this.policeStationForm.value);
     console.log(this.policeStation);
     this.policeStationService.createPoliceStation(this.policeStation).subscribe(next=>{
-      alert("Succesfully created new police station");
-      // this.router.navigate(['/home/offences']);
+      this.dialogService.openMessageDialog('Succesfully created police station');
+      this.router.navigate(['/home']);
       this.close();
     },(error:Response)=>{
       

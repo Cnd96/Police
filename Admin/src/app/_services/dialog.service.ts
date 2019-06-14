@@ -1,6 +1,7 @@
 import { ConfirmDialogComponent } from './../confirmDialog/confirmDialog.component';
 import { MatDialog } from '@angular/material';
 import { Injectable } from '@angular/core';
+import { MessageDialogComponent } from '../messageDialog/messageDialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,16 @@ openConfirmDialog(){
   this.dialog.open(ConfirmDialogComponent,{
     width:'390px',
     disableClose:true
+  });
+}
+
+openMessageDialog(message){
+  return  this.dialog.open(MessageDialogComponent,{
+    width:'390px',
+    disableClose:true,
+    data:{
+      message:message
+    }
   });
 }
 }

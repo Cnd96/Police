@@ -16,3 +16,9 @@ th{
   font-size: 16px;
   font-weight: 500;
 }
+
+button{
+  position: relative;
+  left:25%;
+  margin: 5px;
+}
