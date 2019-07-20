@@ -1,0 +1,26 @@
+<app-navBar></app-navBar>
+<div  class="container" style="margin-top: 100px">
+  
+  <div style="margin-top: 40px">
+    <!-- <h5>Offence</h5> -->
+    <h4>Total Offences=<span>{{offences.length}}</span></h4>
+    <table class="table table-bordered">
+        <thead>
+         <tr>
+           <th scope="col">Section of Act</th>
+           <th scope="col">Provision</th>
+           <th scope="col">Total</th>
+         </tr>
+        </thead>
+        <tbody>
+           <tr class="table-active" *ngFor="let offence of offences" >
+            <td >{{offence.sectionOfAct}}</td>
+            <td >{{offence.provision}}</td>
+            <td >{{offence.total}}</td>      
+           </tr>
+         </tbody>
+      </table>
+  </div>
+
+
+</div>

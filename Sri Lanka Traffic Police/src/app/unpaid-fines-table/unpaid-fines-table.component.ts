@@ -1,7 +1,8 @@
+import { ViewfineComponent } from './../viewfine/viewfine.component';
 import { map } from 'rxjs/operators';
 import { FineService } from './../_services/fine.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatDialog, MatDialogConfig } from '@angular/material';
 import { UnpaidFinesTableDataSource } from './unpaid-fines-table-datasource';
 import { Router } from '@angular/router';
 
@@ -55,7 +56,7 @@ export class UnpaidFinesTableComponent implements OnInit {
 
   ];
   
-  constructor(private finesService:FineService,private router:Router) {
+  constructor(private finesService:FineService,private router:Router,private dialog:MatDialog) {
     console.log();
    }
   ngOnInit() {
@@ -67,12 +68,12 @@ export class UnpaidFinesTableComponent implements OnInit {
     this.finesService.getAllOfficersAllMonthsUnpaidFines(this.currentYear)
     .subscribe(response=>{
       this.fines=response;
-      console.log(response);
+      // console.log(response);
 
       this.fines.forEach(function (fine) {
         fine.date=new Date(fine.date).toDateString()
       });
-      // console.log(this.fines);
+      console.log(this.fines.date);
 
     this.dataSource = new UnpaidFinesTableDataSource(this.paginator, this.sort,this.fines);
       // console.log(this.dataSource);
@@ -95,5 +96,15 @@ export class UnpaidFinesTableComponent implements OnInit {
     },(error:Response)=>{
       console.log(error);
     })
+  }
+
+
+  createViewfine(fine){
+    console.log(fine);
+    // const dialogConfig=new MatDialogConfig();
+    // dialogConfig.disableClose=true;
+    // dialogConfig.autoFocus=true;
+    // dialogConfig.width="80%";
+    // this.dialog.open(ViewfineComponent, dialogConfig);
   }
 }

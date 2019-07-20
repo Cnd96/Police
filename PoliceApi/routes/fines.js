@@ -55,12 +55,12 @@ router.post('/', async (req, res) => {
                 name:policeman.name,
                 rank:policeman.rank.name
             },
-            totalAmountPaid:req.body.totalAmountPaid
+            totalAmountPaid:req.body.totalAmountPaid,
+            recordedBy:req.body.recordedBy
         });
     }
     else{
-        
-        fineToCreate = new Fine({ 
+         fineToCreate = new Fine({ 
             // _id:counter.value+1,
             _id:req.body.fineId,
             licenseNo:driver._id,
@@ -81,7 +81,8 @@ router.post('/', async (req, res) => {
                 name:policeman.name,
                 rank:policeman.rank.name
             },
-            totalAmountPaid:req.body.totalAmountPaid
+            totalAmountPaid:req.body.totalAmountPaid,
+            recordedBy:req.body.recordedBy
         });
     }
     // let counter=await Counter.findOneAndUpdate({ "name" : "itemId" },{ $inc: { "value" : 1 } });
@@ -95,7 +96,7 @@ router.post('/', async (req, res) => {
     fineToCreate = await fineToCreate.save();
 
     res.send(fineToCreate);
-  });
+});
 
 router.get('/', async (req, res) => {
     let fine;
@@ -121,10 +122,12 @@ router.get('/', async (req, res) => {
                     additionalPay:1,
                     totalAmountPaid:1,
                     vehicleNo:1,
+                    time:1,
                     offences:1,
                     amount:1,
                     fineStatus:1,
                     policeStationName:1,
+                    recordedBy:1,
                     policeman:{name:1,_id:1,rank:1},
                     // date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
                     date:1,
@@ -157,6 +160,8 @@ router.get('/', async (req, res) => {
                     vehicleNo:1,
                     offences:1,
                     amount:1,
+                    time:1,
+                    recordedBy:1,
                     fineStatus:1,
                     policeStationName:1,
                     policeman:{name:1,_id:1,rank:1},
@@ -185,12 +190,18 @@ router.get('/', async (req, res) => {
                     vehicleNo:1,
                     additionalPay:1,
                     totalAmountPaid:1,
+                    time:1,
                     offences:1,
                     amount:1,
                     fineStatus:1,
+                    recordedBy:1,
                     policeStationName:1,
                     policeman:{name:1,_id:1,rank:1},
                     year:{$year:"$date"},
+                    month: { $month: "$date" },
+                    dayOfMonth: { $dayOfMonth: "$date" },
+                    hour: { $hour: "$date" },
+                     minutes: { $minute: "$date" },
                     // date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
                     date:1,
                     dateDifference:{ $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
@@ -217,6 +228,8 @@ router.get('/', async (req, res) => {
                     totalAmountPaid:1,
                     vehicleNo:1,
                     offences:1,
+                    time:1,
+                    recordedBy:1,
                     amount:1,
                     fineStatus:1,
                     policeStationName:1,
@@ -282,6 +295,8 @@ router.get('/:id', async (req, res) => {
                 vehicleNo:1,
                 offences:1,
                 amount:1,
+                time:1,
+                recordedBy:1,
                 place:1,
                 fineStatus:1,
                 policeStationName:1,
@@ -304,6 +319,7 @@ router.put('/:id',async (req, res) => {
         amount: req.body.amount,
         additionalPay: req.body.additionalPay,
         totalAmountPaid: req.body.totalAmountPaid,
+        recordedBy:req.body.recordedBy
     }, { new: true });
 
   if (!fine) return res.status(404).send('The offence with the given ID was not found.');
@@ -311,5 +327,3 @@ router.put('/:id',async (req, res) => {
   });
 
 module.exports = router;  
-
-

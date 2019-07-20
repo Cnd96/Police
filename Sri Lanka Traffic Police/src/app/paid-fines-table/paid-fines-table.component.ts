@@ -1,5 +1,6 @@
+import { ViewfineComponent } from './../viewfine/viewfine.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatDialog, MatDialogConfig } from '@angular/material';
 import { PaidFinesTableDataSource } from './paid-fines-table-datasource';
 import { FineService } from '../_services/fine.service';
 import { Router } from '@angular/router';
@@ -52,7 +53,7 @@ export class PaidFinesTableComponent implements OnInit {
 
   ];
   
-  constructor(private finesService:FineService,private router:Router) { }
+  constructor(private finesService:FineService,private router:Router,private dialog:MatDialog) { }
   ngOnInit() {
     this.getPaifines();
   }
@@ -61,10 +62,13 @@ export class PaidFinesTableComponent implements OnInit {
     this.finesService.getAllOfficersAllMonthsPaidFines(this.currentYear)
     .subscribe(response=>{
       this.fines=response;
-      console.log(response);
+      // console.log(response);
       this.fines.forEach(function (fine) {
-        fine.date=new Date(fine.date).toDateString()
+        console.log(fine.date);
+        fine.date=new Date(fine.date).toDateString();
+        // fine.date=new Date(fine.date)
       });
+      // console.log(this.fines[0].date);
       this.dataSource = new PaidFinesTableDataSource(this.paginator, this.sort,this.fines);
     },(error:Response)=>{
       console.log(error);
@@ -83,5 +87,13 @@ export class PaidFinesTableComponent implements OnInit {
     },(error:Response)=>{
       console.log(error);
     })
+  }
+  createViewfine(fine){
+    ViewfineComponent.fine=fine;
+    const dialogConfig=new MatDialogConfig();
+    dialogConfig.disableClose=true;
+    dialogConfig.autoFocus=true;
+    dialogConfig.width="80%";
+    this.dialog.open(ViewfineComponent, dialogConfig);
   }
 }

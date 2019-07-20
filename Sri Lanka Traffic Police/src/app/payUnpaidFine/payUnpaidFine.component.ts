@@ -1,9 +1,11 @@
+
 import { FineService } from './../_services/fine.service';
 import { Component, OnInit } from '@angular/core';
 import * as jspdf from 'jspdf'; 
 import html2canvas from 'html2canvas'; 
 import { DialogService } from '../_services/dialog.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-payUnpaidFine',
@@ -11,13 +13,14 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./payUnpaidFine.component.css']
 })
 export class PayUnpaidFineComponent implements OnInit {
-
+  policeStationName=this.authService.decodedToken.policeStationName ;
+  recordedBy=this.authService.decodedToken.loggedPoliceman;
   unPaidFineId:any;
   fine:any;
   offences:any;
   constructor(private fineservice: FineService,private route:ActivatedRoute,
-    private dialogService:DialogService,private router:Router) { }
-
+    private dialogService:DialogService,private router:Router,private authService: AuthService) { }
+   
   ngOnInit() {
     this.route.paramMap
       .subscribe(params=>{
@@ -46,20 +49,21 @@ export class PayUnpaidFineComponent implements OnInit {
       if(res){
         this.fine.fineStatus=1;
         this.fine.totalAmountPaid=this.fine.total;
+        this.fine.recordedBy=this.recordedBy;
         console.log(this.fine);
 
-        this.fineservice.updateUnpaidFineToPaidFine(this.fine).subscribe(next=>{
-          this.genaratePdf();
-          this.dialogService.openMessageDialog('Succesfully recorded');
-          this.router.navigate(['/home']);
-        },(error:Response)=>{
+        // this.fineservice.updateUnpaidFineToPaidFine(this.fine).subscribe(next=>{
+        //   this.genaratePdf();
+        //   this.dialogService.openMessageDialog('Succesfully recorded');
+        //   this.router.navigate(['/home']);
+        // },(error:Response)=>{
           
-          if(error.status===400){
-            alert('Fine not exist.')
-            console.log(error);
-          }
-          else alert('Unexpected error found');
-        })       
+        //   if(error.status===400){
+        //     alert('Fine not exist.')
+        //     console.log(error);
+        //   }
+        //   else alert('Unexpected error found');
+        // })       
       }
     });
   }

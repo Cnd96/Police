@@ -32,6 +32,7 @@ import { RecordFineComponent } from './RecordFine/RecordFine.component';
 
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { RecordComponent } from './record/record.component';
+import { ViewfineComponent } from './viewfine/viewfine.component';
 
 @NgModule({
    declarations: [
@@ -53,8 +54,9 @@ import { RecordComponent } from './record/record.component';
       TPUnpaidFinesTableComponent,
       TPPaidFinesTableComponent,
       RecordFineComponent,
-      // AddDegreesComponent,
+      //AddDegreesComponent,
       RecordComponent,
+      ViewfineComponent
    ],
    imports: [
       BrowserModule,
@@ -75,6 +77,7 @@ import { RecordComponent } from './record/record.component';
       AppComponent
    ],
    entryComponents: [
+      ViewfineComponent,
       CreatePolicemanComponent,
       ConfirmDialogComponent,
       MessageDialogComponent//fordialogboxes

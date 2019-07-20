@@ -12,6 +12,7 @@ import { DialogService } from '../_services/dialog.service';
 })
 export class HomeComponent implements OnInit {
   policeStationName=this.authService.decodedToken.policeStationName ;
+  loggedInPoliceman=this.authService.decodedToken.loggedPoliceman;
   policeStationId=this.authService.decodedToken._id ;
   policeStation;
 

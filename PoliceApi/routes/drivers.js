@@ -47,10 +47,23 @@ router.get('/', async (req, res) => {
 
   
 router.get('/:id', async (req, res) => {
-    const driver = await Driver.findById(req.params.id);
+    // const driver = await Driver.findById(req.params.id);
   
-    if (!driver) return res.status(404).send('Driver was not found.');
-  
+    // if (!driver) return res.status(404).send('Driver was not found.');
+    let driver=await Driver.aggregate([
+      {$match:{_id: (req.params.id)}},
+      {
+        $project:{
+          Name:1,
+          month: { $month: "$DateOfBirth" },
+          year: { $year: "$DateOfBirth" },
+          dayOfMonth: { $dayOfMonth: "$DateOfBirth" },
+          hour: { $hour: "$date" },
+           minutes: { $minute: "$date" },
+        }
+    },
+  ]);
+    
     res.send(driver);
   });
 module.exports = router; 

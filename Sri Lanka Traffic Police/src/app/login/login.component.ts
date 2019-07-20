@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   model:any={};
   errors=false;
-  
+  policemanDetailsErrors=false;
   constructor(private authservice:AuthService ,private router: Router) { }
 
 
@@ -25,6 +25,9 @@ export class LoginComponent implements OnInit {
       
       if(error.status===400){
         this.errors= true;
+        console.log(error);
+      }if(error.status===404){
+        this.policemanDetailsErrors= true;
         console.log(error);
       }
       else alert('Unexpected error found');

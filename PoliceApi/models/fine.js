@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const {offenceSchema} = require('./offence');
 
+const {Policeman} = require('./policeman');
+
 const fineSchema = new mongoose.Schema({
     
       _id:{
@@ -89,6 +91,10 @@ const fineSchema = new mongoose.Schema({
         type:Number,
         default:0
       },
+      recordedBy:{
+        type:String,
+        ref:Policeman
+      }
   });
   
 

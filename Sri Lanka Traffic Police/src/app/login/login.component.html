@@ -12,7 +12,15 @@
              <mat-form-field>
                <input required  name="password" [(ngModel)]="model.password"  type="password" matInput placeholder="Password">
              </mat-form-field><br><br>
+             <mat-form-field>
+              <input required name="policemaId" [(ngModel)]="model.policemanId"  matInput placeholder="Policeman ID">
+             </mat-form-field><br><br>
+             <!-- <div class="warning" *ngIf="userName.touched && userName.invalid">Choose the correct username</div> -->
+            <mat-form-field>
+              <input required  name="policemanPassword" [(ngModel)]="model.policemanPassword"  type="password" matInput placeholder="Policeman Password">
+            </mat-form-field><br><br>
              <p *ngIf="errors" class="error">Invalid username or password</p>
+             <p *ngIf="policemanDetailsErrors" class="error">Invalid Policeman Details</p>
              <div class="button">
                <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">Login</button>
               </div> 

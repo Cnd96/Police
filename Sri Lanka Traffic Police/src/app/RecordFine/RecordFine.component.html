@@ -114,7 +114,8 @@
                           <div *ngFor="let offence of offencesList">
                               <p>
                                 <span>
-                                  <mat-checkbox color="warn" class="example-margin" (change)="offenceSelect($event,offence)" value="{{offence._id}}"></mat-checkbox>
+                                  <mat-checkbox [(ngModel)]="offence.selected" color="warn" class="example-margin"
+                                   (change)="offenceSelect($event,offence)" value="{{offence._id}}"  [disabled]="offence.isBlocked"></mat-checkbox>
                                 </span>
                                 <span>  </span>
                                 <span>  {{offence.provision}} </span>

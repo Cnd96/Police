@@ -1,16 +1,14 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 
-export class fineFormValidators{
-    
+export class fineFormValidators{ 
     static licenseNoValidator(control:AbstractControl) : ValidationErrors |null{
         let license1=(/^(B)(\d{7})$/.test(control.value));
         let license2=(/^(N)(o)$/.test(control.value));
         if(!(license1||license2)){
             return {licenseNoInvalid:true};
         }
-        
-        return null;
+         return null;
     }
 
     static vehicleNoValidator(control:AbstractControl) : ValidationErrors |null{

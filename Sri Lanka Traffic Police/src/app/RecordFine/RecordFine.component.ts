@@ -25,6 +25,7 @@ export class RecordFineComponent implements OnInit {
   fineForm: FormGroup;
   fine:any;
   policeStationId=this.authService.decodedToken._id ;
+  recordedBy=this.authService.decodedToken.loggedPoliceman;
   trafficPolicemen:any;
   trafficPolicemenList:Observable <TrafficPoliceman[]>;
   trafficPolicemenCtrl = new FormControl('',Validators.required);
@@ -45,15 +46,16 @@ export class RecordFineComponent implements OnInit {
 
   ngOnInit() {
     this.fineOffences=[];
-  
-    this.loadPolicemen();
-    this.loadOffences();
-
+    this.offencesList=[];
     this.route.paramMap
     .subscribe(params=>{
       this.driverLicenseNo= params.get('licenseNo');
     })
     this.createFineForm();
+    this.loadPolicemen();
+    this.loadOffences();
+
+   
 
   }
 
@@ -61,6 +63,30 @@ export class RecordFineComponent implements OnInit {
     this.offenceService.getOffences()
     .subscribe(response=>{
       this.offencesList=response;
+
+      this.offencesList.forEach(offence => {
+        offence.selected=false;
+      });
+
+      if(this.driverLicenseNo=='No'){
+        console.log(this.offencesList);
+        this.offencesList.forEach(offence => {
+          if(offence._id=='Section135'){
+            offence.selected=true;
+            offence.isBlocked=true;
+            this.fineOffences.push(offence);
+            this.totalAmount+=offence.amount;
+            this.sectionOfAct.push(offence._id);
+          }
+        });
+      }
+      else{
+        this.offencesList.forEach(offence => {
+          if(offence._id=='Section135'){
+            offence.isBlocked=true;
+          }
+        });
+      }
       // console.log(this.offencesList);
     },(error:Response)=>{
     })
@@ -68,10 +94,7 @@ export class RecordFineComponent implements OnInit {
   }
 
   searchPoliceman(event){
-    // console.log(event.keyCode);
-    
-    // console.log(this.fineForm.get('policemanId').value);
-    
+
     if((event.keyCode==40)||(event.keyCode==38)){
       return 
     }
@@ -86,20 +109,11 @@ export class RecordFineComponent implements OnInit {
     this.trafficPolicemenService.getTrafficPolicemen(this.policeStationId)
     .subscribe(response=>{
       this.trafficPolicemen=response;
-      // this.trafficPolicemenList=this.trafficPolicemen;
-      // this.trafficPolicemenList = this.trafficPolicemenCtrl.valueChanges
-      // .pipe(
-      //   startWith(''),
-      //   map(trafficPoliceman => trafficPoliceman ? this._filterTrafficPoliceman(trafficPoliceman) : this.trafficPolicemen.slice())
-      // );
+
     },(error:Response)=>{
     })
   }
 
-  // private _filterTrafficPoliceman(value: string): TrafficPoliceman[] {
-  //   const filterValue = value.toLowerCase();
-  //   return this.trafficPolicemen.filter(trafficPoliceman => trafficPoliceman.name.toLowerCase().indexOf(filterValue) === 0);
-  // }
 
   createFineForm() {
     this.fineForm = this.fb.group({
@@ -113,7 +127,8 @@ export class RecordFineComponent implements OnInit {
       place:['',Validators.required],
       date:['',Validators.required],
       time:['',Validators.required],
-      validUntil:['']
+      validUntil:[''],
+      recordedBy:['']
     });
   }
 
@@ -180,7 +195,7 @@ export class RecordFineComponent implements OnInit {
     this.fineForm.patchValue({offences:this.sectionOfAct});
     this.fineForm.get('offences').updateValueAndValidity();
 
-
+   
     let date=new Date(this.fineForm.value.date);
     this.fineForm.patchValue({date:date.toDateString()});
 
@@ -191,6 +206,8 @@ export class RecordFineComponent implements OnInit {
     validuntilDate.setDate( validuntilDate.getDate() +28 );
     this.fineForm.patchValue({validUntil :validuntilDate.toDateString()});
     this.fineForm.get('validUntil').updateValueAndValidity();
+    
+    this.fineForm.patchValue({recordedBy:this.recordedBy});
     // if(this.fineForm.invalid){
     //   console.log("invalid");
     //   return;
@@ -216,6 +233,6 @@ export class RecordFineComponent implements OnInit {
             })
        
           }
-        });   
+    });   
   }
 }

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const app = express();
-require('express-async-errors');
+// require('express-async-errors');
 
 
 const users=require('./routes/users');

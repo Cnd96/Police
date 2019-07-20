@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const {OicDivision}=require('./oicDivision');
+
 const policeStationSchema = new mongoose.Schema({
     policeStationName: {
         type: String,

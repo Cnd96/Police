@@ -26,10 +26,11 @@ export class TPUnpaidFinesTableComponent implements OnInit {
     this.getUnpaidfines();
   }
 
-   getUnpaidfines(){
+  getUnpaidfines(){
     let id=TPUnpaidFinesTableComponent.policemanId; 
     let month=TPUnpaidFinesTableComponent.selectedMonth;
     let year=TPUnpaidFinesTableComponent.selectedYear;
+
     console.log(year);
     this.finesService.getOfficerOneMonthUnpaidFines(id,month,year)
     .subscribe(response=>{
@@ -38,5 +39,6 @@ export class TPUnpaidFinesTableComponent implements OnInit {
     },(error:Response)=>{
       console.log(error);
     })
+
   }
 }

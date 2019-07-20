@@ -1,12 +1,14 @@
 <app-navBar></app-navBar><br>
 
-<div id="contentToConvert" class="container" style="margin-top: 85px"><br><br>
-  <h5>Fine ID:<span>{{fine._id}}</span></h5>
-  <h5>Driver License No:<span>{{fine.licenseNo}}</span></h5>
-  <h5>Driver Vehicle No:<span>{{fine.vehicleNo}}</span></h5>
-  <h5>Date:<span>{{fine.date}}</span></h5>
-  <h5>Place:<span>{{fine.place}}</span></h5>
-  <table class="table table-bordered">
+<div id="contentToConvert" class="container" style="margin-top: 65px"><br><br>
+  <h3 align="center">Sri Lanka Traffic Police</h3>
+  <h3 align="center">{{policeStationName}} Police Station</h3>
+  <h5 style="margin-top: 30px" >Fine ID:<span>{{fine._id}}</span></h5>
+  <h5 style="margin-top: 10px">Driver License No:<span>{{fine.licenseNo}}</span></h5>
+  <h5 style="margin-top: 10px">Driver Vehicle No:<span>{{fine.vehicleNo}}</span></h5>
+  <h5 style="margin-top: 10px">Date:<span>{{fine.date}}</span></h5>
+  <h5 style="margin-top: 10px">Place:<span>{{fine.place}}</span></h5>
+  <table class="table table-bordered"  style="margin-top: 30px">
     <thead>
      <tr>
        <th scope="col">Offence</th>

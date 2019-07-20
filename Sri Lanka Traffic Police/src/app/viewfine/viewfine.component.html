@@ -1,0 +1,46 @@
+<div class="container">
+  <mat-toolbar color="primary">
+      <label>View Fine</label>
+      <button style="position: relative; left:75%;" class="btn btn-light" (click)="close()">X</button>
+  </mat-toolbar>
+     
+  <form>
+    <mat-grid-list cols="2" rowHeight="350px">
+        <mat-grid-tile>
+           <div class="controles-container">
+            <mat-list-item>
+              <h4>Fine ID : {{fineTodisplay._id}}</h4>
+            </mat-list-item>
+            <mat-list-item>
+              <h4>License No : {{fineTodisplay.licenseNo}}</h4>
+            </mat-list-item>
+            <mat-list-item>
+              <h4>Vehicle No : {{fineTodisplay.vehicleNo}}</h4>
+            </mat-list-item>
+            <mat-list-item>
+              <h4>Policeman Name : {{fineTodisplay.policeman.name}}</h4>
+            </mat-list-item>
+            <mat-list-item>
+              <h4>Recorded By : {{fineTodisplay.recordedBy}}</h4>
+            </mat-list-item>
+            <mat-list-item>
+              <h4>Date : {{fineTodisplay.date}}</h4>
+            </mat-list-item>
+            <mat-list-item>
+              <h4>Time : {{fineTodisplay.time}}</h4>
+            </mat-list-item>
+            <mat-list-item>
+              <h4>Amount :Rs. {{fineTodisplay.amount}}</h4>
+            </mat-list-item>
+             </div>
+        </mat-grid-tile>
+      <mat-grid-tile>
+          <div class="controles-container">
+            <mat-list-item *ngFor="let offence of offences">
+              <h5>•{{offence.provision}}</h5>
+            </mat-list-item>           
+            </div>
+        </mat-grid-tile>
+     </mat-grid-list>
+    </form>
+</div>
