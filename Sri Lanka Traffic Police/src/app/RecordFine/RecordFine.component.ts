@@ -27,7 +27,7 @@ export class RecordFineComponent implements OnInit {
   policeStationId=this.authService.decodedToken._id ;
   recordedBy=this.authService.decodedToken.loggedPoliceman;
   trafficPolicemen:any;
-  trafficPolicemenList:Observable <TrafficPoliceman[]>;
+  // trafficPolicemenList:Observable <TrafficPoliceman[]>;
   trafficPolicemenCtrl = new FormControl('',Validators.required);
   startDate = new Date();
   offencesList:any;
@@ -45,6 +45,7 @@ export class RecordFineComponent implements OnInit {
     ,private dialogService:DialogService,private route:ActivatedRoute) { }
 
   ngOnInit() {
+    console.log(new Date());
     this.fineOffences=[];
     this.offencesList=[];
     this.route.paramMap
@@ -128,7 +129,9 @@ export class RecordFineComponent implements OnInit {
       date:['',Validators.required],
       time:['',Validators.required],
       validUntil:[''],
-      recordedBy:['']
+      unpaidRecordedBy:[''],
+      paidRecordedBy:[''],
+      paidDate:[''],
     });
   }
 
@@ -182,16 +185,20 @@ export class RecordFineComponent implements OnInit {
   }
 
   submit(){
+    this.fineForm.patchValue({unpaidRecordedBy:this.recordedBy});
     if(this.fineForm.get('fineStatus').value){
       this.fineForm.patchValue({totalAmountPaid:this.totalAmount})
       this.fineForm.get('totalAmountPaid').updateValueAndValidity();
+      this.fineForm.patchValue({paidRecordedBy:this.recordedBy});
+      
     }
     else{
       this.fineForm.patchValue({totalAmountPaid:0})
       this.fineForm.get('totalAmountPaid').updateValueAndValidity();
+      this.fineForm.patchValue({paidRecordedBy:'no'});
     }
 
-    
+    this.fineForm.patchValue({paidDate:new Date()});
     this.fineForm.patchValue({offences:this.sectionOfAct});
     this.fineForm.get('offences').updateValueAndValidity();
 
@@ -207,7 +214,7 @@ export class RecordFineComponent implements OnInit {
     this.fineForm.patchValue({validUntil :validuntilDate.toDateString()});
     this.fineForm.get('validUntil').updateValueAndValidity();
     
-    this.fineForm.patchValue({recordedBy:this.recordedBy});
+   
     // if(this.fineForm.invalid){
     //   console.log("invalid");
     //   return;

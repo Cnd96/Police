@@ -20,8 +20,6 @@ export interface Year {
   styleUrls: ['./unpaid-fines-table.component.css']
 })
 
-
-
 export class UnpaidFinesTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -101,10 +99,11 @@ export class UnpaidFinesTableComponent implements OnInit {
 
   createViewfine(fine){
     console.log(fine);
-    // const dialogConfig=new MatDialogConfig();
-    // dialogConfig.disableClose=true;
-    // dialogConfig.autoFocus=true;
-    // dialogConfig.width="80%";
-    // this.dialog.open(ViewfineComponent, dialogConfig);
+    ViewfineComponent.fine=fine;
+    const dialogConfig=new MatDialogConfig();
+    dialogConfig.disableClose=true;
+    dialogConfig.autoFocus=true;
+    dialogConfig.width="80%";
+    this.dialog.open(ViewfineComponent, dialogConfig);
   }
 }

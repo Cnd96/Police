@@ -18,28 +18,37 @@
               <h4>Vehicle No : {{fineTodisplay.vehicleNo}}</h4>
             </mat-list-item>
             <mat-list-item>
-              <h4>Policeman Name : {{fineTodisplay.policeman.name}}</h4>
+              <h4>Policeman ID : {{fineTodisplay.policeman._id}}</h4>
             </mat-list-item>
             <mat-list-item>
-              <h4>Recorded By : {{fineTodisplay.recordedBy}}</h4>
+              <h4>Unpaid Fine Recorded By : {{fineTodisplay.unpaidRecordedBy}}</h4>
             </mat-list-item>
-            <mat-list-item>
-              <h4>Date : {{fineTodisplay.date}}</h4>
-            </mat-list-item>
-            <mat-list-item>
-              <h4>Time : {{fineTodisplay.time}}</h4>
-            </mat-list-item>
-            <mat-list-item>
-              <h4>Amount :Rs. {{fineTodisplay.amount}}</h4>
-            </mat-list-item>
+            <mat-list-item *ngIf="fineTodisplay.paidRecordedBy!='no'">
+                <h4>Paid Fine Recorded By : {{fineTodisplay.paidRecordedBy}}</h4>
+              </mat-list-item>
+           
+            
              </div>
         </mat-grid-tile>
       <mat-grid-tile>
+          
           <div class="controles-container">
+              <h3>Offences</h3>
             <mat-list-item *ngFor="let offence of offences">
               <h5>•{{offence.provision}}</h5>
-            </mat-list-item>           
+            </mat-list-item> 
+            <br>     
+            <mat-list-item>
+                <h4>Date : {{fineTodisplay.date}}</h4>
+              </mat-list-item>
+              <mat-list-item>
+                <h4>Time : {{fineTodisplay.time}}</h4>
+              </mat-list-item>     
+            <mat-list-item>
+                <h4>Amount :Rs. {{fineTodisplay.amount}}</h4>
+              </mat-list-item>
             </div>
+            
         </mat-grid-tile>
      </mat-grid-list>
     </form>

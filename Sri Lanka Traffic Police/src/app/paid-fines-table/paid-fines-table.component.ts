@@ -67,6 +67,7 @@ export class PaidFinesTableComponent implements OnInit {
         console.log(fine.date);
         fine.date=new Date(fine.date).toDateString();
         // fine.date=new Date(fine.date)
+        // fine.date==fine.date.toString();
       });
       // console.log(this.fines[0].date);
       this.dataSource = new PaidFinesTableDataSource(this.paginator, this.sort,this.fines);

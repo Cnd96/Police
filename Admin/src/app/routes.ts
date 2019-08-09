@@ -1,3 +1,4 @@
+import { ViewPoliceStationComponent } from './viewPoliceStation/viewPoliceStation.component';
 import { OffenceReportComponent } from './AdminReports/offenceReport/offenceReport.component';
 import { ReportsComponent } from './reports/reports.component';
 import { AuthGuard } from './_services/AuthGuard.service';
@@ -14,6 +15,7 @@ export const appRoutes: Routes = [
     {path: 'reports/offenceReport', component: OffenceReportComponent,canActivate:[AuthGuard]},
     {path: 'offences', component: OffencesComponent,canActivate:[AuthGuard]},
     {path: 'policestations', component: PoliceStationComponent,canActivate:[AuthGuard]},
+    {path: 'viewPoliceStation/:policeStationId',component:ViewPoliceStationComponent},
     {path: '', component: LoginComponent},
 
     {path: '**', redirectTo: 'home', pathMatch: 'full'},

@@ -39,6 +39,5 @@ export class TPUnpaidFinesTableComponent implements OnInit {
     },(error:Response)=>{
       console.log(error);
     })
-
   }
 }

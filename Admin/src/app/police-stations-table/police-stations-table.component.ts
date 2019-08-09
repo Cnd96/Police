@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { PoliceStationsTableDataSource } from './police-stations-table-datasource';
 import { PoliceStationService } from '../_services/policeStation.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-police-stations-table',
@@ -17,14 +18,10 @@ export class PoliceStationsTableComponent implements OnInit {
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['policeStationName', 'address','phoneNo','oicDivision','actions'];
-  constructor(private policeStationService:PoliceStationService) { }
+  constructor(private policeStationService:PoliceStationService,private router:Router) { }
   ngOnInit() {
     this.getPoliceStation();
-    this.policeStationService.test().subscribe(response=>{
-  
-      console.log(response);
-    },(error:Response)=>{
-    })
+
 
   }
 
@@ -48,7 +45,8 @@ export class PoliceStationsTableComponent implements OnInit {
     })
   }
 
-  onView(){
-
+  onView(policestation){
+    this.router.navigate(['/viewPoliceStation',policestation._id]);
+    
   }
 }

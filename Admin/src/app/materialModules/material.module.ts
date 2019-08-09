@@ -2,8 +2,9 @@ import {NgModule} from "@angular/core";
 import { CommonModule } from '@angular/common';
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
-  MatToolbarModule, MatMenuModule,MatIconModule, MatProgressSpinnerModule,MatSelectModule,
-   MatListModule, MatPaginatorModule, MatSortModule, MatCheckboxModule
+  MatToolbarModule, MatMenuModule,MatIconModule, MatExpansionModule,MatSelectModule,
+   MatListModule, MatDatepickerModule, MatNativeDateModule, MatGridListModule, 
+   MatTabsModule,MatAutocompleteModule,MatCheckboxModule,MatRadioModule
 } from '@angular/material';
 @NgModule({
   imports: [
@@ -16,11 +17,14 @@ import {
   MatListModule,
   MatDialogModule,
   MatToolbarModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule,
-  MatCheckboxModule
-  
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatGridListModule,
+  MatTabsModule,
+  MatAutocompleteModule,
+  MatExpansionModule,
+  MatCheckboxModule,
+  MatRadioModule
   ],
   exports: [
   CommonModule,
@@ -32,12 +36,14 @@ import {
   MatListModule,
   MatDialogModule,
   MatToolbarModule,
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatGridListModule,
+  MatTabsModule,
+  MatAutocompleteModule,
+  MatExpansionModule,
   MatCheckboxModule,
-  
-  
+  MatRadioModule
    ],
 })
 export class CustomMaterialModule { }

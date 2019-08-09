@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
 const {offenceSchema} = require('./offence');
-
 const {Policeman} = require('./policeman');
 
 const fineSchema = new mongoose.Schema({
-    
       _id:{
         type:String,
         required:true
@@ -42,6 +40,10 @@ const fineSchema = new mongoose.Schema({
         type:Date,
         default:Date.now
       },
+      paidDate:{
+        type:String,
+        // default:Date.now
+      },
       time:{
         type:String,
         default: new Date().toLocaleTimeString(),
@@ -52,7 +54,7 @@ const fineSchema = new mongoose.Schema({
         required:true,
       },
       place:{
-        type:String,
+        type:Date,
         required:true,
       },
       policeman: {
@@ -91,7 +93,11 @@ const fineSchema = new mongoose.Schema({
         type:Number,
         default:0
       },
-      recordedBy:{
+      unpaidRecordedBy:{
+        type:String,
+        ref:Policeman
+      },
+      paidRecordedBy:{
         type:String,
         ref:Policeman
       }

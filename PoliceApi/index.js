@@ -22,7 +22,9 @@ const counters=require('./routes/counters');
 const driverFines=require('./routes/driverFines');
 
 
-const finesReport=require('./routesReport/fines');
+const offenceReports=require('./routesReport/offenceReports');
+const policeStationReports=require('./routesReport/policeStationReports');
+const fineReports=require('./routesReport/fineReports');
 const testReport=require('./routesReport/testReport');
 
 mongoose.connect('mongodb://localhost/TrafficPolice',{ useNewUrlParser: true })
@@ -58,8 +60,12 @@ app.use('/api/searchPoliceman',searchPoliceman);
 app.use('/api/fines',fines);
 app.use('/api/counters',counters);
 app.use('/api/driverFines',driverFines);
+
+
 app.use('/api/testReport',testReport);
-app.use('/api/finesReport',finesReport);
+app.use('/api/offenceReport',offenceReports);
+app.use('/api/policeStationReports',policeStationReports);
+app.use('/api/finesReport',fineReports);
 
 app.use(function(err,req,res,next){
   res.status(500).send('Something failed!.');

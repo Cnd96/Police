@@ -25,11 +25,11 @@ export class TrafficPolicemenTableComponent implements OnInit {
 
   constructor(private authService:AuthService,private trafficPolicemenService:TrafficPolicemenService,private router:Router) { }
   ngOnInit() {
-    this.getPoliceman();
+    this.getPolicemen();
   }
   
 
-  getPoliceman(){
+  getPolicemen(){
     this.trafficPolicemenService.getTrafficPolicemen(this.policeStationId)
     .subscribe(response=>{
       this.data=response;

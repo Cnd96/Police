@@ -1,24 +1,16 @@
-
-import { ReportsService } from './../../_services/reports.service';
 import { Component, OnInit } from '@angular/core';
+import { ReportsService } from 'src/app/_services/reports.service';
+import { Month, Year } from '../offenceReport/offenceReport.component';
 import * as jspdf from 'jspdf'; 
 import html2canvas from 'html2canvas'; 
 import 'jspdf-autotable';
-import { autoTable as AutoTable } from 'jspdf-autotable';
-export interface Month {
-  value: string;
-  viewValue: string;
-}
-export interface Year {
-  value: string;
-  viewValue: string;
-}
+
 @Component({
-  selector: 'app-offenceReport',
-  templateUrl: './offenceReport.component.html',
-  styleUrls: ['./offenceReport.component.css']
+  selector: 'app-policeStationIncome',
+  templateUrl: './policeStationIncome.component.html',
+  styleUrls: ['./policeStationIncome.component.css']
 })
-export class OffenceReportComponent implements OnInit {
+export class PoliceStationIncomeComponent implements OnInit {
   constructor(private reportsService:ReportsService) { }
 
   currentYear=new Date().getFullYear();
@@ -46,38 +38,39 @@ export class OffenceReportComponent implements OnInit {
     {value: '11', viewValue: 'November'},
     {value: '12', viewValue: 'December'}
   ];
-  
-  
-  allOffenceData=[];
-  offences:any;
+   
+  allMonthsPoliceStationData=[];
+  policeStations:any;
   ngOnInit() {
-    this.getAllOffences()
+
+    this.getAllMonthsIncome()
   }
 
-  getAllOffences(){
-    this.reportsService.getAllMonthsOffencesReport()
+  getAllMonthsIncome(){
+    this.reportsService.getAllMonthsPoliceStationIncomeReport()
     .subscribe(response=>{
-      this.offences=response;
-      let totalOccurence=0;
-      this.offences.forEach(offence => {
-        let offenceOneData=[];
-        offenceOneData.push(offence.sectionOfAct);
-        offenceOneData.push(offence.provision);
-        offenceOneData.push(offence.total);
-        this.allOffenceData.push(offenceOneData);
-        totalOccurence+=offence.total;
+      this.policeStations=response;
+      let amount=0;
+      this.policeStations.forEach(policeStation => {
+        let policeStationData=[];
+        policeStationData.push(policeStation.policeStationName);
+        policeStationData.push(policeStation.oicDivision);
+        policeStationData.push(policeStation.phoneNo);
+        policeStationData.push(policeStation.total);
+        this.allMonthsPoliceStationData.push(policeStationData);
+        amount+=policeStation.total;
       });
-      this.allOffenceData.push(["","Total",totalOccurence])
-      console.log(this.allOffenceData);
+      this.allMonthsPoliceStationData.push(["","","Total",amount])
+      console.log(this.allMonthsPoliceStationData);
     },(error:Response)=>{
     })
   }
-
-  public genarateAllOffencesReport()  
+  
+  public genarateAllMonthsIncomeReport()  
   {  
     let doc = new jspdf();
-    let head = [['Section of Act', 'Provision', 'Total']];
-    let offenceData = this.allOffenceData;
+    let head = [['Police Station Name', 'Oic Division', 'Telephone No','Amount']];
+    let offenceData = this.allMonthsPoliceStationData;
     doc.autoTable({
         head: head,
         body: offenceData,
@@ -99,7 +92,7 @@ export class OffenceReportComponent implements OnInit {
          doc.setFontStyle('normal');
          doc.text("Sri Lanka Traffic Police", data.settings.margin.left , 22);
          doc.setFontSize(18);
-         doc.text("Report on All Offences ", data.settings.margin.left , 33);
+         doc.text("Report on Police Station Income ", data.settings.margin.left , 33);
          //set page number
         // Footer
         var str = "Page " + doc.internal.getNumberOfPages()
@@ -113,65 +106,45 @@ export class OffenceReportComponent implements OnInit {
         doc.text(str, data.settings.margin.left, pageHeight - 10);
     },
     });
-    doc.save('All Offence Report.pdf'); 
-    // var print = document.getElementById('contentToConvert');  
-    // html2canvas(print).then(canvas => { 
-      
-        // const contentDataURL = canvas.toDataURL('image/png')  
- 
-    // 
-    
-    // var imgWidth = 200; 
-    // var pageHeight = 275;  
-    // var imgHeight = canvas.height * imgWidth / canvas.width;
-    // var heightLeft = imgHeight;
-    
-    // var position = 0;
+    doc.save('Income Report.pdf'); 
 
-    // doc.addImage(contentDataURL, 'PNG', 10, 10, imgWidth, imgHeight);
-    // heightLeft -= pageHeight;
-
-    // while (heightLeft >= 0) {
-    //   position = heightLeft - imgHeight;
-    //   doc.addPage();
-    //   doc.addImage(contentDataURL, 'PNG', 10, 10, imgWidth, imgHeight);
-    //   heightLeft -= pageHeight;
-    // }
-      // });  
   } 
 
 
 
-   genarateSelectedMonthReport(){
+   genarateSelectedMonthIncomeReport(){
 
     let monthInString=this.months[this.selectedMonth].viewValue;
     let yearInString=this.selectedYear;
  
 
-    let monthOffencedata=[];
-    this.reportsService.getSelectedMonthOffencesReport(this.selectedMonth,this.selectedYear)
+    let monthIncomedata=[];
+    this.reportsService.getSelectedMonthPoliceStationIncomeReport(this.selectedMonth,this.selectedYear)
         .subscribe(response=>{
-          this.offences=response;
-          let totalOccurence=0;
-          this.offences.forEach(offence => {
-            let offenceOneData=[];
-            offenceOneData.push(offence.sectionOfAct);
-            offenceOneData.push(offence.provision);
-            offenceOneData.push(offence.total);
-            monthOffencedata.push(offenceOneData);
-            totalOccurence+=offence.total;
+          this.policeStations=response;
+          console.log(response);
+          let amount=0;
+      
+          this.policeStations.forEach(policeStation => {
+            let policeStationData=[];
+            policeStationData.push(policeStation.policeStationName);
+            policeStationData.push(policeStation.oicDivision);
+            policeStationData.push(policeStation.phoneNo);
+            policeStationData.push(policeStation.total);
+            monthIncomedata.push(policeStationData);
+            amount+=policeStation.total;
           });
-          monthOffencedata.push(["","Total",totalOccurence])
-          console.log(monthOffencedata);
+          monthIncomedata.push(["","","Total",amount])
+          console.log(monthIncomedata);
           
 
           //creating report
           let doc = new jspdf();
-          let head = [['Section of Act', 'Provision', 'Total']];
+          let head = [['Police Station Name', 'Oic Division', 'Telephone No','Amount']];
           
           doc.autoTable({
               head: head,
-              body: monthOffencedata,
+              body: monthIncomedata,
               margin: {top: 45},
               
               headStyles: {
@@ -190,7 +163,7 @@ export class OffenceReportComponent implements OnInit {
               doc.setFontStyle('normal');
               doc.text("Sri Lanka Traffic Police", data.settings.margin.left , 22);
               doc.setFontSize(18);
-              doc.text("Report on Monthly Offences."+monthInString+" of "+yearInString, data.settings.margin.left , 33);
+              doc.text("Report on Monthly Income of Police Stations."+monthInString+" of "+yearInString, data.settings.margin.left , 33);
               //set page number
               // Footer
               var str = "Page " + doc.internal.getNumberOfPages()
@@ -204,13 +177,10 @@ export class OffenceReportComponent implements OnInit {
               doc.text(str, data.settings.margin.left, pageHeight - 10);
           },
           });
-          doc.save(monthInString+' offence report.pdf');
+          doc.save(monthInString+' income report.pdf');
         },(error:Response)=>{ 
     });
   }
-
-
-
 
 
 

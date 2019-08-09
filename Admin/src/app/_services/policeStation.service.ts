@@ -12,14 +12,14 @@ export class PoliceStationService {
 getPoliceStations() {
   return this.http.get(this.baseUrl + 'policeStations');
 }
+getPoliceStation(id) {
+  return this.http.get(this.baseUrl + 'policeStations/'+id);
+}
 
 getVehicles() {
   return this.http.get('http://localhost:3001/api/' + 'vehicles');
 }
 
-test(){
-  return this.http.get('http://localhost:8080/WelcomeRESTXML/webresources/generic2/chamal/5');
-}
 createPoliceStation(policeStation: any){
   return this.http.post(this.baseUrl + 'policeStations', policeStation);
 }

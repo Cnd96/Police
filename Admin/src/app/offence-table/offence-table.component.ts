@@ -15,13 +15,12 @@ export class OffenceTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   dataSource: OffenceTableDataSource;
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns =  ['sectionOfAct', 'provision','amount','actions'];
   constructor(private offenceService:OffenceService,private dialog : MatDialog) { }
+
   ngOnInit() {
     this.dataSource = new OffenceTableDataSource(this.paginator, this.sort, this.offenceService);
   }
-
   onUpdate(row){
     this.offenceService.offenceId=row._id;
     console.log(row._id);
@@ -30,5 +29,4 @@ export class OffenceTableComponent implements OnInit {
     dialogConfig.autoFocus=true;
     this.dialog.open(CreateOffenceComponent, dialogConfig);
   }
-
 }

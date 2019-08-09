@@ -29,6 +29,13 @@ import { ConfirmDialogComponent } from './confirmDialog/confirmDialog.component'
 import { MessageDialogComponent } from './messageDialog/messageDialog.component';
 import { ReportsComponent } from './reports/reports.component';
 import { OffenceReportComponent } from './AdminReports/offenceReport/offenceReport.component';
+import { ViewPoliceStationComponent } from './viewPoliceStation/viewPoliceStation.component';
+import { TrafficPolicemanTableComponent } from './traffic-policeman-table/traffic-policeman-table.component';
+
+import { PoliceStationIncomeComponent } from './AdminReports/policeStationIncome/policeStationIncome.component';
+
+import { CategoryService, ColumnSeriesService } from '@syncfusion/ej2-angular-charts';
+import { ChartModule } from '@syncfusion/ej2-angular-charts';
 
 
 @NgModule({
@@ -46,7 +53,10 @@ import { OffenceReportComponent } from './AdminReports/offenceReport/offenceRepo
       ConfirmDialogComponent,
       MessageDialogComponent,
       ReportsComponent,
-      OffenceReportComponent
+      OffenceReportComponent,
+      ViewPoliceStationComponent,
+      TrafficPolicemanTableComponent,
+      PoliceStationIncomeComponent
    ],
    imports: [
       BrowserModule,
@@ -58,9 +68,12 @@ import { OffenceReportComponent } from './AdminReports/offenceReport/offenceRepo
       HttpClientModule,
       MatTableModule,
       MatPaginatorModule,
-      MatSortModule
+      MatSortModule,
+      ChartModule
    ],
    providers: [
+      CategoryService,
+      ColumnSeriesService,
       AuthService,
       OffenceService,
       PoliceStationService,

@@ -51,7 +51,8 @@ router.get('/', async (req, res) => {
     let policeStationQuery=req.query.policeStationId;
     const policeman = await Policeman
     .find({policeStation:policeStationQuery})
-    .populate({path:'policeStation',populate:{path:'oicDivision'}})
+    .select("-password")
+    // .populate({path:'policeStation',populate:{path:'oicDivision'}})
     .sort('rank._id');
 
     // let name=policeman.name;

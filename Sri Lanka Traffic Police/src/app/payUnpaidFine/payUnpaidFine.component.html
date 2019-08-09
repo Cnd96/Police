@@ -22,9 +22,10 @@
        </tr>
      </tbody>
   </table>
-  <h5>Other Charges:Rs.<span>{{fine.additionalPay}}</span></h5><br>
+  <h5>Other Charges:Rs.<span>{{fine.additionalPay}}</span></h5>
+  <h5>Date Difference:<span>{{fine.dateDifference}}</span></h5>
   <h5>Total Amount:Rs.<span>{{fine.total}}</span></h5>
 </div>
 <div class="container" style="margin-top: 20px">
-  <button class="btn btn-primary" (click)="clickPay()">Submit</button>
+  <button class="btn btn-primary" (click)="clickPay()"[disabled]="fine.dateDifference>28" >Submit</button>
 </div>

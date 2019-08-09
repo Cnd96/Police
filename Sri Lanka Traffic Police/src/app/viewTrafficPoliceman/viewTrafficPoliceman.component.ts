@@ -44,7 +44,6 @@ export class ViewTrafficPolicemanComponent implements OnInit {
     {value: '10', viewValue: 'Octomber'},
     {value: '11', viewValue: 'November'},
     {value: '12', viewValue: 'December'}
-
   ];
 
   // static policemanId:any;

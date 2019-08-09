@@ -1,4 +1,5 @@
 const {PoliceStation} = require('../models/policeStation'); 
+const {Policeman} = require('../models/policeman');
 const {OicDivision} =require('../models/oicDivision');
 const express = require('express');
 const bcrypt=require('bcrypt')
@@ -40,11 +41,26 @@ router.get('/', async (req, res) => {
   });
 
 router.get('/:id', async (req, res) => {
-    const policeStation = await PoliceStation.findById(req.params.id);
+    let policeStationToSend= {};
+    let policeStation = await PoliceStation.findById(req.params.id)
+      .populate('oicDivision')
+      .select("-password");
   
     if (!policeStation) return res.status(404).send('Police Station was not found.');
   
-    res.send(policeStation);
+    
+    let policemen = await Policeman
+    .find({policeStation:policeStation._id})
+    .select("-password")
+    .sort('rank._id');
+
+    policeStationToSend.policemen=policemen;
+    policeStationToSend._id=policeStation._id;
+    policeStationToSend.policeStationName=policeStation.policeStationName;
+    policeStationToSend.address=policeStation.address;
+    policeStationToSend.phoneNo=policeStation.phoneNo;
+    policeStationToSend.oicDivision=policeStation.oicDivision;
+    res.send(policeStationToSend);
   });
   
 module.exports = router; 

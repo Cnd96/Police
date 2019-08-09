@@ -14,7 +14,7 @@ import { AuthService } from '../_services/auth.service';
 })
 export class PayUnpaidFineComponent implements OnInit {
   policeStationName=this.authService.decodedToken.policeStationName ;
-  recordedBy=this.authService.decodedToken.loggedPoliceman;
+  paidRecordedBy=this.authService.decodedToken.loggedPoliceman;
   unPaidFineId:any;
   fine:any;
   offences:any;
@@ -49,21 +49,22 @@ export class PayUnpaidFineComponent implements OnInit {
       if(res){
         this.fine.fineStatus=1;
         this.fine.totalAmountPaid=this.fine.total;
-        this.fine.recordedBy=this.recordedBy;
+        this.fine.paidRecordedBy=this.paidRecordedBy;
+        this.fine.paidDate=new Date();
         console.log(this.fine);
 
-        // this.fineservice.updateUnpaidFineToPaidFine(this.fine).subscribe(next=>{
-        //   this.genaratePdf();
-        //   this.dialogService.openMessageDialog('Succesfully recorded');
-        //   this.router.navigate(['/home']);
-        // },(error:Response)=>{
+        this.fineservice.updateUnpaidFineToPaidFine(this.fine).subscribe(next=>{
+          this.genaratePdf();
+          this.dialogService.openMessageDialog('Succesfully recorded');
+          this.router.navigate(['/home']);
+        },(error:Response)=>{
           
-        //   if(error.status===400){
-        //     alert('Fine not exist.')
-        //     console.log(error);
-        //   }
-        //   else alert('Unexpected error found');
-        // })       
+          if(error.status===400){
+            alert('Fine not exist.')
+            console.log(error);
+          }
+          else alert('Unexpected error found');
+        })       
       }
     });
   }
