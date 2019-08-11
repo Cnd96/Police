@@ -18,6 +18,21 @@
       </mat-list-item>
 
       <mat-list-item >
+          <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"  formControlName="type">
+                <mat-radio-button style="padding: 10px" color="warn" class="example-radio-button"
+                 *ngFor="let offenceType of offenceTypes" [value]="offenceType.id" (change)="typeChange($event)">
+                                 {{offenceType.name}}<span> </span>
+                 </mat-radio-button>
+          </mat-radio-group>
+      </mat-list-item>
+
+      <mat-list-item *ngIf="showDaysAllowed">
+        <mat-form-field>
+         <input  type="number" formControlName="daysAllowed" matInput placeholder="Days Before Court Case">
+        </mat-form-field>
+      </mat-list-item>
+
+      <mat-list-item >
           <mat-form-field>
            <input type="number" formControlName="amount" matInput placeholder="Amount">
           </mat-form-field>

@@ -64,7 +64,7 @@ export class PaidFinesTableComponent implements OnInit {
       this.fines=response;
       // console.log(response);
       this.fines.forEach(function (fine) {
-        console.log(fine.date);
+        // console.log(fine.date);
         fine.date=new Date(fine.date).toDateString();
         // fine.date=new Date(fine.date)
         // fine.date==fine.date.toString();

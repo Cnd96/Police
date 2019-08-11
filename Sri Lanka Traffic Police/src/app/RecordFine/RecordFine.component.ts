@@ -135,33 +135,6 @@ export class RecordFineComponent implements OnInit {
     });
   }
 
-  get licenseNo() {
-    return this.fineForm.get('licenseNo');
-  }
-  get vehicleNo() {
-    return this.fineForm.get('vehicleNo');
-  }
-  get offences() {
-    return this.fineForm.get('offences');
-  }
-  get fineStatus() {
-    return this.fineForm.get('fineStatus');
-  }
-  get policemanId() {
-    return this.fineForm.get('policemanId');
-  }
-  get totalAmountPaid() {
-    return this.fineForm.get('totalAmountPaid');
-  }
-  get place() {
-    return this.fineForm.get('place');
-  }
-  get date() {
-    return this.fineForm.get('date');
-  }
-  get time() {
-    return this.fineForm.get('time');
-  }
 
   offenceSelect(e,offence){
     // console.log(e.checked);

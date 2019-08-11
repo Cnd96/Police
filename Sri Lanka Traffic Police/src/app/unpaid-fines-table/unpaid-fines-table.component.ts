@@ -1,3 +1,4 @@
+import { UpdateToCourtCaseComponent } from './../updateToCourtCase/updateToCourtCase.component';
 import { ViewfineComponent } from './../viewfine/viewfine.component';
 import { map } from 'rxjs/operators';
 import { FineService } from './../_services/fine.service';
@@ -68,16 +69,25 @@ export class UnpaidFinesTableComponent implements OnInit {
       this.fines=response;
       // console.log(response);
 
-      this.fines.forEach(function (fine) {
-        fine.date=new Date(fine.date).toDateString()
+      this.fines.forEach( (fine)=> {
+        fine.enableCourtcase=true;
+        fine.date=new Date(fine.date).toDateString();
+          fine.offences.forEach(offence => {
+            if(fine.dateDifference>offence.daysAllowed){
+              fine.enableCourtcase=false;
+            }
+          });
+
       });
-      console.log(this.fines.date);
+      // console.log(this.fines.date);
+      console.log(this.fines);
 
     this.dataSource = new UnpaidFinesTableDataSource(this.paginator, this.sort,this.fines);
       // console.log(this.dataSource);
     },(error:Response)=>{
       console.log(error);
     })
+    
   }
   
   getSelectedYearMonthFines(){
@@ -105,5 +115,15 @@ export class UnpaidFinesTableComponent implements OnInit {
     dialogConfig.autoFocus=true;
     dialogConfig.width="80%";
     this.dialog.open(ViewfineComponent, dialogConfig);
+  }
+
+
+  createCourtCase(fine){
+    UpdateToCourtCaseComponent.fineDetails=fine;
+    const dialogConfig=new MatDialogConfig();
+    dialogConfig.disableClose=true;
+    dialogConfig.autoFocus=true;
+
+    this.dialog.open(UpdateToCourtCaseComponent, dialogConfig);
   }
 }

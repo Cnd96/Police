@@ -16,6 +16,13 @@ const offenceSchema = new mongoose.Schema({
       amount: {
         type: Number,
         required: true,
+      },
+      type:{
+        type:Boolean,
+        required:true
+      },
+      daysAllowed:{
+        type: Number,
       }
   });
   

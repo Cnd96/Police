@@ -18,6 +18,7 @@ const policemen=require('./routes/policemen');
 const searchPoliceman=require('./routesSearch/searchPoliceman');
 const oicDivisions=require('./routes/oicDivisions');
 const fines=require('./routes/fines');
+const courtCases=require('./routes/courtCases');
 const counters=require('./routes/counters');
 const driverFines=require('./routes/driverFines');
 
@@ -58,6 +59,7 @@ app.use('/api/policemen',policemen);
 app.use('/api/oicDivisions',oicDivisions);
 app.use('/api/searchPoliceman',searchPoliceman);
 app.use('/api/fines',fines);
+app.use('/api/courtCases',courtCases);
 app.use('/api/counters',counters);
 app.use('/api/driverFines',driverFines);
 

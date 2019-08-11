@@ -130,6 +130,7 @@ router.get('/', async (req, res) => {
                     offences:1,
                     amount:1,
                     unpaidRecordedBy:1,
+                    place:1,
                     fineStatus:1,
                     policeStationName:1,
                     paidRecordedBy:1,
@@ -168,6 +169,7 @@ router.get('/', async (req, res) => {
                     unpaidRecordedBy:1,
                     amount:1,
                     time:1,
+                    place:1,
                     paidRecordedBy:1,
                     fineStatus:1,
                     paidDate:1,
@@ -200,6 +202,7 @@ router.get('/', async (req, res) => {
                     additionalPay:1,
                     totalAmountPaid:1,
                     time:1,
+                    place:1,
                     offences:1,
                     amount:1,
                     fineStatus:1,
@@ -240,6 +243,7 @@ router.get('/', async (req, res) => {
                     vehicleNo:1,
                     offences:1,
                     time:1,
+                    place:1,
                     unpaidRecordedBy:1,
                     paidRecordedBy:1,
                     amount:1,
@@ -286,8 +290,6 @@ router.get('/', async (req, res) => {
     
     res.send(fine);
   });
-
-  
 
   
 router.get('/:id', async (req, res) => {

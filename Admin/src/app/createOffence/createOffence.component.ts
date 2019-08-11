@@ -13,10 +13,20 @@ import { DialogService } from '../_services/dialog.service';
 export class CreateOffenceComponent implements OnInit {
   offence:any;
   newOffence:boolean;
+  offenceTypes=[{
+      name:"Court Case",
+      id:true
+  },{
+    name:"Fine",
+    id:false
+  },]
   offenceForm=new FormGroup(
     { sectionOfAct: new FormControl('Section', Validators.required),
       provision: new FormControl('', Validators.required),
-      amount: new FormControl('', Validators.required)}
+      type:new FormControl('', Validators.required),
+      amount: new FormControl('', Validators.required),
+      daysAllowed: new FormControl('', Validators.required),
+    }
   );
   constructor(private dialogRef:MatDialogRef<CreateOffenceComponent>, 
     private dialogService:DialogService,private offenceService: OffenceService ,private router: Router) { }
@@ -27,23 +37,27 @@ export class CreateOffenceComponent implements OnInit {
      this.populateForm(response);
      this.newOffence=false;
     //  console.log(this.newOffence);
+    this.showDaysAllowed=true; 
     },(error:Response)=>{
       this.newOffence=true;
       // console.log(this.newOffence);
     })
     this.offenceService.offenceId='noid';    
   }
-  get sectionOfAct() {
-    return this.offenceForm.get('sectionOfAct');
-  }
 
-  get provision() {
-    return this.offenceForm.get('provision');
-  }
-  get amount() {
-    return this.offenceForm.get('amount');
-  }
+  showDaysAllowed:any;
 
+  typeChange(data){
+    console.log(data.value);
+    if(data.value){
+      this.offenceForm.patchValue({daysAllowed:0});
+      this.showDaysAllowed=false;
+    }
+    else{
+      this.showDaysAllowed=true;
+    }
+    console.log(this.offenceForm.value);
+  }
   submit(){
 
     // console.log(this.newOffence);
@@ -52,8 +66,9 @@ export class CreateOffenceComponent implements OnInit {
 
     if(this.newOffence==true){
       this.offenceService.createOffence(this.offence).subscribe(next=>{
-        alert("Succesfully created new offence");
-        this.router.navigate(['/home']);
+     
+        this.dialogService.openMessageDialog('Succesfully created new offence');
+        // this.router.navigate(['/home']);
         this.close();
       },(error:Response)=>{
         
@@ -68,7 +83,7 @@ export class CreateOffenceComponent implements OnInit {
     else{
       this.offenceService.updateOffence(this.offence).subscribe(next=>{
         this.dialogService.openMessageDialog('Succesfully updated offence');
-        this.router.navigate(['/home/offences']);
+        // this.router.navigate(['/home/offences']);
         this.close();
       },(error:Response)=>{
         
@@ -104,7 +119,9 @@ export class CreateOffenceComponent implements OnInit {
     this.offenceForm.setValue({
       sectionOfAct:offence._id,
       provision:offence.provision,
-      amount:offence.amount
+      amount:offence.amount,
+      type:offence.type,
+      daysAllowed:offence.daysAllowed,
     })
   }
 }

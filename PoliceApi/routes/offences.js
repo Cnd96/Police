@@ -11,6 +11,8 @@ router.post('/', async (req, res) => {
         _id: req.body.sectionOfAct,
         provision: req.body.provision,
         amount: req.body.amount,  
+        type: req.body.type,
+        daysAllowed : req.body.daysAllowed,
     });
     offenceToCreate = await offenceToCreate.save();
     
@@ -34,7 +36,9 @@ router.put('/:id',async (req, res) => {
   const offence = await Offence.findByIdAndUpdate(req.params.id,
     { 
       provision: req.body.provision,
-      amount: req.body.amount
+      amount: req.body.amount,
+      type:req.body.type,
+      daysAllowed : req.body.daysAllowed,
     }, { new: true });
 
   if (!offence) return res.status(404).send('The offence with the given ID was not found.');
