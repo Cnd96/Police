@@ -23,24 +23,52 @@ export class ReportsComponent implements OnInit {
     {value: '2020', viewValue: '2020'},
     {value: '2021', viewValue: '2021'},
   ];
+
+
+  //bar chart
   finesData:any;
   public primaryXAxis: Object;
-  public chartData: Object[];
+  public finesBarGraphData: Object[];
   public title: string;
   public primaryYAxis: Object;
+
+  //pieChart
+  vehicleData:any;
+  public vehiclesPieGraphData: Object[];
+  public map: Object = 'fill';
+  public datalabel: Object;
+  public legendSettings: Object;
+
+
+
+
   ngOnInit() {
   
     this.reportService.getAllFinesReport()
     .subscribe((response)=>{
       this.finesData=response;
-      this.chartData =this.finesData;
+      this.finesBarGraphData =this.finesData;
       this.primaryXAxis = { valueType: 'Category',title: 'Month' };
-      this.primaryYAxis = {title: 'Number of Fines'};
-      this.title = 'Fines 2019';
+      this.primaryYAxis = {title: 'Number of Fines and Court Cases'};
+      this.title = 'Fines and Court Cases 2019';
       },
       (error)=>console.log(error)
     );
     
+
+    this.reportService.getVehiceData()
+      .subscribe((response)=>{
+        this.vehicleData=response;
+        this.vehiclesPieGraphData =this.vehicleData;
+        this.datalabel = { visible: true, name: 'vehicleType', position: 'Outside' };
+        this.legendSettings = {
+                visible: true
+        };
+      },
+      (error)=>console.log(error)
+    );
+
+   
   }
 
   ShowOffenceReportComponent(){

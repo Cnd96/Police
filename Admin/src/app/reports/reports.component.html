@@ -7,15 +7,28 @@
 
         <ejs-chart id="chart-container"  [primaryXAxis]='primaryXAxis'[primaryYAxis]='primaryYAxis' [title]='title'>
         <e-series-collection>
-        <e-series [dataSource]="chartData" type="Column" xName="month" yName="count" name="id">
+        <e-series [dataSource]="finesBarGraphData" type="Column" xName="month" yName="count" name="id">
         </e-series> 
         </e-series-collection>
         </ejs-chart>
       </div>
       <mat-toolbar style="margin-top: 30px">Offences Section</mat-toolbar>
       <app-offenceReport></app-offenceReport>
+
       <mat-toolbar style="margin-top: 30px">Police Stations Section</mat-toolbar>
       <app-policeStationIncome></app-policeStationIncome>
+
+      <mat-toolbar style="margin-top: 30px">Vehicles Section</mat-toolbar>
+      <ejs-accumulationchart id="chart-container2" [legendSettings]='legendSettings'>
+        <e-accumulation-series-collection>
+            <e-accumulation-series [dataSource]='vehiclesPieGraphData'  yName='count' [pointColorMapping]= 'map' [dataLabel]='datalabel'></e-accumulation-series>
+        </e-accumulation-series-collection>
+    </ejs-accumulationchart>
+
+    
+
+
   </div>
+  
 
     

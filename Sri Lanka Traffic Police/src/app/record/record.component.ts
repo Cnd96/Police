@@ -59,6 +59,9 @@ export class RecordComponent implements OnInit {
   recordFine(){
     this.router.navigate(['/recordFine',this.driver._id]);
   }
+  recordCourtCase(){
+    this.router.navigate(['/recordCourtCase','No']);
+  }
   recordNoLicenseFine(){
     this.router.navigate(['/recordFine','No']);
   }

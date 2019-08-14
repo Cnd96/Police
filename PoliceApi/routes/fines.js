@@ -112,7 +112,8 @@ router.get('/', async (req, res) => {
     if(req.query.fineStatus.localeCompare("true")){fineStatusQuery=false}
 
     async function getOfficerOneMonthFines(){
-        let fine =await Fine.aggregate([
+        let finesToReturn=[];
+        let fines =await Fine.aggregate([
             {$match:{policeStationName: policeStationNameQuery}},
             {$match:{'policeman._id':policeManIdQuery}},
             {$match:{fineStatus:fineStatusQuery}},
@@ -138,15 +139,21 @@ router.get('/', async (req, res) => {
                     // date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
                     date:1,
                     paidDate:1,
-                    month: { $month: "$date" },
-                    year:{$year:"$date"},
                     dateDifference: { $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
                 }
             },
-            {$match:{year:parseInt(yearQuery)}},
-            {$match:{month:parseInt(monthQuery)}},
             { $sort : { date : 1 } }
         ]);
+        fines.forEach(fine=>{
+            if(new Date(fine.date).getMonth()==parseInt(monthQuery)){
+                if(new Date(fine.date).getFullYear()==parseInt(yearQuery)){
+                    
+                    finesToReturn.push(fine);
+                }
+            }
+        })
+     
+        return finesToReturn;
         return fine;
     }
 
@@ -228,7 +235,8 @@ router.get('/', async (req, res) => {
     }
 
     async function getAllOfficersOneMonthFines(){
-        let fine=await Fine.aggregate([
+        let finesToReturn=[];
+        let fines=await Fine.aggregate([
             {$match:{policeStationName: policeStationNameQuery}},
             {$match:{fineStatus:fineStatusQuery}},
             {
@@ -253,18 +261,23 @@ router.get('/', async (req, res) => {
                     // date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
                     date:1,
                     paidDate:1,
-                    month: { $month: "$date" },
-                    // xx:aa,
-                    year:{$year:"$date"},
                     dateDifference:{ $floor: {"$divide":[{$subtract: [ new Date(), "$date" ] }, 1000 * 60 * 60 * 24] } } 
                 }
             },
-            {$match:{year:parseInt(yearQuery)}},
-            {$match:{month:parseInt(monthQuery)}},
             { $sort : { date : 1 } }
         ]);
+
+        
+        fines.forEach(fine=>{
+            if(new Date(fine.date).getMonth()==parseInt(monthQuery)){
+                if(new Date(fine.date).getFullYear()==parseInt(yearQuery)){
+                    
+                    finesToReturn.push(fine);
+                }
+            }
+        })
      
-        return fine;
+        return finesToReturn;
     }
 
 

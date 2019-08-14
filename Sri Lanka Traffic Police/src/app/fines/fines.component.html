@@ -3,7 +3,13 @@
 <div class="container" style="margin-top: 100px">
    
 <mat-tab-group>
-
+  
+    <mat-tab label="Court Cases"> 
+        <div style="margin-top: 20px">
+            <app-un-paid-court-table></app-un-paid-court-table>
+            <app-paid-court-table></app-paid-court-table>
+          </div>
+     </mat-tab>
   <mat-tab style="font-size: 20px; font-weight: 500;" label="Unpaid Fines">
     <div style="margin-top: 20px">
       <app-unpaid-fines-table></app-unpaid-fines-table>
@@ -15,7 +21,8 @@
       <app-paid-fines-table></app-paid-fines-table>
     </div>
   </mat-tab>
-  <mat-tab label="Court Cases"> Content 3 </mat-tab>
+
+  
 </mat-tab-group>
 
 </div>

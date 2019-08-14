@@ -40,18 +40,18 @@ export class UnpaidFinesTableComponent implements OnInit {
   ];
   months: Month[] = [
     {value: '', viewValue: 'All'},
-    {value: '1', viewValue: 'January'},
-    {value: '2', viewValue: 'February'},
-    {value: '3', viewValue: 'March'},
-    {value: '4', viewValue: 'April'},
-    {value: '5', viewValue: 'May'},
-    {value: '6', viewValue: 'June'},
-    {value: '7', viewValue: 'July'},
-    {value: '8', viewValue: 'August'},
-    {value: '9', viewValue: 'September'},
-    {value: '10', viewValue: 'Octomber'},
-    {value: '11', viewValue: 'November'},
-    {value: '12', viewValue: 'December'}
+    {value: '0', viewValue: 'January'},
+    {value: '1', viewValue: 'February'},
+    {value: '2', viewValue: 'March'},
+    {value: '3', viewValue: 'April'},
+    {value: '4', viewValue: 'May'},
+    {value: '5', viewValue: 'June'},
+    {value: '6', viewValue: 'July'},
+    {value: '7', viewValue: 'August'},
+    {value: '8', viewValue: 'September'},
+    {value: '9', viewValue: 'Octomber'},
+    {value: '10', viewValue: 'November'},
+    {value: '11', viewValue: 'December'}
 
   ];
   
@@ -87,7 +87,6 @@ export class UnpaidFinesTableComponent implements OnInit {
     },(error:Response)=>{
       console.log(error);
     })
-    
   }
   
   getSelectedYearMonthFines(){
@@ -98,7 +97,16 @@ export class UnpaidFinesTableComponent implements OnInit {
       this.fines=response;
       console.log(this.fines);
       this.fines.forEach(function (fine) {
-        fine.date=new Date(fine.date).toDateString()
+        fine.date=new Date(fine.date).toDateString();
+
+ 
+          fine.enableCourtcase=true;
+            fine.offences.forEach(offence => {
+              if(fine.dateDifference>offence.daysAllowed){
+                fine.enableCourtcase=false;
+              }
+            });
+  
       });
       this.dataSource = new UnpaidFinesTableDataSource(this.paginator, this.sort,this.fines);
     },(error:Response)=>{

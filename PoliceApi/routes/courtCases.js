@@ -11,6 +11,113 @@ const mongoose = require('mongoose');
 
 Fawn.init(mongoose);
 
+router.post('/', async (req, res) => {
+
+    const policeman = await Policeman.findOne({_id: req.body.policemanId});
+    if (!policeman) return res.status(400).send('Invalid Police Man.');
+
+    const policeStation = await PoliceStation.findOne({  _id: policeman.policeStation}).populate('oicDivision');
+    if (!policeStation) return res.status(400).send('Invalid Police Station.');
+    
+    
+    let driver = await Driver.findOne({ _id : req.body.licenseNo});
+    if (!((driver)||req.body.licenseNo=='No')) return res.status(400).send('Invalid driver license number.');
+    console.log("dri");
+    let offencesArrLength=req.body.offences.length;
+
+    let offences=new Array();
+
+    for(let i=0;i<offencesArrLength;i++){
+        let offence=await Offence.findOne({_id:req.body.offences[i]});
+        if (!offence) return res.status(400).send('Invalid offence.');
+        offences.push(offence);
+    }
+
+    let courtCaseToCreate ;
+
+    if(req.body.licenseNo=='No'){
+        courtCaseToCreate = new CourtCase({ 
+            // _id:counter.value+1,
+            _id:req.body.courtId,
+            licenseNo:'No',
+            nic:req.body.nic,
+
+            driverName: req.body.driverName,
+            driverAddress: req.body.address,
+            CatogeriesOfVehicles: 'No',
+
+            vehicleNo:req.body.vehicleNo,
+            offences:req.body.offences,
+            time:req.body.time,
+            place:req.body.place,
+            date:new Date(req.body.date),
+
+            amount:req.body.amount,
+            status:req.body.status,
+            courtName:policeStation.oicDivision.oicDivisionName,
+            courtHearingDate:req.body.courtHearingDate,
+            courtHearingTime:req.body.courtHearingTime,
+            paidDate:new Date(req.body.paidDate),
+        
+            policeStationName:policeStation.policeStationName,
+            policeman:{
+                _id:policeman._id,
+                name:policeman.name,
+                rank:policeman.rank.name
+            },
+
+
+            unpaidRecordedBy:req.body.unpaidRecordedBy,
+            courtRecordedBy:req.body.courtRecordedBy,
+            courtPaidRecordedBy:req.body.courtPaidRecordedBy,
+
+        });
+    }
+    else{
+        courtCaseToCreate = new CourtCase({ 
+            
+            _id:req.body.courtId,
+            licenseNo:driver._id,
+            nic:req.body.nic,
+
+           
+            driverName: req.body.driverName,
+            driverAddress:req.body.address,
+            CatogeriesOfVehicles: driver.CatogeriesOfVehicles,
+           
+            vehicleNo:req.body.vehicleNo,
+            offences:offences,
+            time:req.body.time,
+            place:req.body.place,
+            date:new Date(req.body.date),
+
+            amount:req.body.amount,
+            status:req.body.status,
+            courtName:policeStation.oicDivision.oicDivisionName,
+            courtHearingDate:req.body.courtHearingDate,
+            courtHearingTime:req.body.courtHearingTime,
+            paidDate:new Date(req.body.paidDate),
+        
+            policeStationName:policeStation.policeStationName,
+            policeman:{
+                _id:policeman._id,
+                name:policeman.name,
+                rank:policeman.rank.name
+            },
+
+            unpaidRecordedBy:req.body.unpaidRecordedBy,
+            courtRecordedBy:req.body.courtRecordedBy,
+            courtPaidRecordedBy:req.body.courtPaidRecordedBy,
+
+        });
+    }
+
+    courtCaseToCreate=await courtCaseToCreate.save();
+    res.send(courtCaseToCreate);
+   
+});
+
+
 router.post('/updateUnpaidToCourtCase/', async (req, res) => {
 
     const fineId=req.body._id;
@@ -18,15 +125,6 @@ router.post('/updateUnpaidToCourtCase/', async (req, res) => {
     const policeStation = await PoliceStation.findOne({policeStationName: req.body.policeStationName}).populate('oicDivision');
     if (!policeStation) return res.status(400).send('Invalid Police Station.');
     console.log(fineId);
-    // let offencesArrLength=req.body.offences.length;
-    // let offences=new Array();
-    // // let amount=0;
-    // for(let i=0;i<offencesArrLength;i++){
-    //     let offence=await Offence.findOne({_id:req.body.offences[i]});
-    //     if (!offence) return res.status(400).send('Invalid offence.');
-    //     // amount+=offence.amount;
-    //     offences.push(offence);
-    // }
     
     let driver = await Driver.findOne({ _id : req.body.licenseNo});
     if (!((driver)||req.body.licenseNo=='No')) return res.status(400).send('Invalid driver license number.');
@@ -41,7 +139,7 @@ router.post('/updateUnpaidToCourtCase/', async (req, res) => {
             nic:req.body.nic,
 
             driverName: req.body.driverName,
-            driverAddress: req.body.driverAddress,
+            driverAddress: req.body.address,
             CatogeriesOfVehicles: 'No',
 
             vehicleNo:req.body.vehicleNo,
@@ -75,7 +173,7 @@ router.post('/updateUnpaidToCourtCase/', async (req, res) => {
 
            
             driverName: driver.Name,
-            driverAddress:req.body.driverAddress,
+            driverAddress:req.body.address,
             CatogeriesOfVehicles: driver.CatogeriesOfVehicles,
            
             vehicleNo:req.body.vehicleNo,
@@ -103,12 +201,12 @@ router.post('/updateUnpaidToCourtCase/', async (req, res) => {
 
     try{
         let task=new Fawn.Task()
-        .save('courtcases',courtCaseToCreate);
+        .save('courtcases',courtCaseToCreate)
+        .run();
+        const unpaidFine = await Fine.findOne({_id: fineId});
 
-        const unpaidFine = await Fine.findOne({_id: '455'});
-
-        task.remove('fines',{_id:unpaidFine._id})
-            .run();
+        // task.remove('fines',{_id:unpaidFine._id})
+            // .run();
         
          res.send(courtCaseToCreate);
     }catch(ex){
@@ -119,5 +217,99 @@ router.post('/updateUnpaidToCourtCase/', async (req, res) => {
 });
 
 
+router.get('/policeStation/allmonths/unpaidCourt', async (req, res) => {
+    let courtCasesToSent=[];
+    let policeStationQuery=req.query.policeStationName;
+    let yearQuery=req.query.year;
+    
+    const courtCases = await CourtCase.find({status:false,policeStationName:policeStationQuery})
+
+    courtCases.forEach(courtCase=>{
+      if(new Date(courtCase.date).getFullYear()==parseInt(yearQuery)){       
+            courtCasesToSent.push(courtCase);
+      }
+    })
+    res.send(courtCasesToSent);
+});
+
+router.get('/policeStation/selectedMonth/unpaidCourt', async (req, res) => {
+    let courtCasesToSent=[];
+    let policeStationQuery=req.query.policeStationName;
+    let yearQuery=req.query.year;
+    let monthQuery=req.query.month;
+    const courtCases = await CourtCase.find({status:false,policeStationName:policeStationQuery})
+
+    courtCases.forEach(courtCase=>{
+        if(new Date(courtCase.date).getMonth()==parseInt(monthQuery)){
+            if(new Date(courtCase.date).getFullYear()==parseInt(yearQuery)){
+                    
+                courtCasesToSent.push(courtCase);
+            }  
+        }
+    })
+    res.send(courtCasesToSent);
+});
+
+
+
+
+router.get('/policeStation/allmonths/paidCourt', async (req, res) => {
+    let courtCasesToSent=[];
+    let policeStationQuery=req.query.policeStationName;
+    let yearQuery=req.query.year;
+    
+    const courtCases = await CourtCase.find({status:true,policeStationName:policeStationQuery})
+
+    courtCases.forEach(courtCase=>{
+      if(new Date(courtCase.date).getFullYear()==parseInt(yearQuery)){       
+            courtCasesToSent.push(courtCase);
+      }
+    })
+    res.send(courtCasesToSent);
+});
+
+router.get('/policeStation/selectedMonth/paidCourt', async (req, res) => {
+    let courtCasesToSent=[];
+    let policeStationQuery=req.query.policeStationName;
+    let yearQuery=req.query.year;
+    let monthQuery=req.query.month;
+    const courtCases = await CourtCase.find({status:true,policeStationName:policeStationQuery})
+
+    courtCases.forEach(courtCase=>{
+        if(new Date(courtCase.date).getMonth()==parseInt(monthQuery)){
+            if(new Date(courtCase.date).getFullYear()==parseInt(yearQuery)){
+                    
+                courtCasesToSent.push(courtCase);
+            }  
+        }
+    })
+    res.send(courtCasesToSent);
+});
+
+
+
+router.put('/CourtDate/:id',async (req, res) => {
+    const courtCase = await CourtCase.findByIdAndUpdate(req.params.id,
+      { 
+        courtHearingDate:req.body.courtHearingDate,
+        courtHearingTime:req.body.courtHearingTime,
+      }, { new: true });
+  
+    if (!courtCase) return res.status(404).send('The Court Case with the given ID was not found.');
+    res.send(courtCase);
+    });
+
+router.put('/SettleCourtCase/:id',async (req, res) => {
+    const courtCase = await CourtCase.findByIdAndUpdate(req.params.id,
+        { 
+            status:true,
+            amount:req.body.amount,
+            courtPaidRecordedBy:req.body.courtPaidRecordedBy,
+            paidDate:req.body.paidDate
+          }, { new: true });
+      
+        if (!courtCase) return res.status(404).send('The Court Case with the given ID was not found.');
+        res.send(courtCase);
+});
 
 module.exports = router;  

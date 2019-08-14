@@ -26,4 +26,8 @@ getSelectedMonthPoliceStationIncomeReport(month,year) {
 getAllMonthsPoliceStationIncomeReport() {
     return this.http.get(this.baseUrl + 'policeStationReports/income/all');
 }
+
+getVehiceData(){
+  return this.http.get(this.baseUrl + 'vehicleReports');
+}
 }

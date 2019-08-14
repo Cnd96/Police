@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 // require('express-async-errors');
 
-
+const vehicle=require('./routes/vehicle');
 const users=require('./routes/users');
 const login=require('./routesLogin/login');
 const offences=require('./routes/offences');
@@ -23,6 +23,7 @@ const counters=require('./routes/counters');
 const driverFines=require('./routes/driverFines');
 
 
+const vehicleReports=require('./routesReport/vehicleReports');
 const offenceReports=require('./routesReport/offenceReports');
 const policeStationReports=require('./routesReport/policeStationReports');
 const fineReports=require('./routesReport/fineReports');
@@ -62,8 +63,10 @@ app.use('/api/fines',fines);
 app.use('/api/courtCases',courtCases);
 app.use('/api/counters',counters);
 app.use('/api/driverFines',driverFines);
+app.use('/api/vehicle',vehicle);
 
 
+app.use('/api/vehicleReports',vehicleReports);
 app.use('/api/testReport',testReport);
 app.use('/api/offenceReport',offenceReports);
 app.use('/api/policeStationReports',policeStationReports);

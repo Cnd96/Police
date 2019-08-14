@@ -10,6 +10,14 @@ export class fineFormValidators{
         }
          return null;
     }
+    static nicValidator(control:AbstractControl) : ValidationErrors |null{
+        let nic1=(/^(\d{9})([A-Za-z]{1})$/.test(control.value));
+        let nic2=(/^(\d{12})$/.test(control.value));
+        if(!(nic1||nic2)){
+            return {nicInvalid:true};
+        }
+         return null;
+    }
 
     static vehicleNoValidator(control:AbstractControl) : ValidationErrors |null{
         let vehicle1=(/^([A-Za-z]{2})([-]{1})([A-Za-z]{2})([-]{1})(\d{4})$/.test(control.value));

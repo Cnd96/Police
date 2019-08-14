@@ -40,7 +40,7 @@
                                                   <input  formControlName="licenseNo"  matInput placeholder="License No">
                                               </mat-form-field>
                                           <mat-form-field>
-                                              <input matInput placeholder="Policeman"  [matAutocomplete]="auto" (keyup)="searchPoliceman($event)" [formControl]="policemanId">
+                                              <input matInput placeholder="Policeman"  [matAutocomplete]="auto" (keyup)="searchPoliceman($event)" formControlName="policemanId">
                                               <mat-autocomplete #auto="matAutocomplete">
                                                 <mat-option *ngFor="let trafficPoliceman of trafficPolicemen" [value]="trafficPoliceman._id">      
                                                   <span>{{trafficPoliceman.name}}</span> 

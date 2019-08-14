@@ -1,9 +1,10 @@
 import { CourtCaseService } from './../_services/courtCase.service';
 import { AuthService } from './../_services/auth.service';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit, createPlatformFactory } from '@angular/core';
+import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { DialogService } from '../_services/dialog.service';
+import { fineFormValidators } from '../RecordFine/fineFormValidators';
 
 @Component({
   selector: 'app-updateToCourtCase',
@@ -11,29 +12,48 @@ import { DialogService } from '../_services/dialog.service';
   styleUrls: ['./updateToCourtCase.component.css']
 })
 export class UpdateToCourtCaseComponent implements OnInit {
+  courtForm: FormGroup;
   recordedBy=this.authService.decodedToken.loggedPoliceman;
   static fineDetails:any;
   courtCase:any;
 
-  constructor(private dialogRef:MatDialogRef<UpdateToCourtCaseComponent>,private authService: AuthService,
+  constructor(private fb: FormBuilder,private dialogRef:MatDialogRef<UpdateToCourtCaseComponent>,private authService: AuthService,
     private dialogService:DialogService,private courtCaseService:CourtCaseService) { }
-  courtForm=new FormGroup(
-    { courtId: new FormControl('', Validators.required),
-      nic: new FormControl('', Validators.required),
-      address:new FormControl('', Validators.required),
-      courtHearingDate: new FormControl('', Validators.required),
-      courtHearingTime: new FormControl('', Validators.required),
-      amount: new FormControl(''),
-      status: new FormControl(''),
-      paidDate: new FormControl(''),
-      courtRecordedBy:new FormControl(''),
-      courtPaidRecordedBy:new FormControl(''),
-    }
-  );
+ 
+  
+  
+  // (
+  //   { courtId: new FormControl('', Validators.required),
+  //     nic: new FormControl('', Validators.required,fineFormValidators.nicValidator),
+  //     address:new FormControl('', Validators.required),
+  //     courtHearingDate: new FormControl('', Validators.required),
+  //     courtHearingTime: new FormControl('', Validators.required),
+  //     amount: new FormControl(''),
+  //     status: new FormControl(''),
+  //     paidDate: new FormControl(''),
+  //     courtRecordedBy:new FormControl(''),
+  //     courtPaidRecordedBy:new FormControl(''),
+  //   }
+  // );
   ngOnInit() {
     this.courtCase=UpdateToCourtCaseComponent.fineDetails;
+    this.createForm();
   }
 
+  createForm(){
+    this.courtForm = this.fb.group({
+      courtId: ['',Validators.required ],
+      nic:['',fineFormValidators.nicValidator],
+      address: ['',Validators.required ],
+      courtHearingDate:['',Validators.required],
+      courtHearingTime:['',Validators.required],
+      amount:[''],
+      status:[''],
+      paidDate:[''],
+      courtRecordedBy:[''],
+      courtPaidRecordedBy:[''],
+    });
+  }
   submit(){
     this.courtCase.courtId=this.courtForm.value.courtId;
     this.courtCase.nic=this.courtForm.value.nic;
@@ -46,7 +66,7 @@ export class UpdateToCourtCaseComponent implements OnInit {
     this.courtCase.courtRecordedBy=this.recordedBy;
     this.courtCase.courtPaidRecordedBy='No';
 
-    // console.log(this.courtCase);
+    console.log(this.courtCase);
     this.dialogService.openConfirmDialog('Confirm Update Fine To Court Case?')
     .afterClosed().subscribe(res =>{
       console.log(res);
@@ -66,9 +86,9 @@ export class UpdateToCourtCaseComponent implements OnInit {
         })
    
       }
-});   
-
+    });   
   }
+  
   close(){
     this.dialogRef.close();
   }

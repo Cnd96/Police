@@ -34,6 +34,11 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { RecordComponent } from './record/record.component';
 import { ViewfineComponent } from './viewfine/viewfine.component';
 import { UpdateToCourtCaseComponent } from './updateToCourtCase/updateToCourtCase.component';
+import { UnPaidCourtTableComponent } from './un-paid-court-table/un-paid-court-table.component';
+import { PaidCourtTableComponent } from './paid-court-table/paid-court-table.component';
+import { UpdateCourtDateComponent } from './updateCourtDate/updateCourtDate.component';
+import { SettleCourtCaseComponent } from './settleCourtCase/settleCourtCase.component';
+import { RecordCourtCaseComponent } from './recordCourtCase/recordCourtCase.component';
 
 @NgModule({
    declarations: [
@@ -55,10 +60,14 @@ import { UpdateToCourtCaseComponent } from './updateToCourtCase/updateToCourtCas
       TPUnpaidFinesTableComponent,
       TPPaidFinesTableComponent,
       RecordFineComponent,
-      //AddDegreesComponent,
       RecordComponent,
       ViewfineComponent,
-      UpdateToCourtCaseComponent
+      UpdateToCourtCaseComponent,
+      UnPaidCourtTableComponent,
+      PaidCourtTableComponent,
+      UpdateCourtDateComponent,
+      SettleCourtCaseComponent,
+      RecordCourtCaseComponent
    ],
    imports: [
       BrowserModule,
@@ -81,6 +90,8 @@ import { UpdateToCourtCaseComponent } from './updateToCourtCase/updateToCourtCas
    entryComponents: [
       ViewfineComponent,
       CreatePolicemanComponent,
+      UpdateCourtDateComponent,
+      SettleCourtCaseComponent,
       UpdateToCourtCaseComponent,
       ConfirmDialogComponent,
       MessageDialogComponent//fordialogboxes

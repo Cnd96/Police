@@ -36,7 +36,9 @@ import { PoliceStationIncomeComponent } from './AdminReports/policeStationIncome
 
 import { CategoryService, ColumnSeriesService } from '@syncfusion/ej2-angular-charts';
 import { ChartModule } from '@syncfusion/ej2-angular-charts';
-
+import { AccumulationChartModule } from '@syncfusion/ej2-angular-charts';
+import { PieSeriesService, AccumulationLegendService, AccumulationTooltipService, AccumulationAnnotationService,
+  AccumulationDataLabelService } from '@syncfusion/ej2-angular-charts';
 
 @NgModule({
    declarations: [
@@ -69,7 +71,8 @@ import { ChartModule } from '@syncfusion/ej2-angular-charts';
       MatTableModule,
       MatPaginatorModule,
       MatSortModule,
-      ChartModule
+      ChartModule,
+      AccumulationChartModule
    ],
    providers: [
       CategoryService,
@@ -78,7 +81,9 @@ import { ChartModule } from '@syncfusion/ej2-angular-charts';
       OffenceService,
       PoliceStationService,
       OicDivisionService,
-      AuthGuard
+      AuthGuard,
+      PieSeriesService, AccumulationLegendService, AccumulationTooltipService, AccumulationDataLabelService,
+      AccumulationAnnotationService
    ],
    bootstrap: [
       AppComponent

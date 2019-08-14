@@ -34,6 +34,11 @@ export class TPPaidFinesTableComponent implements OnInit {
     this.finesService.getOfficerOneMonthPaidFines(id,month,year)
     .subscribe(response=>{
       this.paidFines=response;
+      this.paidFines.forEach( (fine)=> {
+       
+        fine.date=new Date(fine.date).toDateString();
+
+      });
       this.dataSource = new TPPaidFinesTableDataSource(this.paginator, this.sort,response);
     },(error:Response)=>{
       console.log(error);

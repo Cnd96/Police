@@ -1,0 +1,20 @@
+.fineForm-card {
+    max-width: 100%;
+    box-shadow: 0 8px 16px 16px rgba(0,0,0,0.15);
+  
+  }
+  .fineForm-card:hover {
+   
+    /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); */
+  } 
+  :host {
+    /* display: flex; */
+    /* justify-content: center; */
+    /* margin: 50px 50px; */
+  } 
+  .mat-form-field {
+    width: 94%;
+    min-width: 50px;
+    margin-top: 16px;
+    font-size: 16px;
+  }

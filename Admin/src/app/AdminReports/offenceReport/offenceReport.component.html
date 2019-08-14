@@ -1,0 +1,48 @@
+
+<div  class="container" id="contentToConvert" >
+    <div style="margin-top: 20px">
+      <h6>Monthly Offence Reports</h6>
+    </div>
+  <div style="margin-top: 30px">
+    <mat-form-field >
+      <mat-label>Month</mat-label>
+      <mat-select [(ngModel)]="selectedMonth" >
+        <mat-option *ngFor="let month of months" [value]="month.value" >
+          {{month.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field >
+      <mat-label>Year</mat-label>
+      <mat-select [(ngModel)]="selectedYear" >
+        <mat-option *ngFor="let year of years" [value]="year.value" >
+          {{year.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button  mat-raised-button color="primary" (click)="genarateSelectedMonthReport()" style="margin-left: 10px">Download Selected Month</button>
+    <button  mat-raised-button color="primary" (click)="genarateAllOffencesReport()" style="margin-left: 20px">Download All Months</button>
+
+</div>
+  
+
+<!-- <div  class="container"> 
+  <table id="my-table"class="table table-bordered">
+    <thead>
+     <tr>
+       <th scope="col">Section of Act</th>
+       <th scope="col">Provision</th>
+       <th scope="col">Total</th>
+     </tr>
+    </thead>
+    <tbody>
+       <tr class="table" *ngFor="let offence of offences" >
+        <td >{{offence.sectionOfAct}}</td>
+        <td >{{offence.provision}}</td>
+        <td >{{offence.total}}</td>      
+       </tr>
+       
+     </tbody>
+  </table> 
+</div> -->
+ 

@@ -91,17 +91,16 @@ export class RecordFineComponent implements OnInit {
       // console.log(this.offencesList);
     },(error:Response)=>{
     })
-
   }
 
   searchPoliceman(event){
-
     if((event.keyCode==40)||(event.keyCode==38)){
       return 
     }
     this.trafficPolicemenService.searchTrafficPolicemen(this.policeStationId,this.fineForm.get('policemanId').value)
     .subscribe(response=>{
       this.trafficPolicemen=response;
+      
     },(error:Response)=>{
     })
   }
@@ -118,12 +117,12 @@ export class RecordFineComponent implements OnInit {
 
   createFineForm() {
     this.fineForm = this.fb.group({
+      policemanId: ['', fineFormValidators.policemanIdValidator],
       fineId:['',Validators.required],
       licenseNo:[this.driverLicenseNo,fineFormValidators.licenseNoValidator],
       vehicleNo: ['',fineFormValidators.vehicleNoValidator],
       offences:[''],
       fineStatus: ['',Validators.required ],
-      policemanId: ['', fineFormValidators.policemanIdValidator],
       totalAmountPaid:[''],
       place:['',Validators.required],
       date:['',Validators.required],
@@ -154,7 +153,12 @@ export class RecordFineComponent implements OnInit {
       }
       this.totalAmount-=offence.amount;
     }
-    console.log(this.sectionOfAct.length);
+    // console.log(this.sectionOfAct.length);
+    // if(this.fineForm.invalid){
+      console.log(this.fineForm.value.policemanId);
+      console.log(this.fineForm.value.fineStatus);
+      
+    // }
   }
 
   submit(){
