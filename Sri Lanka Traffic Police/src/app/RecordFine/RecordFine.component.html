@@ -111,7 +111,7 @@
                             </mat-panel-title>
                           </mat-expansion-panel-header>
                       
-                          <div *ngFor="let offence of offencesList">
+                          <div *ngFor="let offence of offenceListToDisplay">
                               <p>
                                 <span>
                                   <mat-checkbox [(ngModel)]="offence.selected" color="warn" class="example-margin"

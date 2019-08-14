@@ -13,7 +13,7 @@
                                           <div class="controles-container"> 
                                           <mat-form-field >
                                               <mat-label>Court ID</mat-label>
-                                              <input formControlName="courtId" matInput >
+                                              <input TYPE="number"formControlName="courtId" matInput >
                                           </mat-form-field>
 
                                           <mat-form-field >
@@ -111,7 +111,7 @@
                                   
                                   <!-- [disabled]="!fineForm.valid||0>=sectionOfAct.length" -->
                                <div class="button">
-                                  <button mat-raised-button color="primary">Submit</button>
+                                  <button mat-raised-button color="primary" [disabled]="!courtCaseForm.valid||0>=sectionOfAct.length">Submit</button>
                                </div> 
                             </form>
                           </mat-card-content>                      

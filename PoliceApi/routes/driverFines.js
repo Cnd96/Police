@@ -1,5 +1,6 @@
 const {Driver} = require('../models/driverLicense'); 
 const {Fine} = require('../models/fine');
+const {CourtCase} = require('../models/courtCase');
 const express = require('express');
 const router = express.Router();
 
@@ -24,6 +25,21 @@ router.get('/:id', async (req, res) => {
         },
         { $sort : { fineStatus : 1} }
     ]);
+    let courtCases =await CourtCase.aggregate([
+        {$match:{licenseNo: driverLicenseNumber}},
+        {
+            $project:{
+                policeStationName:1,
+                vehicleNo:1,
+                status:1,
+                amount:1,
+                courtName:1,
+                date: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+            }
+        },
+        { $sort : { status : 1} }
+    ]);
+
     let driverFines=await Driver.aggregate([
        {$match:{_id: driverLicenseNumber}},
        {
@@ -34,7 +50,8 @@ router.get('/:id', async (req, res) => {
             DateOfIssue:{ $dateToString: { format: "%Y-%m-%d", date: "$DateOfIssue" } },
             DateOfExpire:{ $dateToString: { format: "%Y-%m-%d", date: "$DateOfExpire" } },
             CatogeriesOfVehicles:1,
-            fines:fines
+            fines:fines,
+            courtCases:courtCases
         }
     },
     ]);

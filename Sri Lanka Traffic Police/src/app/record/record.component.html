@@ -6,8 +6,8 @@
           <input [(ngModel)]="driverId" matInput placeholder="Search Driver" autocomplete="off" >
       </mat-form-field>
       <button mat-raised-button style="margin-left: 5px" (click)="getDriverDetails()" color="accent">Search Driver</button>
-      <button mat-raised-button style="margin-left: 10px" (click)="recordNoLicenseFine()" color="primary">Record Fine</button>
-      <button mat-raised-button style="margin-left: 10px" (click)="recordCourtCase()" color="primary">Record Court Case</button>
+      <!-- <button mat-raised-button style="margin-left: 10px"  color="primary">Record Fine</button> -->
+      <button mat-raised-button style="margin-left: 10px" (click)="recordCourtCaseNoLicense()" color="primary">Record Court Case</button>
   </div>
 </div>
 
@@ -19,22 +19,30 @@
       <h5 style="padding-left:20px">Categories of Vehicles : <span>{{driver.CatogeriesOfVehicles}}</span></h5>
       <h5 style="padding-left:20px">Date of Issue : <span>{{driver.DateOfIssue}}</span> Date of Expire : <span>{{driver.DateOfExpire}}</span></h5>
       
-      <h5 style="padding-left:20px;margin-top: 30px">Unpaid Fines: {{unpaidFines.length}} </h5>
+      <h4 style="padding-left:20px;margin-top: 30px">Court Cases: {{courtCases.length}} </h4>
+      <div style="padding-left:20px " *ngFor="let case of courtCases">
+        <h6>•Court ID : {{case._id}} <span style="color: red" *ngIf="!case.status"> Unpaid</span></h6>
+        <p>Date : {{case.date}} <span><p> Court Name : {{case.courtName}}</p></span></p>
+        
+      </div>
+
+      <h4 style="padding-left:20px;margin-top: 30px">Unpaid Fines: {{unpaidFines.length}} </h4>
       <div style="padding-left:20px ;color: red" *ngFor="let unpaidfine of unpaidFines">
         <h6>•Fine ID : {{unpaidfine._id}}</h6>
         <p>Date : {{unpaidfine.date}}</p>
       </div>
      
       <div style="padding-bottom: 20px">
-        <h5 style="padding-left:20px;margin-top: 30px">Paid Fines : {{paidFines.length}}</h5>
+        <h4 style="padding-left:20px;margin-top: 30px">Paid Fines : {{paidFines.length}}</h4>
         <div style="padding-left:20px" *ngFor="let paidfine of paidFines">
           <h6>•Fine ID : {{paidfine._id}}</h6>
           <p>Date : {{paidfine.date}}</p>
         </div>
 
         <div>
-          <button class="button" mat-raised-button color="accent">Record Court Case</button>
-          <button class="button" [disabled]="unpaidFines.length>0" mat-raised-button color="primary" (click)="recordFine()">Record Fine</button>
+          <button class="button" mat-raised-button color="accent" (click)="recordCourtCase()">Record Court Case</button>
+          <!-- [disabled]="unpaidFines.length>0" -->
+          <button class="button"  mat-raised-button color="primary" (click)="recordFine()">Record Fine</button>
         </div>
         
       </div>

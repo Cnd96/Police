@@ -47,7 +47,7 @@ export class RecordCourtCaseComponent implements OnInit {
     this.courtCaseForm = this.fb.group({
       policemanId: ['', fineFormValidators.policemanIdValidator],
       courtId:['',Validators.required],
-      nic: ['',Validators.required ],
+      nic: ['',fineFormValidators.nicValidator ],
       driverName: ['',Validators.required ],
       address: ['',Validators.required ],
       licenseNo:[this.driverLicenseNo,fineFormValidators.licenseNoValidator],
@@ -100,13 +100,18 @@ export class RecordCourtCaseComponent implements OnInit {
             this.driverOffences.push(offence);
             this.sectionOfAct.push(offence._id);
           }
-          if(offence._id=='Section130'){
+          if(offence._id=='Section130'||offence._id=='Section149'||offence._id=='Section135'){
             offence.isBlocked=true;
           }
         });
       }
       else{
-        
+        this.offencesList.forEach(offence => {
+          if(offence._id=='Section187'){
+            offence.isBlocked=true;
+            return;
+          }
+        });
       
       }
       
@@ -120,7 +125,7 @@ export class RecordCourtCaseComponent implements OnInit {
     if(e.checked){   
       this.driverOffences.push(offence);
       this.sectionOfAct.push(offence._id);
-      this.blockOffencePairs(offence._id);
+      this.blockOffencePairs(offence);
     }
     else if(!e.checked){
       let index = this.driverOffences.indexOf(offence);
@@ -137,25 +142,92 @@ export class RecordCourtCaseComponent implements OnInit {
     // if(this.fineForm.invalid){
   }
 
-  blockOffencePairs(offenceId){
-    if(offenceId=='Section163'){
+  blockOffencePairs(offenceSelected){
+
+    //blocking revenue license pair not having revenue license selected
+    if(offenceSelected._id=='Section163'){
       this.offencesList.forEach(offence => {
-        if(offence._id=='Section38'){
-          console.log(offence._id);
+        if(offence._id=='Section38'){//failure to produce revenue license offence
           offence.isBlocked=true;
+          console.log(this.sectionOfAct)
+          return;
         }
       });
     }
+
+     //blocking revenue license pair failure to produce revenue licenseselected
+    if(offenceSelected._id=='Section38'){
+      this.offencesList.forEach(offence => {
+        if(offence._id=='Section163'){// not having revenue license  offence
+          offence.isBlocked=true;
+          return;
+        }
+      });
+    }
+
+
+
+    //blocking insuarnace pair not having insuarance policy selected
+    if(offenceSelected._id=='Section137'){
+      this.offencesList.forEach(offence => {
+        if(offence._id=='Section141'){// Failure to carry or expired insuarance policy
+          offence.isBlocked=true;
+          console.log(this.sectionOfAct)
+          return;
+        }
+      });
+    }
+
+     //blocking insuarnace pair Failure to carry or expired insuarance policy selected
+    if(offenceSelected._id=='Section141'){
+      this.offencesList.forEach(offence => {
+        if(offence._id=='Section137'){// not having insuarance policy
+          offence.isBlocked=true;
+          return;
+        }
+      });
+    }
+
+
+
   }
   unBlockOffencePairs(offenceId){
+    //unblocking revenue license pair not having revenue license selected
     if(offenceId=='Section163'){
       this.offencesList.forEach(offence => {
-        if(offence._id=='Section38'){
-          console.log(offence._id);
+        if(offence._id=='Section38'){//failure to produce revenue license
           offence.isBlocked=false;
         }
       });
     }
+     //unblocking revenue license pair failure to produce revenue license selected
+     if(offenceId=='Section38'){
+      this.offencesList.forEach(offence => {
+        if(offence._id=='Section163'){// not having revenue license 
+          offence.isBlocked=false;
+        }
+      });
+    }
+
+
+     //unblocking insuarnace pair Failure to carry or expired insuarance policy selected
+     if(offenceId=='Section141'){
+      this.offencesList.forEach(offence => {
+        if(offence._id=='Section137'){//not having insuarance policy
+          offence.isBlocked=false;
+        }
+      });
+    }
+     //unblocking insuarnace pair pair not having insuarance policy selected
+     if(offenceId=='Section137'){
+      this.offencesList.forEach(offence => {
+        if(offence._id=='Section141'){// Failure to carry or expired insuarance policy
+          offence.isBlocked=false;
+        }
+      });
+    }
+
+    
   }
   submit(){
     this.courtCaseForm.patchValue({offences:this.sectionOfAct});
@@ -167,26 +239,26 @@ export class RecordCourtCaseComponent implements OnInit {
     this.courtCaseForm.patchValue({paidDate:new Date()});
 
     console.log( Object.assign({}, this.courtCaseForm.value))
-    // this.dialogService.openConfirmDialog('Confirm Update Fine To Court Case?')
-    // .afterClosed().subscribe(res =>{
-    //   console.log(res);
-    //   if(res){
-    //     this.courtCaseService.createCourtCase(Object.assign({}, this.courtCaseForm.value)).subscribe(next=>{
-    //       this.dialogService.openMessageDialog('Succesfully recorded the court case');
-    //       // this.router.navigate(['/home']);
-    //       console.log(next);
-    //     },(error:Response)=>{
+    this.dialogService.openConfirmDialog('Confirm Update Fine To Court Case?')
+    .afterClosed().subscribe(res =>{
+      console.log(res);
+      if(res){
+        this.courtCaseService.createCourtCase(Object.assign({}, this.courtCaseForm.value)).subscribe(next=>{
+          this.dialogService.openMessageDialog('Succesfully recorded the court case');
+          this.router.navigate(['/home']);
+          console.log(next);
+        },(error:Response)=>{
           
-    //       if(error.status===400){
-    //         alert('Error.')
+          if(error.status===400){
+            alert('Error.')
             
-    //         console.log(error);
-    //       }
-    //       else alert('Unexpected error found');
-    //     })
+            console.log(error);
+          }
+          else alert('Unexpected error found');
+        })
    
-    //   }
-    // });
+      }
+    });
   }
 
 }

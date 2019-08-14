@@ -14,7 +14,7 @@ export class PoliceStationIncomeComponent implements OnInit {
   constructor(private reportsService:ReportsService) { }
 
   currentYear=new Date().getFullYear();
-  currentMonth=(new Date().getMonth())+1;
+  currentMonth=(new Date().getMonth());
   selectedMonth = this.currentMonth.toString();
   selectedYear =this.currentYear.toString();
 
@@ -25,18 +25,18 @@ export class PoliceStationIncomeComponent implements OnInit {
   ];
   months: Month[] = [
     {value: '', viewValue: 'All'},
-    {value: '1', viewValue: 'January'},
-    {value: '2', viewValue: 'February'},
-    {value: '3', viewValue: 'March'},
-    {value: '4', viewValue: 'April'},
-    {value: '5', viewValue: 'May'},
-    {value: '6', viewValue: 'June'},
-    {value: '7', viewValue: 'July'},
-    {value: '8', viewValue: 'August'},
-    {value: '9', viewValue: 'September'},
-    {value: '10', viewValue: 'Octomber'},
-    {value: '11', viewValue: 'November'},
-    {value: '12', viewValue: 'December'}
+    {value: '0', viewValue: 'January'},
+    {value: '1', viewValue: 'February'},
+    {value: '2', viewValue: 'March'},
+    {value: '3', viewValue: 'April'},
+    {value: '4', viewValue: 'May'},
+    {value: '5', viewValue: 'June'},
+    {value: '6', viewValue: 'July'},
+    {value: '7', viewValue: 'August'},
+    {value: '8', viewValue: 'September'},
+    {value: '9', viewValue: 'Octomber'},
+    {value: '10', viewValue: 'November'},
+    {value: '11', viewValue: 'December'}
   ];
    
   allMonthsPoliceStationData=[];
@@ -114,7 +114,7 @@ export class PoliceStationIncomeComponent implements OnInit {
 
    genarateSelectedMonthIncomeReport(){
 
-    let monthInString=this.months[this.selectedMonth].viewValue;
+    let monthInString=this.months[parseInt(this.selectedMonth)+1].viewValue;
     let yearInString=this.selectedYear;
  
 
@@ -123,24 +123,27 @@ export class PoliceStationIncomeComponent implements OnInit {
         .subscribe(response=>{
           this.policeStations=response;
           console.log(response);
-          let amount=0;
+          let courtCaseIncomeAmount=0;
+          let fineIncomeAmount=0;
       
           this.policeStations.forEach(policeStation => {
             let policeStationData=[];
             policeStationData.push(policeStation.policeStationName);
             policeStationData.push(policeStation.oicDivision);
             policeStationData.push(policeStation.phoneNo);
-            policeStationData.push(policeStation.total);
+            policeStationData.push(policeStation.fineIncome);
+            policeStationData.push(policeStation.courtCaseIncome);
             monthIncomedata.push(policeStationData);
-            amount+=policeStation.total;
+            courtCaseIncomeAmount+=policeStation.courtCaseIncome;
+            fineIncomeAmount+=policeStation.fineIncome;
           });
-          monthIncomedata.push(["","","Total",amount])
+          monthIncomedata.push(["","","Total",fineIncomeAmount,courtCaseIncomeAmount])
           console.log(monthIncomedata);
           
 
           //creating report
           let doc = new jspdf();
-          let head = [['Police Station Name', 'Oic Division', 'Telephone No','Amount']];
+          let head = [['Police Station Name', 'Oic Division', 'Telephone No','Fine Income','Court Income']];
           
           doc.autoTable({
               head: head,

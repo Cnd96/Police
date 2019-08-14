@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material';
 import { DialogService } from '../_services/dialog.service';
 import { CourtCaseService } from '../_services/courtCase.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settleCourtCase',
@@ -13,7 +14,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class SettleCourtCaseComponent implements OnInit {
 
   
-  constructor(private dialogRef:MatDialogRef<SettleCourtCaseComponent>,private authService:AuthService,
+  constructor(private router : Router,private dialogRef:MatDialogRef<SettleCourtCaseComponent>,private authService:AuthService,
     private dialogService:DialogService,private courtCaseService:CourtCaseService) { }
 
   recordedBy=this.authService.decodedToken.loggedPoliceman;
@@ -36,8 +37,9 @@ export class SettleCourtCaseComponent implements OnInit {
           console.log(res);
           if(res){
             this.courtCaseService.settleCourtCase( Object.assign({}, this.courtForm.value)).subscribe(next=>{
+              this.close();
               this.dialogService.openMessageDialog('Succesfully settled court date');
-              // this.router.navigate(['/home']);
+              this.router.navigate(['/home']);
               console.log(next);
             },(error:Response)=>{
               

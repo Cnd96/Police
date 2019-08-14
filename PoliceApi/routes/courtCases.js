@@ -26,7 +26,6 @@ router.post('/', async (req, res) => {
     let offencesArrLength=req.body.offences.length;
 
     let offences=new Array();
-
     for(let i=0;i<offencesArrLength;i++){
         let offence=await Offence.findOne({_id:req.body.offences[i]});
         if (!offence) return res.status(400).send('Invalid offence.');
@@ -47,7 +46,7 @@ router.post('/', async (req, res) => {
             CatogeriesOfVehicles: 'No',
 
             vehicleNo:req.body.vehicleNo,
-            offences:req.body.offences,
+            offences:offences,
             time:req.body.time,
             place:req.body.place,
             date:new Date(req.body.date),

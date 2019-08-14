@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { DialogService } from '../_services/dialog.service';
@@ -11,7 +12,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class UpdateCourtDateComponent implements OnInit {
 
-  constructor(private dialogRef:MatDialogRef<UpdateCourtDateComponent>,
+  constructor(private dialogRef:MatDialogRef<UpdateCourtDateComponent>,private router : Router,
     private dialogService:DialogService,private courtCaseService:CourtCaseService) { }
 
   static courtCase;
@@ -33,8 +34,10 @@ export class UpdateCourtDateComponent implements OnInit {
           console.log(res);
           if(res){
             this.courtCaseService.updateCourtDate( Object.assign({}, this.courtForm.value)).subscribe(next=>{
+              this.close();
               this.dialogService.openMessageDialog('Succesfully updated court date');
-              // this.router.navigate(['/home']);
+
+              this.router.navigate(['/home']);
               console.log(next);
             },(error:Response)=>{
               

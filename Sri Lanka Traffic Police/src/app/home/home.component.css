@@ -15,3 +15,13 @@ body{
     background-position: middle;
 }
 
+
+
+  #footer{
+    padding-top: 20px;
+    padding-left: 100px;
+    background-color:#182169;
+    color: #ffffff;
+    margin-top: -10%;
+    padding-bottom: 10px
+  }

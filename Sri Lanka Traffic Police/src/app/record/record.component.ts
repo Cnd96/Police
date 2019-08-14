@@ -12,6 +12,7 @@ export class RecordComponent implements OnInit {
 
   driver;
   unpaidFines=[];
+  courtCases=[];
   paidFines=[];
   driverId:any;
   constructor(private fineService:FineService,private router:Router,private dialogService:DialogService) { }
@@ -34,6 +35,7 @@ export class RecordComponent implements OnInit {
       this.driver=response;
       this.getUnpaidFine(this.driver.fines);
       this.getPaidFine(this.driver.fines);
+      this.courtCases=this.driver.courtCases;
       console.log(this.unpaidFines);
       console.log(this.paidFines);
     },(error:Response)=>{
@@ -41,6 +43,7 @@ export class RecordComponent implements OnInit {
       this.driver=null;
     })
   }
+
   getUnpaidFine(fines){
     fines.forEach((fine)=> {
       if(!fine.fineStatus){
@@ -59,13 +62,14 @@ export class RecordComponent implements OnInit {
   recordFine(){
     this.router.navigate(['/recordFine',this.driver._id]);
   }
-  recordCourtCase(){
+  recordCourtCaseNoLicense(){
     this.router.navigate(['/recordCourtCase','No']);
   }
-  recordNoLicenseFine(){
-    this.router.navigate(['/recordFine','No']);
-  }
+ 
 
+  recordCourtCase(){
+    this.router.navigate(['/recordCourtCase',this.driver._id]);
+  }
 
 
 }

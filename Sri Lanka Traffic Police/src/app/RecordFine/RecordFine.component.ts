@@ -31,6 +31,7 @@ export class RecordFineComponent implements OnInit {
   trafficPolicemenCtrl = new FormControl('',Validators.required);
   startDate = new Date();
   offencesList:any;
+  offenceListToDisplay:any;
   fineOffences:any;
   totalAmount=0;
   sectionOfAct=[];
@@ -48,6 +49,7 @@ export class RecordFineComponent implements OnInit {
     console.log(new Date());
     this.fineOffences=[];
     this.offencesList=[];
+    this.offenceListToDisplay=[];
     this.route.paramMap
     .subscribe(params=>{
       this.driverLicenseNo= params.get('licenseNo');
@@ -67,27 +69,13 @@ export class RecordFineComponent implements OnInit {
 
       this.offencesList.forEach(offence => {
         offence.selected=false;
+        if(!offence.type){
+          this.offenceListToDisplay.push(offence);  
+        }
+        else{
+        
+        }
       });
-
-      if(this.driverLicenseNo=='No'){
-        console.log(this.offencesList);
-        this.offencesList.forEach(offence => {
-          if(offence._id=='Section135'){
-            offence.selected=true;
-            offence.isBlocked=true;
-            this.fineOffences.push(offence);
-            this.totalAmount+=offence.amount;
-            this.sectionOfAct.push(offence._id);
-          }
-        });
-      }
-      else{
-        this.offencesList.forEach(offence => {
-          if(offence._id=='Section135'){
-            offence.isBlocked=true;
-          }
-        });
-      }
       // console.log(this.offencesList);
     },(error:Response)=>{
     })

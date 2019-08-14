@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { CourtCaseService } from './../_services/courtCase.service';
 import { AuthService } from './../_services/auth.service';
 import { Component, OnInit, createPlatformFactory } from '@angular/core';
@@ -18,7 +19,7 @@ export class UpdateToCourtCaseComponent implements OnInit {
   courtCase:any;
 
   constructor(private fb: FormBuilder,private dialogRef:MatDialogRef<UpdateToCourtCaseComponent>,private authService: AuthService,
-    private dialogService:DialogService,private courtCaseService:CourtCaseService) { }
+    private dialogService:DialogService,private courtCaseService:CourtCaseService,private router : Router) { }
  
   
   
@@ -72,8 +73,9 @@ export class UpdateToCourtCaseComponent implements OnInit {
       console.log(res);
       if(res){
         this.courtCaseService.updateFineToCourtCase(this.courtCase).subscribe(next=>{
+          this.close();
           this.dialogService.openMessageDialog('Succesfully recorded the court case');
-          // this.router.navigate(['/home']);
+          this.router.navigate(['/home']);
           console.log(next);
         },(error:Response)=>{
           

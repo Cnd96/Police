@@ -4,22 +4,24 @@
    
 <mat-tab-group>
   
-    <mat-tab label="Court Cases"> 
+  <mat-tab label="Unpaid Fines"> 
         <div style="margin-top: 20px">
-            <app-un-paid-court-table></app-un-paid-court-table>
-            <app-paid-court-table></app-paid-court-table>
+            <app-unpaid-fines-table></app-unpaid-fines-table>
           </div>
-     </mat-tab>
-  <mat-tab style="font-size: 20px; font-weight: 500;" label="Unpaid Fines">
+  </mat-tab>
+
+  <mat-tab style="font-size: 20px; font-weight: 500;" label="Paid Fines">
     <div style="margin-top: 20px">
-      <app-unpaid-fines-table></app-unpaid-fines-table>
+        <app-paid-fines-table></app-paid-fines-table>  
     </div>
   </mat-tab>
 
-  <mat-tab label="Paid Fines">
-    <div style="margin-top: 20px">
-      <app-paid-fines-table></app-paid-fines-table>
-    </div>
+  <mat-tab label="Court Cases">
+      <div style="margin-top: 20px">
+          <app-un-paid-court-table></app-un-paid-court-table>
+          <app-paid-court-table></app-paid-court-table>
+        </div>
+    
   </mat-tab>
 
   

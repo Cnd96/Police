@@ -12,12 +12,13 @@ const mongoose = require('mongoose');
 
 
 router.post('/', async (req, res) => {
+    
     const policeman = await Policeman.findOne({_id: req.body.policemanId});
     if (!policeman) return res.status(400).send('Invalid Police Man.');
 
     const policeStation = await PoliceStation.findOne({  _id: policeman.policeStation});
     if (!policeStation) return res.status(400).send('Invalid Police Station.');
-    
+  
     let offencesArrLength=req.body.offences.length;
     let offences=new Array();
     let amount=0;
@@ -27,12 +28,11 @@ router.post('/', async (req, res) => {
         amount+=offence.amount;
         offences.push(offence);
     }
-    
     let driver = await Driver.findOne({ _id : req.body.licenseNo});
     if (!((driver)||req.body.licenseNo=='No')) return res.status(400).send('Invalid driver license number.');
-
+  
     let fineToCreate ;
-
+  
     if(req.body.licenseNo=='No'){
         fineToCreate = new Fine({ 
             // _id:counter.value+1,
