@@ -13,6 +13,7 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {
   }
   ShowHomeComponent(){ this.router.navigate(['/home']);}
+  ShowReportsComponent(){ this.router.navigate(['/reports']);}
   ShowFinesComponent(){this.router.navigate(['/fines']);}
   ShowTrafficPolicemenComponent(){this.router.navigate(['/trafficPolicemen']);}
   ShowRecordFinesForm(){this.router.navigate(['/searchDriver']);}

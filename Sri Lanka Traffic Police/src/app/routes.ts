@@ -11,6 +11,7 @@ import { TestReportComponent } from './testReport/testReport.component';
 import { RecordFineComponent } from './RecordFine/RecordFine.component';
 import { RecordComponent } from './record/record.component';
 import { RecordCourtCaseComponent } from './recordCourtCase/recordCourtCase.component';
+import { ReportsComponent } from './reports/reports.component';
 
 
 export const appRoutes: Routes = [
@@ -22,6 +23,7 @@ export const appRoutes: Routes = [
     {path:'payUnpaidFine/:unpaidFineId',component:PayUnpaidFineComponent},
     {path:'recordFine/:licenseNo',component:RecordFineComponent},
     {path:'recordCourtCase/:licenseNo',component:RecordCourtCaseComponent},
+    {path:'reports',component:ReportsComponent},
     {path:'searchDriver',component:RecordComponent},
     {path:'testReport',component:TestReportComponent},
     // {path:'add',component:AddDegreesComponent},

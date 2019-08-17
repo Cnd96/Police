@@ -147,7 +147,53 @@ router.get('/all', async (req, res) => {
 res.send(offenceList);
 });
 
+router.post('/getByPlace', async (req, res) => {
+    let placesToSearch=req.body.places;
+    let policeStation=req.body.policeStation;
+    let dataToSend=[];
+    let allCases=[];
+    let fines =await Fine.aggregate([
+        {
+            $project:{
+                place:1,
+                offences:1,
+            }
+        },
+    ]);
+    let courtCases =await CourtCase.aggregate([
+        {$match:{policeStationName: policeStation}},
+        {
+            $project:{
+                offences:1,
+                place:1
+            }
+        },
+    ]);
 
+    fines.forEach(fine=>{
+        fine.place=fine.place.toLowerCase();
+    })
+    courtCases.forEach(courtCase=>{
+        courtCase.place=courtCase.place.toLowerCase();
+    })
+    allCases=courtCases.concat(fines);
+
+    placesToSearch.forEach(place=>{
+        let placeData={
+            name:place,
+            noOffences:0
+        }
+        allCases.forEach(eachCase=>{
+            if(eachCase.place.includes(place)){
+                placeData.noOffences=placeData.noOffences + eachCase.offences.length;
+                // dataToSend.push(eachCase);
+            }
+        })
+        dataToSend.push(placeData);
+    })
+
+    res.send(dataToSend);
+})
 
 
 module.exports = router;  

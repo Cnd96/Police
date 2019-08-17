@@ -1,0 +1,7 @@
+<input [(ngModel)]="place"  matInput placeholder="Place">
+<button mat-raised-button color="primary" (click)="add()">Add</button>
+<button mat-raised-button color="primary"  (click)="submit()">Download Report</button>
+
+<div *ngFor="let place of places">
+  <span>{{place}}<button  class="btn btn-outline-danger" (click)="remove(place)">X</button></span>
+</div>

@@ -15,4 +15,8 @@ baseUrl = 'http://localhost:3000/api/';
   getAllFines(pageNumber){
     return this.http.get(this.baseUrl + 'testReport?policeStationName='+this.policeStationName+'&pageNumber='+pageNumber);
   }
+
+  getPlacesOffenceReport(placesData){
+    return this.http.post(this.baseUrl+'offenceReport/getByPlace',placesData);
+  }
 }

@@ -28,6 +28,7 @@
     "hammerjs": "^2.0.8",
     "html2canvas": "^1.0.0-rc.1",
     "jspdf": "^1.5.3",
+    "jspdf-autotable": "^3.2.4",
     "luxon": "^1.13.2",
     "moment": "^2.24.0",
     "ngx-export-as": "^1.2.2",

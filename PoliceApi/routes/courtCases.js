@@ -311,4 +311,44 @@ router.put('/SettleCourtCase/:id',async (req, res) => {
         res.send(courtCase);
 });
 
-module.exports = router;  
+
+
+// router.post('/check', async (req, res) => {  
+//     let EndTime=new Date(req.body.EndTime).getTime();
+//     let StartTime=new Date(req.body.StartTime).getTime();
+//     let vehicleType=req.body.vehicleType;
+
+//     let reservationDetailsToSend={
+//         availablity:true,
+//         vehicles:[]
+//     };
+
+//     const vehicles=await Vehicles.find({VehicleType:vehicleType});
+//     const reservations = await Reservations.find().populate('Vehicle');
+//     let noOfVehiclesInType=vehicles.length;
+//     let x=0;
+
+//     reservations.forEach(reservation=>{
+//         if(reservation.Vehicle.VehicleType==vehicleType){
+//             let reservationStartTime=reservation.StartTime.getTime();
+//             let reservationEndTime=reservation.EndTime.getTime();
+//             if(reservationStartTime==StartTime){
+//                 x++;
+//                 reservationDetailsToSend.vehicles.push(reservation.Vehicle);
+//             }
+//             else if(reservationStartTime<StartTime&&reservationEndTime>StartTime){
+//                 x++;
+//                 reservationDetailsToSend.vehicles.push(reservation.Vehicle);
+//             }
+//             else if(reservationStartTime>StartTime&&reservationStartTime<EndTime){
+//                 x++;
+//                 reservationDetailsToSend.vehicles.push(reservation.Vehicle);
+//             }
+//         }     
+//     })
+//     if(x>=noOfVehiclesInType){reservationDetailsToSend.availablity=false}
+//     res.send(reservationDetailsToSend);
+// });
+
+
+module.exports = router; 

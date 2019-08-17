@@ -39,6 +39,8 @@ import { PaidCourtTableComponent } from './paid-court-table/paid-court-table.com
 import { UpdateCourtDateComponent } from './updateCourtDate/updateCourtDate.component';
 import { SettleCourtCaseComponent } from './settleCourtCase/settleCourtCase.component';
 import { RecordCourtCaseComponent } from './recordCourtCase/recordCourtCase.component';
+import { ReportsComponent } from './reports/reports.component';
+import { PlaceReportsComponent } from './placeReports/placeReports.component';
 
 @NgModule({
    declarations: [
@@ -67,7 +69,9 @@ import { RecordCourtCaseComponent } from './recordCourtCase/recordCourtCase.comp
       PaidCourtTableComponent,
       UpdateCourtDateComponent,
       SettleCourtCaseComponent,
-      RecordCourtCaseComponent
+      RecordCourtCaseComponent,
+      ReportsComponent,
+      PlaceReportsComponent
    ],
    imports: [
       BrowserModule,
