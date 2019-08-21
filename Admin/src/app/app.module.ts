@@ -39,6 +39,7 @@ import { ChartModule } from '@syncfusion/ej2-angular-charts';
 import { AccumulationChartModule } from '@syncfusion/ej2-angular-charts';
 import { PieSeriesService, AccumulationLegendService, AccumulationTooltipService, AccumulationAnnotationService,
   AccumulationDataLabelService } from '@syncfusion/ej2-angular-charts';
+import { VehicleTypeOffenceComponent } from './AdminReports/vehicleTypeOffence/vehicleTypeOffence.component';
 
 @NgModule({
    declarations: [
@@ -58,7 +59,8 @@ import { PieSeriesService, AccumulationLegendService, AccumulationTooltipService
       OffenceReportComponent,
       ViewPoliceStationComponent,
       TrafficPolicemanTableComponent,
-      PoliceStationIncomeComponent
+      PoliceStationIncomeComponent,
+      VehicleTypeOffenceComponent
    ],
    imports: [
       BrowserModule,

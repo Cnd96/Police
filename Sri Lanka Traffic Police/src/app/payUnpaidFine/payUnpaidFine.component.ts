@@ -42,31 +42,31 @@ export class PayUnpaidFineComponent implements OnInit {
   }
 
   clickPay(){
-    
-    this.dialogService.openConfirmDialog('Confirm Pay?')
-    .afterClosed().subscribe(res =>{
-      console.log(res);
-      if(res){
-        this.fine.fineStatus=1;
-        this.fine.totalAmountPaid=this.fine.total;
-        this.fine.paidRecordedBy=this.paidRecordedBy;
-        this.fine.paidDate=new Date();
-        console.log(this.fine);
+    this.genaratePdf();
+    // this.dialogService.openConfirmDialog('Confirm Pay?')
+    // .afterClosed().subscribe(res =>{
+    //   console.log(res);
+    //   if(res){
+    //     this.fine.fineStatus=1;
+    //     this.fine.totalAmountPaid=this.fine.total;
+    //     this.fine.paidRecordedBy=this.paidRecordedBy;
+    //     this.fine.paidDate=new Date();
+    //     console.log(this.fine);
 
-        this.fineservice.updateUnpaidFineToPaidFine(this.fine).subscribe(next=>{
-          this.genaratePdf();
-          this.dialogService.openMessageDialog('Succesfully recorded');
-          this.router.navigate(['/home']);
-        },(error:Response)=>{
+    //     this.fineservice.updateUnpaidFineToPaidFine(this.fine).subscribe(next=>{
+    //       this.genaratePdf();
+    //       this.dialogService.openMessageDialog('Succesfully recorded');
+    //       this.router.navigate(['/home']);
+    //     },(error:Response)=>{
           
-          if(error.status===400){
-            alert('Fine not exist.')
-            console.log(error);
-          }
-          else alert('Unexpected error found');
-        })       
-      }
-    });
+    //       if(error.status===400){
+    //         alert('Fine not exist.')
+    //         console.log(error);
+    //       }
+    //       else alert('Unexpected error found');
+    //     })       
+    //   }
+    // });
   }
   
   
@@ -80,11 +80,13 @@ export class PayUnpaidFineComponent implements OnInit {
       var imgHeight = canvas.height * imgWidth / canvas.width;  
       var heightLeft = imgHeight;  
   
+      console.log(canvas.height+","+canvas.width);
       const contentDataURL = canvas.toDataURL('image/png')  
       let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF  
       var position = 0;  
+      console.log("con"+contentDataURL);
       pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-      pdf.save('MYPdf.pdf'); // Generated PDF   
+      pdf.save('Fine.pdf'); // Generated PDF   
     });  
   }  
 }

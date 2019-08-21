@@ -30,4 +30,7 @@ getAllMonthsPoliceStationIncomeReport() {
 getVehiceData(){
   return this.http.get(this.baseUrl + 'vehicleReports');
 }
+getVehiceTypeOffencesReport(){
+  return this.http.get(this.baseUrl + 'vehicleReports/vehicleTypeOffences');
+}
 }

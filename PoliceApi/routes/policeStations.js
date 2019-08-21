@@ -21,6 +21,7 @@ router.post('/', async (req, res) => {
       phoneNo: req.body.phoneNo,
       address: req.body.address,
       password:passwordHash,
+      places:[],
       oicDivision:{
         _id: oicDivision._id
     },
@@ -62,5 +63,17 @@ router.get('/:id', async (req, res) => {
     policeStationToSend.oicDivision=policeStation.oicDivision;
     res.send(policeStationToSend);
   });
+
+
+  router.put('/:id',async (req, res) => {
+    const policeStation = await PoliceStation.findByIdAndUpdate(req.params.id,
+      { 
+        places: req.body.places,
+      }, { new: true });
+  
+    if (!policeStation) return res.status(404).send('Police Station with the given ID was not found.');
+    res.send(policeStation);
+    });
+  
   
 module.exports = router; 

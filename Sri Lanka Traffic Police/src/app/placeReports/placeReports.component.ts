@@ -35,6 +35,7 @@ export class PlaceReportsComponent implements OnInit {
   this.place='';
   console.log(this.places);
   }
+
   submit(){
     let placesData={
       policeStation:this.policeStationName,
@@ -42,14 +43,7 @@ export class PlaceReportsComponent implements OnInit {
     }
     
     this.reportService.getPlacesOffenceReport(placesData).subscribe(response=>{
-
       this.data=response;
-      this.data.forEach(data => {
-        let dataToInsert=[];
-        dataToInsert.push(data.name);
-        dataToInsert.push(data.noOffences);
-       this.reportdata.push(dataToInsert);
-      });
       this.genaratePlaceOffencesReport();
     },(error:Response)=>{
       
@@ -65,17 +59,42 @@ export class PlaceReportsComponent implements OnInit {
 
   genaratePlaceOffencesReport(){
 
-
+// console.log();
           let doc = new jspdf();
-          let head = [['Place', 'Total']];
-          
+
+           
+
+          let head = [['Section of Act', 'Provision','Total']];
+
+          let firstPlacedataToInsert=[];
+          let firstPlace=this.data[0];
+          doc.setFontSize(22);
+              doc.setTextColor(40);
+              doc.setFontStyle('normal');
+              doc.text("Sri Lanka Traffic Police", 65, 25);
+              doc.setFontSize(21);
+              doc.text(this.policeStationName+" Police Station", 65, 35);
+              doc.setFontSize(19);
+              doc.text("Report on Places and Offences",14 , 44);
+          doc.text("Place-"+firstPlace.name,14 , 52);
+
+          firstPlace.totalOffences=0
+          firstPlace.offencesData.forEach(offence => {
+                let dataToInsert=[];
+                dataToInsert.push(offence.sectionOfAct);
+                dataToInsert.push(offence.provision);
+                dataToInsert.push(offence.total);
+                firstPlace.totalOffences+= offence.total;
+                firstPlacedataToInsert.push(dataToInsert);
+         });
+         firstPlacedataToInsert.push(["","Total",firstPlace.totalOffences])
           doc.autoTable({
               head: head,
-              body: this.reportdata,
-              margin: {top: 45},
-              
+              body: firstPlacedataToInsert,
+              startY:55,
+              theme: 'grid',
               headStyles: {
-                fontSize: 12
+                fontSize: 10
             },
             footStyles: {
                 fontSize: 15
@@ -84,13 +103,7 @@ export class PlaceReportsComponent implements OnInit {
               fontSize: 9,
             },
             didDrawPage: function (data) {
-              // Header
-              doc.setFontSize(20);
-              doc.setTextColor(40);
-              doc.setFontStyle('normal');
-              doc.text("Sri Lanka Traffic Police", data.settings.margin.left , 22);
-              doc.setFontSize(18);
-              doc.text("Report on Monthly Offences.", data.settings.margin.left , 33);
+ 
               //set page number
               // Footer
               var str = "Page " + doc.internal.getNumberOfPages()
@@ -104,7 +117,61 @@ export class PlaceReportsComponent implements OnInit {
               doc.text(str, data.settings.margin.left, pageHeight - 10);
           },
           });
-          doc.save(' offence report.pdf');
+
+          for(let i=1;i<this.data.length;i++){
+            let placedataToInsert=[];
+            let place=this.data[i];
+            doc.addPage();
+            doc.text(14 , 25,"Place-"+place.name);
+            // doc.text("Place-"+place.name,14 , 310);
+            place.totalOffences=0;
+            place.offencesData.forEach(offence => {
+                  let dataToInsert=[];
+                  dataToInsert.push(offence.sectionOfAct);
+                  dataToInsert.push(offence.provision);
+                  dataToInsert.push(offence.total);
+                  place.totalOffences+= offence.total;
+                  placedataToInsert.push(dataToInsert);
+           });
+           placedataToInsert.push(["","Total",place.totalOffences])
+            doc.autoTable({
+                head: head,
+                body: placedataToInsert,
+                margin: {top: 35},
+                theme: 'grid',
+                headStyles: {
+                  fontSize: 10
+              },
+              footStyles: {
+                  fontSize: 15
+              },
+              bodyStyles: {
+                fontSize: 9,
+              },
+              didDrawPage: function (data) {
+               // Header
+              //  doc.setFontSize(22);
+              //  doc.setTextColor(40);
+              //  doc.setFontStyle('normal');
+              //  doc.text("Sri Lanka Traffic Police", 14, 25);
+              //  doc.setFontSize(19);
+              //  doc.text("Report on Places.",14 , 35);
+              //  doc.text("Place :"+place.name,14 , 43);
+                //set page number
+                // Footer
+                var str = "Page " + doc.internal.getNumberOfPages()
+                if (typeof doc.putTotalPages === 'function') {
+                    str = str ;
+                }
+                doc.setFontSize(10);
+  
+                var pageSize = doc.internal.pageSize;
+                var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+                doc.text(str, data.settings.margin.left, pageHeight - 10);
+            },
+            });
+          }
+          doc.save('Place report.pdf');
     
   }
 

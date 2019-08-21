@@ -144,11 +144,82 @@ export class OffenceReportComponent implements OnInit {
 
 
 
-   genarateSelectedMonthReport(){
+  //  genarateSelectedMonthReport(){
+
+  //   let monthInString=this.months[parseInt(this.selectedMonth)+1].viewValue;
+  //   let yearInString=this.selectedYear;
+
+  //   let monthOffencedata=[];
+  //   this.reportsService.getSelectedMonthOffencesReport(this.selectedMonth,this.selectedYear)
+  //       .subscribe(response=>{
+  //         this.offences=response;
+  //         let totalOccurence=0;
+  //         this.offences.forEach(offence => {
+  //           let offenceOneData=[];
+  //           offenceOneData.push(offence.sectionOfAct);
+  //           offenceOneData.push(offence.provision);
+  //           offenceOneData.push(offence.total);
+  //           monthOffencedata.push(offenceOneData);
+  //           totalOccurence+=offence.total;
+  //         });
+  //         monthOffencedata.push(["","Total",totalOccurence])
+  //         console.log(monthOffencedata);
+
+  //         let body2 = monthOffencedata.map(row => Object.keys(row).map(key => row[key]));
+
+  //         for (var i = 0; i < body2.length; i++) {
+  //           let row = body2[i];
+  //           if (i % 5 === 0) {
+  //               row.unshift({rowSpan: 5, content: "rdtrdt ytft"+i / 5 + 1, styles: {valign: 'middle', halign: 'center'}});
+  //           }
+  //       }
+    
+  //         let doc = new jspdf();
+  //         let head = [['','Section of Act', 'Provision', 'Total']];
+          
+  //         doc.autoTable({
+  //             head: head,
+  //             body: body2,
+  //             margin: {top: 45},
+              
+  //             headStyles: {
+  //               fontSize: 12
+  //           },
+  //           footStyles: {
+  //               fontSize: 15
+  //           },
+  //           bodyStyles: {
+  //             fontSize: 9,
+  //           },
+  //           didDrawPage: function (data) {
+  //             // Header
+  //             doc.setFontSize(20);
+  //             doc.setTextColor(40);
+  //             doc.setFontStyle('normal');
+  //             doc.text("Sri Lanka Traffic Police", data.settings.margin.left , 22);
+  //             doc.setFontSize(18);
+  //             doc.text("Report on Monthly Offences."+monthInString+" of "+yearInString, data.settings.margin.left , 33);
+  //             //set page number
+  //             // Footer
+  //             var str = "Page " + doc.internal.getNumberOfPages()
+  //             if (typeof doc.putTotalPages === 'function') {
+  //                 str = str ;
+  //             }
+  //             doc.setFontSize(10);
+
+  //             var pageSize = doc.internal.pageSize;
+  //             var pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+  //             doc.text(str, data.settings.margin.left, pageHeight - 10);
+  //         },
+  //         });
+  //         doc.save(monthInString+' offence report.pdf');
+  //       },(error:Response)=>{ 
+  //   });
+  // }
+  genarateSelectedMonthReport(){
 
     let monthInString=this.months[parseInt(this.selectedMonth)+1].viewValue;
     let yearInString=this.selectedYear;
- 
 
     let monthOffencedata=[];
     this.reportsService.getSelectedMonthOffencesReport(this.selectedMonth,this.selectedYear)
@@ -165,18 +236,24 @@ export class OffenceReportComponent implements OnInit {
           });
           monthOffencedata.push(["","Total",totalOccurence])
           console.log(monthOffencedata);
-          
 
-          //creating report
           let doc = new jspdf();
+             // Header
+             doc.setFontSize(22);
+             doc.setTextColor(45);
+             doc.setFontStyle('normal');
+             doc.text("Sri Lanka Traffic Police", 65 , 22);
+             doc.setFontSize(19);
+             doc.text("Report on Monthly Offences : "+monthInString+" of "+yearInString,14 , 38);
           let head = [['Section of Act', 'Provision', 'Total']];
           
           doc.autoTable({
               head: head,
               body: monthOffencedata,
               margin: {top: 45},
-              
+              theme: 'grid',
               headStyles: {
+              
                 fontSize: 12
             },
             footStyles: {
@@ -186,13 +263,7 @@ export class OffenceReportComponent implements OnInit {
               fontSize: 9,
             },
             didDrawPage: function (data) {
-              // Header
-              doc.setFontSize(20);
-              doc.setTextColor(40);
-              doc.setFontStyle('normal');
-              doc.text("Sri Lanka Traffic Police", data.settings.margin.left , 22);
-              doc.setFontSize(18);
-              doc.text("Report on Monthly Offences."+monthInString+" of "+yearInString, data.settings.margin.left , 33);
+           
               //set page number
               // Footer
               var str = "Page " + doc.internal.getNumberOfPages()
@@ -212,6 +283,8 @@ export class OffenceReportComponent implements OnInit {
   }
 
 
+
+  
 
 
 

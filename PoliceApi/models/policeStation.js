@@ -29,7 +29,12 @@ const policeStationSchema = new mongoose.Schema({
       oicDivision:{
         type:mongoose.Schema.Types.ObjectId,
         ref:OicDivision,
-       }
+       },
+       places:[
+           {
+               type:String,
+           }
+       ]
   });
   
 const PoliceStation = mongoose.model('policeStation',policeStationSchema);

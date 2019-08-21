@@ -63,8 +63,9 @@ router.get('/', async (req, res) => {
 
   
 router.get('/vehicleTypeOffences', async (req, res) => {
-    let vehicleTypeQuery=req.query.vehicleType;
-    console.log(vehicleTypeQuery)
+    // let vehicleTypeQuery=req.query.vehicleType;
+    // console.log(vehicleTypeQuery)
+    let vehicleTypes=['Van','Bus','Lorry','Container','Car','Bike','Three Wheeler']
     let vehicleNumberList=[];//with offences commited
     let vehicleTypeOffences=[];
 
@@ -96,15 +97,62 @@ router.get('/vehicleTypeOffences', async (req, res) => {
     let offences=await Offence.find();
 
     offences.forEach(offence=>{
-        let total=0;
+        let vanTotal=0;
+        let carTotal=0;
+        let bikeTotal=0;
+        let lorryTotal=0;
+        let threeWheelTotal=0;
+        let busTotal=0;
+        let containerTotal=0;
         vehicleNumberList.forEach(vehicleWithOffences=>{
-            if(vehicleWithOffences.vehicleType==vehicleTypeQuery){
+            if(vehicleWithOffences.vehicleType=='Van'){
                 vehicleWithOffences.offences.forEach(vehicleTypeOffence=>{
                     if(offence.provision==vehicleTypeOffence.provision){
-                        total++;
-                              
-                   }   
-                 })   
+                        vanTotal++;          
+                    }   
+                })   
+            }
+            if(vehicleWithOffences.vehicleType=='Lorry'){
+                vehicleWithOffences.offences.forEach(vehicleTypeOffence=>{
+                    if(offence.provision==vehicleTypeOffence.provision){
+                        lorryTotal++;          
+                    }   
+                })   
+            }
+            if(vehicleWithOffences.vehicleType=='Bus'){
+                vehicleWithOffences.offences.forEach(vehicleTypeOffence=>{
+                    if(offence.provision==vehicleTypeOffence.provision){
+                        busTotal++;          
+                    }   
+                })   
+            }
+            if(vehicleWithOffences.vehicleType=='Bike'){
+                vehicleWithOffences.offences.forEach(vehicleTypeOffence=>{
+                    if(offence.provision==vehicleTypeOffence.provision){
+                        bikeTotal++;          
+                    }   
+                })   
+            }
+            if(vehicleWithOffences.vehicleType=='Car'){
+                vehicleWithOffences.offences.forEach(vehicleTypeOffence=>{
+                    if(offence.provision==vehicleTypeOffence.provision){
+                        carTotal++;          
+                    }   
+                })   
+            }
+            if(vehicleWithOffences.vehicleType=='Three Wheeler'){
+                vehicleWithOffences.offences.forEach(vehicleTypeOffence=>{
+                    if(offence.provision==vehicleTypeOffence.provision){
+                        threeWheelTotal++;          
+                    }   
+                })   
+            }
+            if(vehicleWithOffences.vehicleType=='Container'){
+                vehicleWithOffences.offences.forEach(vehicleTypeOffence=>{
+                    if(offence.provision==vehicleTypeOffence.provision){
+                        containerTotal++;          
+                    }   
+                })   
             }
          
         })
@@ -112,7 +160,29 @@ router.get('/vehicleTypeOffences', async (req, res) => {
         let offenceToPush={
             sectionOfAct:offence._id,
             provision:offence.provision,
-            total:total
+            vehicleTypes:[{
+                name:'Car',
+                total:carTotal
+            },{
+                name:'Van',
+                total:vanTotal
+            },{
+                name:'Bus',
+                total:busTotal
+            },{
+                name:'Lorry',
+                total:lorryTotal
+            },{
+                name:'Container',
+                total:containerTotal
+            },{
+                name:'Three Wheeler',
+                total:threeWheelTotal
+            },{
+                name:'Bike',
+                total:bikeTotal
+            }  
+            ]
         }
         vehicleTypeOffences.push(offenceToPush)
     })

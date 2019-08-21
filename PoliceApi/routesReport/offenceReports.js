@@ -147,7 +147,7 @@ router.get('/all', async (req, res) => {
 res.send(offenceList);
 });
 
-router.post('/getByPlace', async (req, res) => {
+router.post('/getByPlace/basic', async (req, res) => {
     let placesToSearch=req.body.places;
     let policeStation=req.body.policeStation;
     let dataToSend=[];
@@ -189,6 +189,88 @@ router.post('/getByPlace', async (req, res) => {
                 // dataToSend.push(eachCase);
             }
         })
+        dataToSend.push(placeData);
+    })
+
+    res.send(dataToSend);
+})
+
+router.post('/getByPlace', async (req, res) => {
+    let placesToSearch=req.body.places;
+    let policeStation=req.body.policeStation;
+    let dataToSend=[];
+    let allCases=[];
+    //getting all fines 
+    let fines =await Fine.aggregate([
+        {
+            $project:{
+                place:1,
+                offences:1,
+            }
+        },
+    ]);
+    //getting all court cases 
+    let courtCases =await CourtCase.aggregate([
+        {$match:{policeStationName: policeStation}},
+        {
+            $project:{
+                offences:1,
+                place:1
+            }
+        },
+    ]);
+
+    let offences=await Offence.find();
+    //places of all fines to lowercase 
+    fines.forEach(fine=>{
+        fine.place=fine.place.toLowerCase();
+    })
+    //places of all court cases to lowercase
+    courtCases.forEach(courtCase=>{
+        courtCase.place=courtCase.place.toLowerCase();
+    })
+    //concating all fines and all court cases
+    allCases=courtCases.concat(fines);
+
+    //iterating through all places by client
+    placesToSearch.forEach(place=>{
+        //place data template
+        let placeData={
+            name:place,
+            offencesData:[]
+        }
+        
+        let placeOffences=[];
+        //iterating through all cases
+        allCases.forEach(eachCase=>{
+            //matching places in all cases and client request
+            if(eachCase.place.includes(place)){
+                // pushing eachcase offences to place offences
+                eachCase.offences.forEach(offence=>{
+                    placeOffences.push(offence);
+                })
+            }
+        })
+
+        offences.forEach(offence=>{
+            let total=0;
+            //Iterating through place all offences
+            placeOffences.forEach(placeOffence=>{
+
+                if(placeOffence.provision==offence.provision){
+                    total++;
+                }   
+     
+            })
+            // console.log(offence.provision)
+            let offenceToPush={
+                sectionOfAct:offence._id,
+                provision:offence.provision,
+                total:total
+            }
+            placeData.offencesData.push(offenceToPush)
+        })
+
         dataToSend.push(placeData);
     })
 
