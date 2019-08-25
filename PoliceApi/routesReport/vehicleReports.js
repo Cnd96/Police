@@ -69,7 +69,6 @@ router.get('/vehicleTypeOffences', async (req, res) => {
     let vehicleNumberList=[];//with offences commited
     let vehicleTypeOffences=[];
 
-    
     let vehicleNumbersInFines =await Fine.aggregate([
         {
             $project:{
@@ -87,10 +86,165 @@ router.get('/vehicleTypeOffences', async (req, res) => {
         },
     ]);
     vehicleNumberList=vehicleNumbersInCourtCases.concat(vehicleNumbersInFines);
-    vehicles=await Vehicle.find();
-
+    let vehicles=await Vehicle.find();
 
     vehicleNumberList.forEach(vehicleWithOffences=>{
+        
+        let vehicle=vehicles.find(vehicle=>vehicle._id===vehicleWithOffences.vehicleNo);
+        vehicleWithOffences.vehicleType=vehicle.vehicleType;
+    })
+    let offences=await Offence.find();
+
+    offences.forEach(offence=>{
+        let vanTotal=0;
+        let carTotal=0;
+        let bikeTotal=0;
+        let lorryTotal=0;
+        let threeWheelTotal=0;
+        let busTotal=0;
+        let containerTotal=0;
+        vehicleNumberList.forEach(vehicleWithOffences=>{
+            if(vehicleWithOffences.vehicleType=='Van'){
+                vehicleWithOffences.offences.forEach(vehicleTypeOffence=>{
+                    if(offence.provision==vehicleTypeOffence.provision){
+                        vanTotal++;          
+                    }   
+                })   
+            }
+            if(vehicleWithOffences.vehicleType=='Lorry'){
+                vehicleWithOffences.offences.forEach(vehicleTypeOffence=>{
+                    if(offence.provision==vehicleTypeOffence.provision){
+                        lorryTotal++;          
+                    }   
+                })   
+            }
+            if(vehicleWithOffences.vehicleType=='Bus'){
+                vehicleWithOffences.offences.forEach(vehicleTypeOffence=>{
+                    if(offence.provision==vehicleTypeOffence.provision){
+                        busTotal++;          
+                    }   
+                })   
+            }
+            if(vehicleWithOffences.vehicleType=='Bike'){
+                vehicleWithOffences.offences.forEach(vehicleTypeOffence=>{
+                    if(offence.provision==vehicleTypeOffence.provision){
+                        bikeTotal++;          
+                    }   
+                })   
+            }
+            if(vehicleWithOffences.vehicleType=='Car'){
+                vehicleWithOffences.offences.forEach(vehicleTypeOffence=>{
+                    if(offence.provision==vehicleTypeOffence.provision){
+                        carTotal++;          
+                    }   
+                })   
+            }
+            if(vehicleWithOffences.vehicleType=='Three Wheeler'){
+                vehicleWithOffences.offences.forEach(vehicleTypeOffence=>{
+                    if(offence.provision==vehicleTypeOffence.provision){
+                        threeWheelTotal++;          
+                    }   
+                })   
+            }
+            if(vehicleWithOffences.vehicleType=='Container'){
+                vehicleWithOffences.offences.forEach(vehicleTypeOffence=>{
+                    if(offence.provision==vehicleTypeOffence.provision){
+                        containerTotal++;          
+                    }   
+                })   
+            }
+         
+        })
+            // console.log(offence.provision)
+        let offenceToPush={
+            sectionOfAct:offence._id,
+            provision:offence.provision,
+            vehicleTypes:[{
+                name:'Car',
+                total:carTotal
+            },{
+                name:'Van',
+                total:vanTotal
+            },{
+                name:'Bus',
+                total:busTotal
+            },{
+                name:'Lorry',
+                total:lorryTotal
+            },{
+                name:'Container',
+                total:containerTotal
+            },{
+                name:'Three Wheeler',
+                total:threeWheelTotal
+            },{
+                name:'Bike',
+                total:bikeTotal
+            }  
+            ]
+        }
+        vehicleTypeOffences.push(offenceToPush)
+    })
+    
+
+
+    res.send(vehicleTypeOffences);
+});
+
+router.get('/vehicleTypeOffences/ByPoliceStation', async (req, res) => {
+    let monthQuery=req.query.month;
+    let yearQuery=req.query.year;
+    let policeStationNameQuery=req.query.policeStationName;
+    // console.log(vehicleTypeQuery)
+    let vehicleNumberList=[];//with offences commited
+    let vehicleTypeOffences=[];
+
+    let vehicleNumbersInFines =await Fine.aggregate([
+        {$match:{policeStationName:policeStationNameQuery}},
+        {
+            $project:{
+                offences:1,
+                vehicleNo:1,
+                date:1,
+                policeStationName:1,
+                policeman:1,
+                time:1
+            }
+        },
+    ]);
+    let vehicleNumbersInCourtCases =await CourtCase.aggregate([
+        {$match:{policeStationName:policeStationNameQuery}},
+        {
+            $project:{
+                offences:1,
+                vehicleNo:1,
+                date:1,
+                policeStationName:1,
+                policeman:1,
+                time:1
+            }
+        },
+    ]);
+    vehicleNumbersInCourtCases.forEach(courtCase=>{
+        if(new Date(courtCase.date).getMonth()==parseInt(monthQuery)){
+            if(new Date(courtCase.date).getFullYear()==parseInt(yearQuery)){
+                    
+                vehicleNumberList.push(courtCase);
+            }  
+        }
+    })
+    vehicleNumbersInFines.forEach(fine=>{
+        if(new Date(fine.date).getMonth()==parseInt(monthQuery)){
+            if(new Date(fine.date).getFullYear()==parseInt(yearQuery)){
+                    
+                vehicleNumberList.push(fine);
+            }  
+        }
+    })
+    let vehicles=await Vehicle.find();
+    console.log(vehicleNumbersInFines)
+    vehicleNumberList.forEach(vehicleWithOffences=>{
+        
         let vehicle=vehicles.find(vehicle=>vehicle._id===vehicleWithOffences.vehicleNo);
         vehicleWithOffences.vehicleType=vehicle.vehicleType;
     })

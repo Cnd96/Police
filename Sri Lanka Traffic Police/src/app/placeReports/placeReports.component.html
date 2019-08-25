@@ -1,7 +1,12 @@
-<input [(ngModel)]="place"   placeholder="Place">
-<button mat-raised-button color="primary" (click)="add()">Add</button>
-<button mat-raised-button color="primary"  (click)="submit()">Download Report</button>
+<div style="margin-top: 20px">
+    <h6>Offences With Places Report</h6>
+    <input [(ngModel)]="place" style="margin-top: 20px"  placeholder="Place">
 
-<div *ngFor="let place of places">
-  <span>{{place}}<button  class="btn btn-outline-danger" (click)="remove(place)">X</button></span>
+    <button mat-raised-button color="primary" (click)="add()" style="margin : 5px">Add</button>
+    <button mat-raised-button color="primary"  (click)="submit()">Download Report</button>
+  
+  <div *ngFor="let place of places">
+    <span>{{place}}<button style="margin: 5px" class="btn btn-outline-success" (click)="getOnePlaceData(place)">Detailed Report</button><button  class="btn btn-outline-danger" (click)="remove(place)">X</button></span>
+  </div>
+
 </div>

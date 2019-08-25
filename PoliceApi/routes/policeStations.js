@@ -41,6 +41,7 @@ router.get('/', async (req, res) => {
     res.send(policeStation);
   });
 
+
 router.get('/:id', async (req, res) => {
     let policeStationToSend= {};
     let policeStation = await PoliceStation.findById(req.params.id)
@@ -61,6 +62,7 @@ router.get('/:id', async (req, res) => {
     policeStationToSend.address=policeStation.address;
     policeStationToSend.phoneNo=policeStation.phoneNo;
     policeStationToSend.oicDivision=policeStation.oicDivision;
+    policeStationToSend.places=policeStation.places;
     res.send(policeStationToSend);
   });
 

@@ -19,6 +19,9 @@ export class VehicleTypeOffenceComponent implements OnInit {
   }
 
   submit(){
+    this.provisionName=[];
+    this.reportData=[];
+    this.data={}
     this.reportsService.getVehiceTypeOffencesReport()
       .subscribe(response=>{
         this.data=response;
@@ -53,7 +56,7 @@ export class VehicleTypeOffenceComponent implements OnInit {
             this.reportData= this.reportData.map(row => Object.keys(row).map(key => row[key]));
            
 
-            for (var i = 0; i < this.reportData.length; i++) {
+            for (let i = 0; i < this.reportData.length; i++) {
                     let row = this.reportData[i];
                     if (i % 7 === 0) {
                       console.log(i);

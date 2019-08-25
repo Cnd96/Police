@@ -41,6 +41,9 @@ import { SettleCourtCaseComponent } from './settleCourtCase/settleCourtCase.comp
 import { RecordCourtCaseComponent } from './recordCourtCase/recordCourtCase.component';
 import { ReportsComponent } from './reports/reports.component';
 import { PlaceReportsComponent } from './placeReports/placeReports.component';
+import { PolicemanReportsComponent } from './policemanReports/policemanReports.component';
+import { TimereportsComponent } from './timereports/timereports.component';
+import { UpdatePolicemanComponent } from './updatePoliceman/updatePoliceman.component';
 
 @NgModule({
    declarations: [
@@ -71,7 +74,10 @@ import { PlaceReportsComponent } from './placeReports/placeReports.component';
       SettleCourtCaseComponent,
       RecordCourtCaseComponent,
       ReportsComponent,
-      PlaceReportsComponent
+      PlaceReportsComponent,
+      PolicemanReportsComponent,
+      TimereportsComponent,
+      UpdatePolicemanComponent
    ],
    imports: [
       BrowserModule,

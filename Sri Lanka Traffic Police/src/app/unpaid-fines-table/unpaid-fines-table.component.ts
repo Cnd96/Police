@@ -26,7 +26,7 @@ export class UnpaidFinesTableComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   dataSource: UnpaidFinesTableDataSource;
   fines:any;
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
+  searchKey:any;
   displayedColumns = ['fineId','licenseNo','vehicle','policemanName','date','days','amount','actions'];
   
   currentYear=new Date().getFullYear();
@@ -133,5 +133,22 @@ export class UnpaidFinesTableComponent implements OnInit {
     dialogConfig.autoFocus=true;
 
     this.dialog.open(UpdateToCourtCaseComponent, dialogConfig);
+  }
+
+  searchFines(){
+   
+    let filteredFines=[]
+    if(this.searchKey==null){
+      filteredFines=this.fines;
+    }
+    else{
+      this.fines.forEach(fine => {
+        if(fine._id.includes(this.searchKey)){
+          filteredFines.push(fine);
+        }
+      });
+
+    }
+    this.dataSource = new UnpaidFinesTableDataSource(this.paginator, this.sort,filteredFines);
   }
 }

@@ -16,7 +16,11 @@
             </mat-option>
           </mat-select>
       </mat-form-field>
+      <mat-form-field style="width: 50% ;min-width: 150px;" class="search-form-field search-div " floatLabel="never">
+        <input type="number"   [(ngModel)]="searchKey" matInput placeholder="Search Unpaid Fine" autocomplete="off" (keyup)="searchFines()">
+      </mat-form-field>
       <h4>Total={{fines.length}}</h4>
+     
     </div>
 </div>
   

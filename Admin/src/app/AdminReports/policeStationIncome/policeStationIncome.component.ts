@@ -75,7 +75,7 @@ export class PoliceStationIncomeComponent implements OnInit {
         head: head,
         body: offenceData,
         margin: {top: 45},
-        
+        theme: 'grid',
         headStyles: {
           fontSize: 12
       },

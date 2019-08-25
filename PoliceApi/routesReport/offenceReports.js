@@ -39,8 +39,6 @@ router.get('/', async (req, res) => {
                 }  
             }
         })
-
-
         fines.forEach(fine=>{
             if(new Date(fine.date).getMonth()==parseInt(monthQuery)){
                 if(new Date(fine.date).getFullYear()==parseInt(yearQuery)){
@@ -201,7 +199,9 @@ router.post('/getByPlace', async (req, res) => {
     let dataToSend=[];
     let allCases=[];
     //getting all fines 
+
     let fines =await Fine.aggregate([
+        {$match:{policeStationName: policeStation}},
         {
             $project:{
                 place:1,
@@ -267,6 +267,115 @@ router.post('/getByPlace', async (req, res) => {
                 sectionOfAct:offence._id,
                 provision:offence.provision,
                 total:total
+            }
+            placeData.offencesData.push(offenceToPush)
+        })
+
+        dataToSend.push(placeData);
+    })
+
+    res.send(dataToSend);
+})
+
+
+router.post('/getByPlace/withTime', async (req, res) => {
+    let times=['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23' ];
+    let placesToSearch=req.body.places;
+    let policeStation=req.body.policeStation;
+    let dataToSend=[];
+    let allCases=[];
+    console.log(placesToSearch)
+    //getting all fines 
+
+    let fines =await Fine.aggregate([
+        {$match:{policeStationName: policeStation}},
+        {
+            $project:{
+                place:1,
+                offences:1,
+                time:1
+            }
+        },
+    ]);
+    //getting all court cases 
+    let courtCases =await CourtCase.aggregate([
+        {$match:{policeStationName: policeStation}},
+        {
+            $project:{
+                offences:1,
+                place:1,
+                time:1
+            }
+        },
+    ]);
+
+    let offences=await Offence.find();
+    //places of all fines to lowercase 
+    fines.forEach(fine=>{
+        fine.place=fine.place.toLowerCase();
+    })
+    //places of all court cases to lowercase
+    courtCases.forEach(courtCase=>{
+        courtCase.place=courtCase.place.toLowerCase();
+    })
+    //concating all fines and all court cases
+    allCases=courtCases.concat(fines);
+
+    //iterating through all places by client
+    placesToSearch.forEach(place=>{
+        //place data template
+        let placeData={
+            name:place,
+            offencesData:[]
+        }
+        
+        let placeFinesAndCases=[];
+        //iterating through all cases
+        allCases.forEach(eachCase=>{
+            //matching places in all cases and client request
+            if(eachCase.place.includes(place)){
+                // pushing eachcase offences to place offences
+                eachCase.offences.forEach(offence=>{
+                    let placeFineAndCase={
+                        offence:offence,
+                        time:eachCase.time
+                    }
+                    placeFinesAndCases.push(placeFineAndCase);
+                })
+            }
+        })
+
+        offences.forEach(offence=>{
+            let timeData=[];
+            times.forEach(time=>{
+               
+                let total=0;
+                placeFinesAndCases.forEach(placeFineAndCase=>{
+
+                    if(placeFineAndCase.offence.provision==offence.provision){
+                        
+                        if(placeFineAndCase.time.startsWith(time)){
+                            // console.log(placeFineAndCase.time+","+time)
+                            total++;
+                           
+                        }
+                    }   
+                })
+                let timeUpperLimitNumber = parseInt(time)+1;
+                let formattedTimeUpperLimit = ("0" + timeUpperLimitNumber).slice(-2);
+                let timeDataToPush={
+                    time:time+"hrs-"+formattedTimeUpperLimit+"hrs",
+                    total:total
+                }
+                timeData.push(timeDataToPush);
+            })
+            //Iterating through place all offences
+           
+            // console.log(offence.provision)
+            let offenceToPush={
+                sectionOfAct:offence._id,
+                provision:offence.provision,
+                timeData:timeData
             }
             placeData.offencesData.push(offenceToPush)
         })

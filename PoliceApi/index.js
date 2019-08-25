@@ -26,8 +26,10 @@ const driverFines=require('./routes/driverFines');
 const vehicleReports=require('./routesReport/vehicleReports');
 const offenceReports=require('./routesReport/offenceReports');
 const policeStationReports=require('./routesReport/policeStationReports');
+const policemenReports=require('./routesReport/policemenReports');
 const fineReports=require('./routesReport/fineReports');
 const testReport=require('./routesReport/testReport');
+const timeReports=require('./routesReport/timeReports');
 
 mongoose.connect('mongodb://localhost/TrafficPolice',{ useNewUrlParser: true })
   .then(() => console.log('Connected to MongoDB...'))
@@ -71,6 +73,8 @@ app.use('/api/testReport',testReport);
 app.use('/api/offenceReport',offenceReports);
 app.use('/api/policeStationReports',policeStationReports);
 app.use('/api/finesReport',fineReports);
+app.use('/api/policemenReports',policemenReports);
+app.use('/api/timeReports',timeReports);
 
 app.use(function(err,req,res,next){
   res.status(500).send('Something failed!.');

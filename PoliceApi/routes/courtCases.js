@@ -197,15 +197,12 @@ router.post('/updateUnpaidToCourtCase/', async (req, res) => {
 
         });
     }
-
+    const unpaidFine = await Fine.findOne({_id: fineId});
     try{
         let task=new Fawn.Task()
         .save('courtcases',courtCaseToCreate)
+        .remove('fines',{_id:unpaidFine._id})
         .run();
-        const unpaidFine = await Fine.findOne({_id: fineId});
-
-        // task.remove('fines',{_id:unpaidFine._id})
-            // .run();
         
          res.send(courtCaseToCreate);
     }catch(ex){
@@ -256,6 +253,7 @@ router.get('/policeStation/allmonths/paidCourt', async (req, res) => {
     let courtCasesToSent=[];
     let policeStationQuery=req.query.policeStationName;
     let yearQuery=req.query.year;
+    
     
     const courtCases = await CourtCase.find({status:true,policeStationName:policeStationQuery})
 

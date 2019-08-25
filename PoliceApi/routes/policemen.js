@@ -68,7 +68,30 @@ router.get('/:id', async (req, res) => {
   
     res.send(policeman);
   });
+router.put('/:id',async (req, res) => {
+
+    const policeStation = await PoliceStation.findOne({ _id : req.body.policeStationId});
+    if (!policeStation) return res.status(400).send('Invalid Police Station.');
+
+    const rank = await Rank.findById(req.body.rankId);
+    if (!rank) return res.status(400).send('Invalid rank.');
+    
+    const fine = await Policeman.findByIdAndUpdate(req.params.id,
+      { 
+        phoneNo: req.body.phoneNo,
+        address: req.body.address,
+        rank: {
+          _id: rank._id,
+          name: rank.name
+        },   
+        policeStation:{
+            _id: policeStation._id
+        },
+      }, { new: true });
   
+    if (!fine) return res.status(404).send('Traffic Policeman with given ID was not found.');
+    res.send(fine);
+ });
 module.exports = router;
 
 
