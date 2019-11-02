@@ -15,7 +15,7 @@
     "express-async-errors": "^2.1.0",
     "fawn": "^2.1.5",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.4.20",
+    "mongoose": "^5.7.5",
     "nodemon": "^1.18.10",
     "request": "^2.88.0"
   }
