@@ -30,7 +30,7 @@
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.2.4",
     "luxon": "^1.13.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "ngx-export-as": "^1.2.2",
     "ngx-material-timepicker": "^3.1.0",
     "rxjs": "~6.3.3",
